@@ -25,12 +25,17 @@ export default class Rest extends API {
   /**
    * @type {Number}
    */
-  size = 30
+  size = 10
 
   /**
    * @type {string}
    */
   separator = '='
+
+  /**
+   * @type {string}
+   */
+  conector = '|'
 
   /**
    * @param {string} resource
@@ -75,14 +80,7 @@ export default class Rest extends API {
    * @returns {Promise}
    */
   update (record) {
-    return this.put('', record)
-  }
-
-  /**
-   * @param {object} record
-   */
-  save (record) {
-    return record.id ? this.update(record) : this.create(record)
+    return this.patch(`/${this.__getId(record)}`, record)
   }
 
   /**
@@ -108,32 +106,41 @@ export default class Rest extends API {
    */
   search (parameters = {}, filters = []) {
     const page = prop(parameters, 'pagination.page', 1)
-    const size = prop(parameters, 'pagination.rowsPerPage', this.size)
+    const sortBy = prop(parameters, 'pagination.sortBy')
+    const descending = prop(parameters, 'pagination.descending')
+    const rowsPerPage = prop(parameters, 'pagination.rowsPerPage', this.size)
+
     const order = prop(parameters, 'sorter', '')
 
     const then = (response) => {
-      const rows = prop(response, 'content')
-      const current = prop(response, 'currentPage')
-      const pages = prop(response, 'totalPages')
+      const rows = prop(response, 'rows')
+      const pagesNumber = prop(response, 'pages')
+      const rowsNumber = prop(response, 'total')
       return {
-        pagesNumber: pages,
-        page: current,
-        rows: rows
+        rowsPerPage,
+        sortBy,
+        descending,
+        page,
+        rowsNumber,
+        pagesNumber,
+        rows
       }
     }
 
-    const fragments = [
-      `page=${page}`,
-      `size=${size}`,
-      `order=${order}`
-    ]
+    const fragments = [`page=${page}`, `size=${rowsPerPage}`]
+
+    if (order) {
+      fragments.push(`order=${order}`)
+    }
 
     const filter = prop(parameters, 'filter')
     if (!Array.isArray(filters)) {
       filters = []
     }
-    if (filter && filters.length) {
-      fragments.push(`search=${filters.map((field) => `field${this.separator}${filter}`)}`)
+
+    const search = filters.map((field) => `${field}${this.separator}${filter}`).join(this.conector)
+    if (search) {
+      fragments.push(`search=${search}`)
     }
 
     let queryString = '?' + fragments.join('&')
