@@ -16,29 +16,37 @@ export default class TestService extends Rest {
    */
   search (parameters = {}, filters = []) {
     return new Promise((resolve) => {
-      // console.log('~> parameters', parameters)
       const page = parameters.pagination.page
       const sortBy = parameters.pagination.sortBy
       const descending = parameters.pagination.descending
       const rowsPerPage = parameters.pagination.rowsPerPage
-      let length = 10
-      if (page === 3) {
-        length = 2
+
+      const rowsNumber = 32
+      const pagesNumber = Math.ceil(rowsNumber / rowsPerPage)
+      let length = rowsPerPage
+      if (page === pagesNumber) {
+        length = rowsNumber % (pagesNumber - 1)
+      } else if (page > pagesNumber) {
+        length = 0
       }
+
+      const generator = (v, i) => {
+        const counter = (page - 1) * rowsPerPage + i + 1
+        return {
+          id: counter,
+          name: `Test ${counter}`
+        }
+      }
+
       window.setTimeout(() => {
         resolve({
-          rowsNumber: 22,
-          pagesNumber: 3,
+          rowsPerPage: rowsPerPage,
+          rowsNumber: rowsNumber,
+          pagesNumber: pagesNumber,
           sortBy: sortBy,
           descending: descending,
           page: page,
-          rows: Array.from({ length }, (v, i) => {
-            const counter = (page - 1) * rowsPerPage + i + 1
-            return {
-              id: counter,
-              name: `Test ${counter}`
-            }
-          })
+          rows: Array.from({ length }, generator)
         })
       }, 1000)
     })
