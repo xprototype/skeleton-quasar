@@ -1,32 +1,11 @@
 <template>
-  <div class="PrototypeForm q-page-internal">
-    <div class="q-page-internal-header">
-      <label>{{ header }}</label>
-    </div>
-
+  <q-page padding>
     <div class="app-form-wrapper">
-      <div class="form form-grid app-form-body">
-        <div
-          v-for="field in componentsBare"
-          :key="field.$key"
-          v-show="!field.$layout.formHidden"
-          :class="classNames(field)"
-        >
-          <label v-html="htmlLabel(field)" />
-          <component
-            :tabindex="tabIndex()"
-            :is="field.is"
-            :ref="ref(field)"
-            :component="field.$key"
-            v-model="record[field.$key]"
-            v-bind="field.attrs"
-            v-on="field.listeners"
-          />
-          <prototype-error
-            v-if="field.$layout.formError"
-            v-bind="{ errorShow: hasError(field.$key), errorMessage: htmlErrorMessage(field) }"
-          />
-        </div>
+      <div class="app-form-body">
+        <prototype-form-components
+          v-bind="{ fields: getComponents(), errors }"
+          v-model="record"
+        />
       </div>
 
       <template v-if="hasSegments">
@@ -43,43 +22,24 @@
               <q-icon name="notes" />
               <span>{{ segment }}</span>
             </div>
-            <div class="form form-grid">
-              <div
-                v-for="field in getComponents(key)"
-                :key="field.$key"
-                v-show="!field.$layout.formHidden"
-                :class="classNames(field)"
-              >
-                <label v-html="htmlLabel(field)" />
-                <component
-                  :tabindex="tabIndex()"
-                  :is="field.is"
-                  :ref="ref(field)"
-                  :component="field.$key"
-                  v-model="record[field.$key]"
-                  v-bind="field.attrs"
-                  v-on="field.listeners"
-                />
-                <prototype-error
-                  v-if="field.$layout.formError"
-                  v-bind="{ errorShow: hasError(field.$key), errorMessage: htmlErrorMessage(field) }"
-                />
-              </div>
-            </div>
+            <prototype-form-components
+              v-bind="{ fields: getComponents(key), errors }"
+              v-model="record"
+            />
           </div>
         </div>
       </template>
     </div>
 
     <prototype-buttons v-bind="{ buttons }" />
-  </div>
+  </q-page>
 </template>
 
 <script type="text/javascript">
 import Proto from '../Contracts/Proto'
 import Form from '../Contracts/Form'
 import PrototypeButtons from 'src/app/Prototype/Components/Common/PrototypeButtons'
-import PrototypeError from 'src/app/Prototype/Components/Form/PrototypeError'
+import PrototypeFormComponents from 'src/app/Prototype/Components/Form/PrototypeComponents'
 
 /**
  * @typedef PrototypeForm
@@ -90,7 +50,7 @@ export default {
     Proto, Form
   ],
   components: {
-    PrototypeError,
+    PrototypeFormComponents,
     PrototypeButtons
   }
 }
