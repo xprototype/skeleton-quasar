@@ -38,9 +38,6 @@ export default {
   fieldIsSelect (options) {
     this.setComponent('select')
     this.setAttrs({ options })
-    this.fieldOn('input', function ({ field }) {
-      this.next(field)
-    })
     this.setLayout({
       tableFormat (value/* , row */) {
         return options.find((option) => option.value === value).label
