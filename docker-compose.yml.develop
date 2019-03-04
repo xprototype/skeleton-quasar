@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  skeleton-quasar-app:
+    build: .docker
+    image: skeleton-quasar-app
+    container_name: skeleton-quasar-app
+    working_dir: /var/www/app
+    command: sh /var/www/app/quasar.sh
+    volumes:
+      - .:/var/www/app
+      - ./.bin:/home/node/bin
+    ports:
+      - 8000:8000

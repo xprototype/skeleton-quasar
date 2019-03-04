@@ -1,0 +1,45 @@
+{
+  "name": "skeleton-quasar",
+  "version": "0.0.1",
+  "description": "Skeleton Quasar",
+  "productName": "Skeleton Quasar Dashboard",
+  "cordovaId": "com.skeleton-quasar",
+  "author": "",
+  "private": true,
+  "scripts": {
+    "lint": "eslint --ext .js,.vue src",
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.0.0",
+    "axios": "^0.18.0",
+    "lodash": "^4.17.11",
+    "quasar": "^1.0.0-beta.0",
+    "siiimple-toast": "^3.1.6",
+    "vue-hot-reload-loader": "^0.2.0",
+    "vue-i18n": "^7.3.3",
+    "vuelidate": "^0.7.4"
+  },
+  "devDependencies": {
+    "@quasar/app": "^1.0.0-beta.0",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.10.0",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-vue": "^5.0.0",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
+    "strip-ansi": "=3.0.1"
+  },
+  "engines": {
+    "node": ">= 8.9.0",
+    "npm": ">= 5.6.0",
+    "yarn": ">= 1.6.0"
+  },
+  "browserslist": [
+    "last 1 version, not dead, ie >= 11"
+  ],
+  "resolutions": {
+    "ajv": "6.8.1"
+  }
+}

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+DOCKERIZE_QUASAR="skeleton-quasar-app"
+DOCKERIZE_VUE="skeleton-quasar-app"
+DOCKERIZE_NODE="skeleton-quasar-app"
+DOCKERIZE_YARN="skeleton-quasar-app"
+DOCKERIZE_NPM="skeleton-quasar-app"
+
+DOCKERIZE_BASH="skeleton-quasar-app"
