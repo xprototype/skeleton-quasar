@@ -34,7 +34,6 @@ export default class Prototype extends Skeleton {
 
     import(/* webpackChunkName: "lang-[request]" */ `src/domains/${domain}/${locale}`)
       .then((messages) => {
-        console.warn('~> locale')
         const translations = apply({}, `domains.${this.namespace}`, messages.default)
         this.$i18n.mergeLocaleMessage(locale, translations)
         if (callback) {
