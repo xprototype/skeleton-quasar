@@ -16,13 +16,6 @@ export default class Skeleton extends Base {
     const attrs = { value: undefined, disable: false }
 
     const keydown = function ({ $event, field }) {
-      if ($event.key === 'Enter' && (!$event.ctrlKey && !$event.shiftKey)) {
-        $event.preventDefault()
-        $event.stopPropagation()
-        this.next(field)
-        return
-      }
-
       if (!field.chars) {
         return
       }
