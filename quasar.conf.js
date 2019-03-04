@@ -93,6 +93,7 @@ module.exports = function (context) {
         'QScrollArea',
         'QDate',
         'QTable',
+        'QTd',
         'QAvatar',
         'QImg'
       ],
