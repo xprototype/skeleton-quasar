@@ -25,8 +25,7 @@ export default {
         })
         if (Array.isArray(button.actions)) {
           button.actions = button.actions.map((action) => {
-            // noinspection JSPrimitiveTypeWrapperUsage
-            action.native = action.click.bind(this)
+            action.handler = action.click.bind(this)
             return action
           })
         }
