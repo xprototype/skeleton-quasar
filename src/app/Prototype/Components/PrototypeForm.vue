@@ -73,61 +73,40 @@ export default {
   rel="stylesheet/stylus"
   scoped
 >
+  @import '~src/css/quasar.variables.styl'
+
   .PrototypeForm
 
     .app-form-wrapper
-      height: calc(100vh - 95px)
-      overflow: auto
-      background: #ffffff
-      border-radius: 4px
-      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)
+      height calc(100vh - 95px)
+      overflow auto
+      background #ffffff
+      border-radius 4px
+      box-shadow 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)
 
       .app-form-section
-        border: 1px solid #ddd
-        border-radius: 3px
-        margin: 0 5px 10px 5px
+        border 1px solid #ddd
+        border-radius 3px
+        margin 0 5px 10px 5px
 
         .app-form-section-title
-          padding: 5px 10px
-          color: #a8a8a8
-          border-bottom: 1px solid #ddd
+          padding 5px 10px
+          color #a8a8a8
+          border-bottom 1px solid #ddd
 
           span
-            font-size: 12px
-            margin: 0 6px
+            font-size 12px
+            margin 0 6px
 
         .form.form-grid
-          padding: 5px 5px 0 5px
+          padding 5px 5px 0 5px
 
       .app-form-body
-        padding: 10px
-        height: calc(100vh - 155px)
-        border-bottom: 1px solid #ddd
-        overflow: auto
+        padding 10px
+        height calc(100vh - 155px)
+        border-bottom 1px solid #ddd
+        overflow auto
 
       >>> .app-form-buttons
-        padding: 10px
-
-    .field label
-      color: #3c3c3c
-      margin 0 0 5px 0
-      display block
-
-    .error
-      label
-        color: #cc3c3b
-
-      >>> .q-input, >>> .q-datetime-input
-        border-color: #f79483
-
-      >>> .q-if-focused
-        box-shadow: 0 0 3px 1px rgba(247, 148, 131, 0.4)
-
-      >>> .q-if:before, >>> .q-if:after
-        border-color: #f79483
-
-    .field-error
-      min-height: 20px
-      padding: 4px 0 0 0
-      color: #c73b3a
+        padding 10px
 </style>

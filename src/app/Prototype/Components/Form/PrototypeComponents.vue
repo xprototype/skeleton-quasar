@@ -16,7 +16,6 @@
         v-on="field.listeners"
       />
       <prototype-error
-        v-if="field.$layout.formError"
         v-bind="{ errorShow: hasError(field.$key), errorMessage: htmlErrorMessage(field) }"
       />
     </div>
@@ -153,3 +152,25 @@ export default {
   }
 }
 </script>
+
+<style
+  lang="stylus"
+  scoped
+>
+  @import '~src/css/quasar.variables.styl'
+
+  label
+    color #3c3c3c
+    margin 0 0 5px 0
+    display block
+
+  .error
+    label
+      color $errorForeground
+
+    >>> .q-field__control:before
+      border-color $errorBackground
+
+    >>> .q-field__control:after
+      background $errorBackground
+</style>

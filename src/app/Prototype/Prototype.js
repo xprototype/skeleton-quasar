@@ -29,17 +29,15 @@ export default class Prototype extends Skeleton {
   locale (callback = undefined) {
     this.namespace = this.domain.replace(/\//, '.')
     const map = (piece) => piece.charAt(0).toUpperCase() + piece.substring(1)
-    const domain = this.domain.split('/').map(map).join('/')
+    const domain = this.namespace.split('.').map(map).join('/')
     const locale = this.$i18n.locale
 
     import(/* webpackChunkName: "lang-[request]" */ `src/domains/${domain}/${locale}`)
       .then((messages) => {
         const translations = apply({}, `domains.${this.namespace}`, messages.default)
         this.$i18n.mergeLocaleMessage(locale, translations)
-        if (callback) {
-          callback()
-        }
       })
+      .finally(callback)
   }
 
   /**
@@ -80,7 +78,7 @@ export default class Prototype extends Skeleton {
   /**
    */
   create () {
-    this.$router.push(`/dashboard/test/create`)
+    this.$router.push(`${this.path}/create`)
   }
 
   /**
@@ -93,7 +91,7 @@ export default class Prototype extends Skeleton {
       record = records[0]
     }
     if (record) {
-      this.$router.push(`/dashboard/test/${record[this.primaryKey]}`)
+      this.$router.push(`${this.path}/${record[this.primaryKey]}`)
     }
   }
 
@@ -107,7 +105,7 @@ export default class Prototype extends Skeleton {
       record = records[0]
     }
     if (record) {
-      this.$router.push(`/dashboard/test/${record[this.primaryKey]}/edit`)
+      this.$router.push(`${this.path}/${record[this.primaryKey]}/edit`)
     }
   }
 
@@ -116,7 +114,7 @@ export default class Prototype extends Skeleton {
    * @returns {Object}
    */
   cancel (record) {
-    this.$router.push(`/dashboard/test`)
+    this.$router.push(`${this.path}`)
   }
 
   /**
@@ -234,6 +232,6 @@ export default class Prototype extends Skeleton {
       .actionScopes(['index'])
       .actionPositions(['table-top', 'table-cell'])
       .actionLabel(lang('prototype.action.view.label'))
-      .actionIcon('search')
+      .actionIcon('visibility')
   }
 }

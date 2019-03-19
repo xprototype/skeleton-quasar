@@ -25,6 +25,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style
+  lang="stylus"
+  scoped
+>
+  @import '~src/css/quasar.variables.styl'
 
+  .field-error
+    min-height 20px
+    padding 4px 0 0 0
+    color $errorForeground
 </style>
