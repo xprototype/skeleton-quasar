@@ -21,3 +21,25 @@ export const children = (path, component, children = []) => ({ path, component, 
  * @returns {Object}
  */
 export const route = (path, component, meta = {}) => ({ path, component, meta })
+
+/**
+ * @param {Function} component
+ * @param {Object} meta
+ * @returns {Object}
+ */
+export const fallback = (component, meta = {}) => route('', component, meta)
+
+/**
+ * @param path
+ * @param table
+ * @param form
+ * @returns {Array}
+ */
+export const crud = (path, table, form) => {
+  return [
+    route(`${path}`, table, { scope: 'index' }),
+    route(`${path}/create`, form, { scope: 'create' }),
+    route(`${path}/:id`, form, { scope: 'view' }),
+    route(`${path}/:id/edit`, form, { scope: 'edit' })
+  ]
+}

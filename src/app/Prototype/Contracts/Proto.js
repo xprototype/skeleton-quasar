@@ -13,6 +13,8 @@ export default {
   /**
    */
   inject: [
+    'path',
+    'domain',
     'table',
     'form',
     'settings',
@@ -21,8 +23,7 @@ export default {
     'service',
     'fields',
     'actions',
-    'hooks',
-    'domain'
+    'hooks'
   ],
   /**
    */

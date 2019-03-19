@@ -1,5 +1,6 @@
 import Prototype from 'src/app/Prototype/Prototype'
 import TestService from '../Service/TestService'
+import { path } from '../Routes'
 
 /**
  * @type {Test}
@@ -8,7 +9,12 @@ export default class Test extends Prototype {
   /**
    * @type {string}
    */
-  static domain = 'example/test'
+  static path = path
+
+  /**
+   * @type {string}
+   */
+  static domain = 'example.test'
 
   /**
    * @type {string}
