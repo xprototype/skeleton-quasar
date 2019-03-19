@@ -13,6 +13,7 @@ export const layout = () => import('src/modules/Dashboard/Components/DashboardLa
 export default (router) => {
   const routes = [
     children('/dashboard', layout, [
+      route('', () => import('src/modules/Dashboard/Components/Pages/Index')),
       route('/dashboard/test', () => import('src/domains/Example/Test/View/TestTable')),
       route('/dashboard/test/create', () => import('src/domains/Example/Test/View/TestForm'), { scope: 'create' }),
       route('/dashboard/test/:id', () => import('src/domains/Example/Test/View/TestForm'), { scope: 'view' }),
