@@ -213,6 +213,7 @@ export default class Skeleton extends Base {
       on: this.formEvents()
     }
     return {
+      path: this.constructor.path,
       domain: this.constructor.domain,
       settings: {
         toast: this.toast
