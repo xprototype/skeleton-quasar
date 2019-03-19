@@ -2,7 +2,10 @@
 
 if [ ! -d /var/www/app/node_modules ]; then
   echo "~> installing dependencies"
-  yarn install
+  if npm install 2>/dev/null; then
+     npm install
+  else
+     yarn install
 fi
 
 if [ ! -f /home/node/bin/node ]; then
