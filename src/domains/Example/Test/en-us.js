@@ -9,6 +9,8 @@ export default {
   },
   fields: {
     id: 'Id',
-    name: 'Name'
+    name: 'Name',
+    age: 'Name',
+    description: 'Description'
   }
 }

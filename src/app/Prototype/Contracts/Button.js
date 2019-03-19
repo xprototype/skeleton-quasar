@@ -20,8 +20,13 @@ export default {
 
       const reduce = (buttons, button) => {
         button.listeners = {}
-        Object.keys(button.on).forEach(event => {
-          button.listeners[event] = ($event) => this.buttonApplyListener(button.$key, event, $event)
+        Object.keys(button.on).forEach(key => {
+          button.listeners[key] = ($event, parameters) => this.buttonApplyListener(
+            button.$key,
+            key,
+            $event,
+            parameters
+          )
         })
         if (Array.isArray(button.actions)) {
           button.actions = button.actions.map((action) => {
@@ -38,10 +43,11 @@ export default {
     /**
      * @param {string} $key
      * @param {string} event
-     * @param {*} $event
+     * @param {Object} $event
+     * @param {*} parameters
      */
-    buttonApplyListener ($key, event, $event) {
-      this.buttons[$key].on[event].apply(this, $event)
+    buttonApplyListener ($key, event, $event, parameters = {}) {
+      this.buttons[$key].on[event].call(this, { $event, ...parameters })
     }
   }
 }

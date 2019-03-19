@@ -1,22 +1,28 @@
 <!--suppress HtmlUnknownTarget -->
-<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+<template>
   <q-page
     class="flex row items-center justify-center"
     padding
   >
-    <form @submit.prevent="attempt">
-      <q-card class="app-login-card">
-        <q-card-section class="text-center">
+    <q-card class="app-login-card">
+      <q-card-section class="text-center">
+        <div>
           <img
             alt=""
             class="app-login-logo"
-            src="../../../../statics/quasar-logo.png"
+            src="statics/quasar-logo.png"
           >
-        </q-card-section>
+        </div>
+        <div class="app-beauty-label">
+          Quasar Skeleton
+        </div>
+        <small>Just an example about the possibilities</small>
+      </q-card-section>
 
-        <q-separator />
+      <q-separator />
 
-        <q-card-section>
+      <q-card-section>
+        <form @submit.prevent="attempt">
           <div class="row">
             <div class="col-12 q-pa-sm">
               <q-input
@@ -41,11 +47,7 @@
               </q-input>
             </div>
           </div>
-        </q-card-section>
-
-        <q-separator />
-
-        <q-card-section>
+          <hr>
           <div class="q-pa-sm">
             <q-btn
               class="full-width"
@@ -55,9 +57,9 @@
               type="submit"
             />
           </div>
-        </q-card-section>
-      </q-card>
-    </form>
+        </form>
+      </q-card-section>
+    </q-card>
   </q-page>
 </template>
 
@@ -136,13 +138,15 @@ export default {
 }
 </script>
 
-<style
-  lang="stylus"
-  scoped
->
+<style lang="stylus" scoped>
+  @import '~src/css/quasar.variables.styl'
+
   .app-login-card
     max-width 420px
 
   .app-login-logo
     height 96px
+
+  .app-beauty-label
+    color $primary
 </style>

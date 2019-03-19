@@ -44,7 +44,7 @@ export default {
       },
 
       filters: [],
-      filter: String(this.$route.query.search),
+      filter: this.$route.query.search ? String(this.$route.query.search) : '',
       sorter: '',
 
       tooltip: {

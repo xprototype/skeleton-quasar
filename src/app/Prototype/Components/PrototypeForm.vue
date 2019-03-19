@@ -1,13 +1,9 @@
 <template>
-  <q-page padding>
+  <q-page
+    class="PrototypeForm"
+    padding
+  >
     <div class="app-form-wrapper">
-      <div class="app-form-body">
-        <prototype-form-components
-          v-bind="{ fields: getComponents(), errors }"
-          v-model="record"
-        />
-      </div>
-
       <template v-if="hasSegments">
         <div
           v-for="(segment, key) in segments"
@@ -23,22 +19,38 @@
               <span>{{ segment }}</span>
             </div>
             <prototype-form-components
-              v-bind="{ fields: getComponents(key), errors }"
               v-model="record"
+              :fields="getComponents(key)"
+              :validations="$v"
+              :errors="errors"
             />
           </div>
         </div>
       </template>
-    </div>
+      <div
+        v-else
+        class="app-form-body"
+      >
+        <prototype-form-components
+          v-bind="{ fields: getComponents(), errors }"
+          v-model="record"
+        />
+      </div>
 
-    <prototype-buttons v-bind="{ buttons }" />
+      <prototype-buttons
+        position="form-footer"
+        :scope="scope"
+        :buttons="buttons"
+        :context="{ record }"
+      />
+    </div>
   </q-page>
 </template>
 
 <script type="text/javascript">
 import Proto from '../Contracts/Proto'
 import Form from '../Contracts/Form'
-import PrototypeButtons from 'src/app/Prototype/Components/Common/PrototypeButtons'
+import PrototypeButtons from 'src/app/Prototype/Components/PrototypeButtons'
 import PrototypeFormComponents from 'src/app/Prototype/Components/Form/PrototypeComponents'
 
 /**
@@ -64,10 +76,11 @@ export default {
   .PrototypeForm
 
     .app-form-wrapper
-      margin -10px -15px -10px -15px
-      height: calc(100vh - 228px)
+      height: calc(100vh - 95px)
       overflow: auto
       background: #ffffff
+      border-radius: 4px
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12)
 
       .app-form-section
         border: 1px solid #ddd
@@ -87,7 +100,13 @@ export default {
           padding: 5px 5px 0 5px
 
       .app-form-body
-        padding: 10px 20px
+        padding: 10px
+        height: calc(100vh - 155px)
+        border-bottom: 1px solid #ddd
+        overflow: auto
+
+      >>> .app-form-buttons
+        padding: 10px
 
     .field label
       color: #3c3c3c
@@ -106,13 +125,6 @@ export default {
 
       >>> .q-if:before, >>> .q-if:after
         border-color: #f79483
-
-    >>> .q-input, >>> .q-datetime-input
-      border-width: 1px
-      border-style: solid
-      border-color: #ddd
-      border-radius: 3px
-      padding: 7px 10px
 
     .field-error
       min-height: 20px

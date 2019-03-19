@@ -47,6 +47,10 @@ export default {
     value: {
       type: Object,
       default: () => ({})
+    },
+    validations: {
+      type: Object,
+      default: () => ({})
     }
   },
   /**
@@ -102,10 +106,11 @@ export default {
       if (this.errors[key]) {
         return true
       }
-      if (this.$v.record[key] === undefined) {
+      const record = this.$util.prop(this.validations, 'record', {})
+      if (record[key] === undefined) {
         return false
       }
-      return this.$v.record[key].$error
+      return record[key].$error
     },
     /**
      * @param {Object} field
@@ -114,7 +119,7 @@ export default {
     htmlErrorMessage (field) {
       const errorMessages = []
 
-      const validations = this.$v.record[field.$key]
+      const validations = this.$util.prop(this.validations, `record.${field.$key}`)
       if (validations) {
         Object.keys(validations.$params).forEach((validation) => {
           if (!validations[validation]) {

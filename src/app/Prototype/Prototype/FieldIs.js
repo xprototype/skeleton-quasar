@@ -1,14 +1,5 @@
 export default {
   /**
-   * @param {Boolean} upperCase
-   * @returns {Prototype}
-   */
-  fieldIsInput (upperCase = true) {
-    this.setComponent('input')
-    return this.setAttrs({ upperCase })
-  },
-
-  /**
    * @param {Object} options
    * @returns {Prototype}
    */
@@ -32,6 +23,24 @@ export default {
   },
 
   /**
+   * @param {Boolean} upperCase
+   * @returns {Prototype}
+   */
+  fieldIsInput (upperCase = true) {
+    this.setComponent('input')
+    return this.setAttrs({ upperCase })
+  },
+
+  /**
+   * @returns {Prototype}
+   */
+  fieldIsNumber () {
+    this.setComponent('input')
+    this.setAttrs({ type: 'number' })
+    return this
+  },
+
+  /**
    * @param {Array} options
    * @returns {Prototype}
    */
@@ -47,13 +56,6 @@ export default {
   },
 
   /**
-   * @returns {Prototype}
-   */
-  fieldIsColorPicker () {
-    return this.setComponent('colorPicker')
-  },
-
-  /**
    * @param {Number} rows
    * @returns {Prototype}
    */
@@ -66,13 +68,6 @@ export default {
    * @returns {Prototype}
    */
   fieldIsPassword () {
-    return this.setComponent('password')
-  },
-
-  /**
-   * @returns {Prototype}
-   */
-  fieldIsImage () {
     return this.setComponent('password')
   },
 
@@ -101,6 +96,8 @@ export default {
    * @returns {Prototype}
    */
   fieldIsEmail () {
-    return this.setComponent('input')
+    this.setComponent('input')
+    this.setAttrs({ type: 'password' })
+    return this
   }
 }

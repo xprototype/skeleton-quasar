@@ -25,7 +25,13 @@
           style="min-width: 150px"
         />
 
-        <prototype-buttons v-bind="{ buttons, override: { flat: true, dense: true, round: true, label: '' } }" />
+        <prototype-buttons
+          position="table-top"
+          :scope="scope"
+          :buttons="buttons"
+          :context="{ records: selected }"
+          :override="{ flat: true, dense: true, round: true, label: '' }"
+        />
 
         <q-space />
 
@@ -47,7 +53,13 @@
         <q-td style="position: relative">
           {{ props.row[primaryKey] }}
 
-          <prototype-buttons v-bind="{ buttons, override: { dense: true, round: true, label: '' } }" />
+          <prototype-buttons
+            position="table-cell"
+            :scope="scope"
+            :buttons="buttons"
+            :context="{ record: props.row }"
+            :override="{ dense: true, round: true, label: '' }"
+          />
         </q-td>
       </template>
 
@@ -92,14 +104,18 @@
 <script type="text/javascript">
 import Proto from '../Contracts/Proto'
 import Table from '../Contracts/Table'
-import PrototypeButtons from 'src/app/Prototype/Components/Common/PrototypeButtons'
+import PrototypeButtons from 'src/app/Prototype/Components/PrototypeButtons'
 
 /**
  * @typedef {PrototypeTable}
  */
 export default {
   name: 'PrototypeTable',
-  components: { PrototypeButtons },
+  /**
+   */
+  components: {
+    PrototypeButtons
+  },
   /**
    */
   mixins: [
@@ -131,7 +147,7 @@ export default {
       background linear-gradient(180deg, #fff 53px, #ddd 1px)
 
     .q-table
-      .q-btn-section
+      .app-form-buttons
         opacity 0
         transition-property opacity
         transition-duration 0.6s
@@ -143,7 +159,7 @@ export default {
         overflow hidden
 
       tr:hover
-        .q-btn-section
+        .app-form-buttons
           opacity 1
           width 280px
           padding 10px

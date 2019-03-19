@@ -53,8 +53,6 @@ export default class Prototype extends Skeleton {
    * @override
    */
   configureIndex () {
-    this.buttons['back'].attrs.label = lang('prototype.action.back.close')
-    // table load data
     this.fetchRecords()
   }
 
@@ -70,14 +68,38 @@ export default class Prototype extends Skeleton {
    */
   configureView () {
     Object.keys(this.components).forEach(key => {
-      this.setFieldAttrs(key, { disable: true, readonly: true })
+      this.setFieldAttrs(key, { readonly: true })
     })
   }
 
   /**
    * @override
    */
-  configureAdd () {}
+  configureCreate () {}
+
+  /**
+   * @param {Object} record
+   * @returns {Object}
+   */
+  view (record) {
+    this.$router.push(`/dashboard/test/${record[this.primaryKey]}`)
+  }
+
+  /**
+   * @param {Object} record
+   * @returns {Object}
+   */
+  edit (record) {
+    this.$router.push(`/dashboard/test/${record[this.primaryKey]}/edit`)
+  }
+
+  /**
+   * @param {Object} record
+   * @returns {Object}
+   */
+  cancel (record) {
+    this.$router.push(`/dashboard/test`)
+  }
 
   /**
    * @param {Object} record
@@ -125,7 +147,7 @@ export default class Prototype extends Skeleton {
 
         if (this.scope === 'add') {
           // Call configure to add scope
-          return prototype.configureAdd.call(this)
+          return prototype.configureCreate.call(this)
         }
       }
       // load i18n async
@@ -138,20 +160,17 @@ export default class Prototype extends Skeleton {
 
     this.action('create')
       .actionScopes(['index'])
+      .actionPositions(['table-top'])
       .actionLabel(lang('prototype.action.create.label'))
       .actionIcon('add')
       .actionColor('primary')
-      .actionTextColor('grey-9')
-      .actionOn('click', function () {
-      })
 
-    this.action('back')
+    this.action('cancel')
       .actionFloatRight()
       .actionScopes(['index', 'add', 'view', 'edit'])
-      .actionLabel(lang('prototype.action.back.cancel'))
+      .actionPositions(['form-footer'])
+      .actionLabel(lang('prototype.action.cancel.label'))
       .actionIcon('close')
-      .actionOn('click', function () {
-      })
 
     this.action('refresh')
       .actionFloatRight()
@@ -159,8 +178,6 @@ export default class Prototype extends Skeleton {
       .actionScopes(['index'])
       .actionIcon('refresh')
       .actionNoMinWidth()
-      .actionOn('click', function () {
-      })
 
     this.action('save')
       .actionScopes(['add', 'edit'])
@@ -183,23 +200,22 @@ export default class Prototype extends Skeleton {
 
     this.action('edit')
       .actionScopes(['index'])
+      .actionPositions(['table-top', 'table-cell'])
       .actionLabel(lang('prototype.action.edit.label'))
+      .actionColor('primary')
       .actionIcon('edit')
-      .actionOn('click', function () {
-      })
 
     this.action('destroy')
       .actionScopes(['index'])
+      .actionPositions(['table-top', 'table-cell'])
       .actionLabel(lang('prototype.action.destroy.label'))
+      .actionColor('negative')
       .actionIcon('delete')
-      .actionOn('click', function () {
-      })
 
     this.action('view')
       .actionScopes(['index'])
+      .actionPositions(['table-top', 'table-cell'])
       .actionLabel(lang('prototype.action.view.label'))
       .actionIcon('search')
-      .actionOn('click', function () {
-      })
   }
 }

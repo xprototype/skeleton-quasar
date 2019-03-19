@@ -11,6 +11,17 @@ export default {
   },
 
   /**
+   * @param {Array} positions
+   */
+  actionPositions (positions) {
+    const id = this.__currentAction
+    if (this.__actions[id]) {
+      this.__actions[id].positions = positions
+    }
+    return this
+  },
+
+  /**
    * @param {string} scope
    */
   actionScopeJust (scope) {
@@ -177,7 +188,7 @@ export default {
   actionConfigure (configure) {
     const id = this.__currentAction
     if (this.__actions[id]) {
-      this.__actions[id].$configure = configure
+      this.__actions[id].configure = configure
     }
     return this
   },

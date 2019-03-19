@@ -11,7 +11,7 @@ RUN npm install -g vue-cli && \
 # https://www.npmjs.com/package/@quasar/cli
 # https://www.npmjs.com/package/http-server
 RUN npm install --global\
- @quasar/cli@1.0.0-beta.2\
+ @quasar/cli@1.0.0-beta.3\
  http-server@0.11.1
 
 RUN mkdir /home/node/app

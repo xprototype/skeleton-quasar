@@ -30,10 +30,10 @@ export default {
       label: 'Delete'
     },
     view: {
-      label: 'VIew'
+      label: 'View'
     },
-    back: {
-      cancel: 'Cancel'
+    cancel: {
+      label: 'Cancel'
     }
   }
 }

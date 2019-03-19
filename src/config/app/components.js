@@ -1,24 +1,28 @@
+const attrs = {}
+
 export default {
   input: {
     is: 'q-input',
-    attrs: {
-      upperCase: true
-    }
+    attrs: { ...attrs }
   },
   text: {
     is: 'q-input',
     attrs: {
       type: 'textarea',
-      rows: 4
+      rows: 4,
+      ...attrs
     }
   },
   password: {
-    is: 'q-input'
+    is: 'q-input',
+    attrs: { ...attrs }
   },
   image: {
-    is: 'q-input'
+    is: 'q-input',
+    attrs: { ...attrs }
   },
   select: {
-    is: 'q-select'
+    is: 'q-select',
+    attrs: { ...attrs }
   }
 }

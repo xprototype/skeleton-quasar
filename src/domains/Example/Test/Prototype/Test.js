@@ -26,7 +26,7 @@ export default class Test extends Prototype {
   service = TestService.build()
 
   /**
-   * Basico constructor.
+   * Test constructor.
    */
   construct () {
     this.fieldAsPrimaryKey()
@@ -34,7 +34,30 @@ export default class Test extends Prototype {
     this.field('name')
       .fieldTableShow()
       .fieldRequired()
-      .fieldFormWidth(100)
+      .fieldFormWidth(50)
       .fieldFormAutofocus()
+
+    this.field('age')
+      .fieldIsNumber()
+      .fieldRequired()
+      .fieldFormWidth(50)
+
+    this.field('description')
+      .fieldIsText()
+
+    this.action('edit')
+      .actionConfigure(function (button, { context, scope, position }) {
+        // console.table({ scope, position })
+        // if is not grid, avoid
+        if (scope !== 'index' || position !== 'table-cell') {
+          return button
+        }
+        // hidden button if id is even
+        const record = this.$util.prop(context, 'record', {})
+        if (record.id % 2 === 0) {
+          button.hidden = true
+        }
+        return button
+      })
   }
 }

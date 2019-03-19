@@ -8,7 +8,7 @@ export default class Skeleton extends Base {
    * @param {string} name
    * @param {string} label
    * @param {*} type
-   * @returns {this}
+   * @returns {Prototype}
    */
   field (name, label = '', type = undefined) {
     this.__currentField = name
@@ -77,7 +77,16 @@ export default class Skeleton extends Base {
 
     const color = 'white'
     const textColor = 'grey-10'
-    const handler = () => null
+
+    const prototype = this
+    const handler = function ({ context }) {
+      if (!prototype[id]) {
+        return
+      }
+      if (typeof prototype[id] === 'function') {
+        prototype[id].apply(this, Object.values(context))
+      }
+    }
 
     this.__actions[id] = {
       $key: id,
@@ -87,9 +96,8 @@ export default class Skeleton extends Base {
       validate: undefined,
       scopes: this.scopes,
       attrs: { id, label, color, textColor, disabled: false },
-      on: {
-        click: handler
-      }
+      on: { click: handler }
+      // configure: (button, context) => button
     }
     return this
   }

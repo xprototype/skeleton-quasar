@@ -49,13 +49,5 @@ export default {
       this.renderRecord()
       this.renderButtons()
     }
-  },
-  /**
-   */
-  created () {
-    if (!this.attrs[this.primaryKey]) {
-      return
-    }
-    this.fetchRecord(this.attrs[this.primaryKey])
   }
 }
