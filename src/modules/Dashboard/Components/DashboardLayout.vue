@@ -27,7 +27,7 @@
     >
       <q-img
         class="absolute-top"
-        src="assets/material.png"
+        src="statics/images/material.png"
         style="height: 150px"
       >
         <div class="absolute-bottom bg-transparent">
@@ -37,7 +37,7 @@
           >
             <!--suppress HtmlUnknownTarget -->
             <img
-              src="assets/avatar.png"
+              src="~assets/avatar.png"
               alt=""
             >
           </q-avatar>
