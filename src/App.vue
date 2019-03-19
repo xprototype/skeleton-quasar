@@ -5,6 +5,13 @@
       size="3px"
     />
     <router-view />
+    <a
+      class="github-fork-ribbon left-bottom fixed"
+      href="https://github.com/xprototype/skeleton-quasar"
+      data-ribbon="Fork me on GitHub"
+      title="Fork me on GitHub"
+    >Fork me on GitHub
+    </a>
   </div>
 </template>
 
@@ -14,5 +21,10 @@ export default {
 }
 </script>
 
-<style>
+<style
+  lang="stylus"
+  scoped
+>
+  .github-fork-ribbon.left-bottom:before
+    background-color #333
 </style>
