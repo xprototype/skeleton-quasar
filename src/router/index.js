@@ -5,7 +5,7 @@ import dashboard from 'src/modules/Dashboard/Routes'
 
 Vue.use(AppRouter)
 
-// noinspection JSClosureCompilerSyntax
+// noinspection JSCheckFunctionSignatures, JSClosureCompilerSyntax
 const router = new AppRouter({
   /*
    * NOTE! Change Vue Router mode from quasar.conf.js -> build -> vueRouterMode
