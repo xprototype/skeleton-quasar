@@ -1,0 +1,1 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["lang-Example-Test-en-us"],{df63:function(e,i,t){"use strict";t.r(i),i["default"]={form:{title:""},table:{title:""},fields:{id:"Id",name:"Name",age:"Age",description:"Description"}}}}]);

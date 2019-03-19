@@ -84,7 +84,7 @@ export default class Skeleton extends Base {
         return
       }
       if (typeof prototype[id] === 'function') {
-        prototype[id].apply(this, Object.values(context))
+        prototype[id].call(this, context)
       }
     }
 

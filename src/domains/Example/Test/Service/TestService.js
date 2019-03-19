@@ -34,7 +34,9 @@ export default class TestService extends Rest {
         const counter = (page - 1) * rowsPerPage + i + 1
         return {
           id: counter,
-          name: `Test ${counter}`
+          name: `Name fake ${counter}`,
+          age: Math.ceil(Math.random() * 100),
+          description: `Description fake ${counter}`
         }
       }
 
@@ -48,7 +50,7 @@ export default class TestService extends Rest {
           page: page,
           rows: Array.from({ length }, generator)
         })
-      }, 1000)
+      }, 500)
     })
   }
 }

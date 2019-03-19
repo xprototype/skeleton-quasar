@@ -45,7 +45,7 @@ export default class Base {
   /**
    * @type {String[]}
    */
-  scopes = ['index', 'add', 'view', 'edit']
+  scopes = ['index', 'create', 'view', 'edit']
 
   /**
    * @type {Object}

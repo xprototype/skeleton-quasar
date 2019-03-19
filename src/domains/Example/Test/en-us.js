@@ -10,7 +10,7 @@ export default {
   fields: {
     id: 'Id',
     name: 'Name',
-    age: 'Name',
+    age: 'Age',
     description: 'Description'
   }
 }

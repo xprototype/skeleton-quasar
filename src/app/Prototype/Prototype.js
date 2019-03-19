@@ -57,6 +57,11 @@ export default class Prototype extends Skeleton {
   }
 
   /**
+   * @override
+   */
+  configureCreate () {}
+
+  /**
    * Configs para quando o scope for 'edit'
    * @override
    */
@@ -73,24 +78,37 @@ export default class Prototype extends Skeleton {
   }
 
   /**
-   * @override
    */
-  configureCreate () {}
-
-  /**
-   * @param {Object} record
-   * @returns {Object}
-   */
-  view (record) {
-    this.$router.push(`/dashboard/test/${record[this.primaryKey]}`)
+  create () {
+    this.$router.push(`/dashboard/test/create`)
   }
 
   /**
    * @param {Object} record
+   * @param {Array} records
    * @returns {Object}
    */
-  edit (record) {
-    this.$router.push(`/dashboard/test/${record[this.primaryKey]}/edit`)
+  view ({ record, records }) {
+    if (Array.isArray(records) && records.length) {
+      record = records[0]
+    }
+    if (record) {
+      this.$router.push(`/dashboard/test/${record[this.primaryKey]}`)
+    }
+  }
+
+  /**
+   * @param {Object} record
+   * @param {Array} records
+   * @returns {Object}
+   */
+  edit ({ record, records }) {
+    if (Array.isArray(records) && records.length) {
+      record = records[0]
+    }
+    if (record) {
+      this.$router.push(`/dashboard/test/${record[this.primaryKey]}/edit`)
+    }
   }
 
   /**
@@ -145,8 +163,8 @@ export default class Prototype extends Skeleton {
           return prototype.configureView.call(this)
         }
 
-        if (this.scope === 'add') {
-          // Call configure to add scope
+        if (this.scope === 'create') {
+          // Call configure to create scope
           return prototype.configureCreate.call(this)
         }
       }
@@ -167,7 +185,7 @@ export default class Prototype extends Skeleton {
 
     this.action('cancel')
       .actionFloatRight()
-      .actionScopes(['index', 'add', 'view', 'edit'])
+      .actionScopes(['index', 'create', 'view', 'edit'])
       .actionPositions(['form-footer'])
       .actionLabel(lang('prototype.action.cancel.label'))
       .actionIcon('close')
@@ -180,7 +198,7 @@ export default class Prototype extends Skeleton {
       .actionNoMinWidth()
 
     this.action('save')
-      .actionScopes(['add', 'edit'])
+      .actionScopes(['create', 'edit'])
       .actionFloatRight()
       .actionLabel(lang('prototype.action.save.label'))
       .actionIcon('save')
