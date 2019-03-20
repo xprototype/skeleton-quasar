@@ -66,3 +66,11 @@ export default {
   })
 }
 </script>
+
+<style
+  lang="stylus"
+  scoped
+>
+  img
+    width 100%
+</style>
