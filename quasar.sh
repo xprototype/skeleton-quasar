@@ -6,6 +6,7 @@ if [ ! -d /var/www/app/node_modules ]; then
      yarn install
   else
      npm install
+  fi
 fi
 
 if [ ! -f /home/node/bin/node ]; then
