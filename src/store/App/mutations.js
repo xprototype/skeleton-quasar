@@ -48,3 +48,11 @@ export const mutateClipboard = (state, clipboard) => {
 export const mutateQuery = (state, query) => {
   state.query = query
 }
+
+/**
+ * @param {Object} state
+ * @param {Boolean} debuggers
+ */
+export const mutateDebuggers = (state, debuggers) => {
+  state.debuggers = debuggers
+}

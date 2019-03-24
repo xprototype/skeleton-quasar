@@ -33,3 +33,9 @@ export const getClipboard = (state) => state.clipboard
  * @returns {Object}
  */
 export const getQuery = (state) => state.query
+
+/**
+ * @param state
+ * @returns {Boolean}
+ */
+export const getDebuggers = (state) => state.debuggers
