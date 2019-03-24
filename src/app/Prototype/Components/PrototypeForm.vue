@@ -4,6 +4,13 @@
     padding
   >
     <div class="app-form-wrapper">
+      <div class="app-form-body">
+        <prototype-form-components
+          v-bind="{ fields: getComponents(), errors }"
+          v-model="record"
+        />
+      </div>
+
       <template v-if="hasSegments">
         <div
           v-for="(segment, key) in segments"
@@ -27,15 +34,6 @@
           </div>
         </div>
       </template>
-      <div
-        v-else
-        class="app-form-body"
-      >
-        <prototype-form-components
-          v-bind="{ fields: getComponents(), errors }"
-          v-model="record"
-        />
-      </div>
 
       <prototype-buttons
         position="form-footer"
@@ -44,6 +42,12 @@
         :context="{ record }"
       />
     </div>
+
+    <template v-if="debuggers">
+      <app-debugger v-bind="{label: 'Record', inspect: record }" />
+      <app-debugger v-bind="{label: 'Components', inspect: components }" />
+      <app-debugger v-bind="{label: 'Buttons', inspect: buttons }" />
+    </template>
   </q-page>
 </template>
 

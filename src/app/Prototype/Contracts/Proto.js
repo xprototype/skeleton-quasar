@@ -35,6 +35,15 @@ export default {
   },
   /**
    */
+  computed: {
+    /**
+     */
+    debuggers () {
+      return this.$store.getters['app/getDebuggers']
+    }
+  },
+  /**
+   */
   methods: {
     /**
      * @override
