@@ -1,4 +1,4 @@
-import { sessionGuest, sessionUser } from 'src/app/Session'
+import { sessionGuest, sessionUser } from 'src/modules/Session'
 
 /**
  * @typedef {Session}
