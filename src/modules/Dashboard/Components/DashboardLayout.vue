@@ -1,3 +1,4 @@
+<!--suppress HtmlUnknownTarget -->
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
@@ -16,7 +17,29 @@
           Quasar App
         </q-toolbar-title>
 
-        <small>Quasar v{{ $q.version }}</small>
+        <q-toggle
+          v-if="$dev"
+          v-model="debugging"
+          label="Debugger"
+          color="red"
+        />
+
+        <q-space />
+
+        <div class="qc-brand-image-container">
+          <img
+            class="qc-brand-image"
+            src="statics/quasar-logo.png"
+            alt="logo"
+          >
+        </div>
+
+        <a
+          href="https://v1.quasar-framework.org"
+          class="qc-brand-link"
+        >
+          <small>Quasar v{{ $q.version }}</small>
+        </a>
       </q-toolbar>
     </q-header>
 
@@ -35,7 +58,6 @@
             size="56px"
             class="q-mb-sm"
           >
-            <!--suppress HtmlUnknownTarget -->
             <img
               src="~assets/avatar.png"
               alt=""
@@ -55,7 +77,7 @@
         </div>
       </q-img>
 
-      <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
+      <q-scroll-area class="q-layout-scroll">
         <q-list padding>
           <q-item-label header>
             {{ appName }}
@@ -107,7 +129,8 @@ export default {
    */
   data () {
     return {
-      leftDrawerOpen: this.$q.platform.is.desktop
+      leftDrawerOpen: this.$q.platform.is.desktop,
+      debugging: false
     }
   },
   /**
@@ -167,6 +190,12 @@ export default {
     afterEnter (element) {
       element.style.height = 'auto'
     }
+  },
+  created () {
+    this.debugging = this.$store.getters['app/getDebuggers']
+    this.$watch('debugging', (debugging) => {
+      this.$store.dispatch('app/setDebuggers', debugging)
+    })
   }
 }
 </script>
@@ -179,6 +208,27 @@ export default {
     top 0
     right: 20px
 
+  .qc-brand-link
+    color #fff
+    text-decoration none
+
+  .qc-brand-image-container
+    margin 0 10px
+    .qc-brand-image
+      height 36px
+      transition-duration 0.6s
+      transition-property transform
+      &:hover
+        transform rotate(360deg)
+
   .q-header
-    background linear-gradient(130deg, $primary 20%, $secondary 95%)
+    background linear-gradient(0deg, #23364b 20%, #1b263a 95%)
+
+  .q-layout-scroll
+    height calc(100% - 150px)
+    margin-top 150px
+    border-right 1px solid #ddd
+
+    >>> .q-item.q-item-type
+      color #2b2b2b
 </style>

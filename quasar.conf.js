@@ -95,7 +95,8 @@ module.exports = function (context) {
         'QTable',
         'QTd',
         'QAvatar',
-        'QImg'
+        'QImg',
+        'QToggle'
       ],
 
       directives: [

@@ -8,5 +8,6 @@ export default {
   drawer: read('appDrawer') || [],
   options: options,
   clipboard: {},
-  query: {}
+  query: {},
+  debuggers: false
 }

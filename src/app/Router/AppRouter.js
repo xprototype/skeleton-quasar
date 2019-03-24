@@ -1,6 +1,6 @@
 // noinspection NpmUsedModulesInstalled
 import VueRouter from 'vue-router'
-import { sessionGuest, sessionUser, sessionCheck } from 'src/app/Session'
+import { sessionCheck, sessionGuest, sessionHandler, sessionUser } from 'src/config/app/session'
 
 /**
  * @typedef {AppRouter}
@@ -62,7 +62,7 @@ export default class AppRouter extends VueRouter {
    * @param {String} redirect
    */
   exit (redirect = '') {
-    const route = { path: '/auth/register' }
+    const route = { path: sessionHandler }
     if (redirect) {
       route.query = { redirect }
     }

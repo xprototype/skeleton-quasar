@@ -98,6 +98,12 @@
         />
       </template>
     </q-table>
+
+    <template v-if="debuggers">
+      <app-debugger v-bind="{label: 'Data', inspect: data }" />
+      <app-debugger v-bind="{label: 'Columns', inspect: columns }" />
+      <app-debugger v-bind="{label: 'Buttons', inspect: buttons }" />
+    </template>
   </q-page>
 </template>
 

@@ -62,3 +62,11 @@ export const setQuery = (context, query) => {
 export const clearQuery = (context) => {
   context.commit('mutateQuery', {})
 }
+
+/**
+ * @param {Object} context
+ * @param {Boolean} debuggers
+ */
+export const setDebuggers = (context, debuggers) => {
+  context.commit('mutateDebuggers', debuggers)
+}

@@ -3,6 +3,7 @@
 ### Start environment
 ```
 $ cp .env.js.develop .env.js
+$ cp quasar.env.example quasar.env
 $ cp docker-compose.yml.develop docker-compose.yml
 $ docker-compose up -d
 ```
