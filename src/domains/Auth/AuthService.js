@@ -36,8 +36,8 @@ export default class AuthService extends API {
           path: '/dashboard'
         },
         {
-          label: 'Test',
-          sublabel: 'Just a test ; )',
+          label: 'Simple Test',
+          sublabel: 'Just a simple test ; )',
           icon: 'code',
           path: '/dashboard/test'
         }

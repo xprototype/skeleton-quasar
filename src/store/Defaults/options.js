@@ -4,7 +4,6 @@ export default [
     icon: 'fullscreen',
     handler () {
       if (this.$q && this.$q.fullscreen) {
-        // noinspection JSCheckFunctionSignatures
         this.$q.fullscreen.toggle()
       }
     }
