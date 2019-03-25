@@ -17,7 +17,6 @@ script:
 deploy:
   provider: pages
   github_token: $GITHUB_TOKEN
-  target_branch: master
-  keep-history: true
+  verbose: true
   on:
     tags: true
