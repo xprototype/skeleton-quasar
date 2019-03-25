@@ -8,10 +8,7 @@ install:
   - npm install --global @vue/cli@3.4.1 @vue/cli-init@3.4.1
   - npm install --global @quasar/cli@1.0.0-beta.3
   - npm install
-
-script:
-  - echo pwd
-  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then ./travis.sh; fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash ./travis.sh; fi'
 
 deploy:
   provider: pages
