@@ -3,7 +3,7 @@ node_js:
   - 10
 
 install:
-  - npm install --global vue-cli @vue/cli@3.4.1 @vue/cli-init@3.4.1
+  - npm install --global @vue/cli@3.4.1 @vue/cli-init@3.4.1
   - npm install --global @quasar/cli@1.0.0-beta.3
   - yarn install
 deploy:
