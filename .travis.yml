@@ -10,7 +10,7 @@ install:
   - npm install
 
 script:
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ./travis.sh; fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then ./travis.sh; fi'
 
 deploy:
   provider: pages
