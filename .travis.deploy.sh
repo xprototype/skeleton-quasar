@@ -2,7 +2,7 @@
 
 cd ${TRAVIS_BUILD_DIR}
 
-cp .env.js.develop .env.js
+cp .env.js.stage .env.js
 quasar build
 
 cp -R ./dist/spa/* ./
