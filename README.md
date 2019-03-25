@@ -1,5 +1,7 @@
 ## Skeleton Quasar
 
+[![Build Status](https://travis-ci.org/xprototype/skeleton-quasar.svg?branch=master)](https://travis-ci.org/xprototype/skeleton-quasar)
+
 ### Start environment
 ```
 $ cp .env.js.develop .env.js
