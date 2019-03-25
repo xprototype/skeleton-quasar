@@ -10,6 +10,7 @@ install:
   - npm install
 
 script:
+  - echo pwd
   - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then ./travis.sh; fi'
 
 deploy:
