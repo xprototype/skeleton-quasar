@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
-quasar build -m spa
+echo pwd
+quasar build
 rm -rf ./docs/*
 cp -R ./dist/spa/* ./docs
