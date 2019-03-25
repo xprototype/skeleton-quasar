@@ -10,9 +10,7 @@ install:
   - npm install
 
 script:
-  - quasar build -m spa
-  - rm -rf ./docs/*
-  - cp -R ./dist/spa/* ./docs
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ./travis.sh; fi'
 
 deploy:
   provider: pages
