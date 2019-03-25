@@ -1,6 +1,6 @@
 language: javascript
 node_js:
-  - 10
+  - 11
 cache:
   npm: true
   directories:
