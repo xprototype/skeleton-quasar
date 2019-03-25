@@ -48,11 +48,11 @@
       resources defined in prototype to screen rendering layer.
     </p>
 
-    <h6>The "Test menu"</h6>
+    <h6>The "Simple Test menu"</h6>
     <p>
-      In Test menu available in drawer there is a draft about a possible implementation of Prototype Presentation
+      In "Simple Test" menu available in drawer there is a draft about a possible implementation of Prototype Presentation
       Design. You can see the source code of the example <a :href="href">here</a>.
-      This link points to folder in Github of namespace of Test. There you can see the folder structure used to compose
+      This link points to folder in Github of namespace of "Simple Test". There you can see the folder structure used to compose
       the entity.
     </p>
   </q-page>
