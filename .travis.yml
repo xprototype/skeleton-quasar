@@ -9,11 +9,10 @@ cache:
 install:
   - npm install --global @vue/cli@3.4.1 @vue/cli-init@3.4.1
   - npm install --global @quasar/cli@1.0.0-beta.3
-  - cd $TRAVIS_BUILD_DIR
   - npm install
 
 script:
-  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash $TRAVIS_BUILD_DIR/.travis.sh; fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash ./.travis.build.sh; fi'
 
 deploy:
   provider: pages
