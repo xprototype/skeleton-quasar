@@ -9,8 +9,6 @@ install:
 deploy:
   provider: pages
   github_token: $GITHUB_TOKEN
-  local_dir: build_production
-  repo: xprototype/skeleton-quasar
   target_branch: master
   keep-history: true
   on:
