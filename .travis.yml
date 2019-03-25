@@ -8,12 +8,12 @@ cache:
 install:
   - npm install --global @vue/cli@3.4.1 @quasar/cli@1.0.0-beta.3
   - npm install
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./.travis.deploy.sh; fi'
 
 script:
   - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then npm test; fi'
 
 deploy:
+  script: bash ./.travis.deploy.sh
   provider: pages
   github_token: $GITHUB_TOKEN
   verbose: true
