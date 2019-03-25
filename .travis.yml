@@ -1,10 +1,6 @@
 language: node_js
 node_js:
   - "10"
-cache:
-  npm: true
-  directories:
-    - $TRAVIS_BUILD_DIR
 
 install:
   - npm install --global @vue/cli@3.4.1 @vue/cli-init@3.4.1
@@ -22,4 +18,5 @@ deploy:
   github_token: $GITHUB_TOKEN
   verbose: true
   on:
+    master: true
     tags: true

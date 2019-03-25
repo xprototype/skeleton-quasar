@@ -33,6 +33,9 @@ export default {
      * @returns {boolean}
      */
     debug () {
+      if (this.$store.getters['app/getDebuggers']) {
+        return true
+      }
       return process.env.NODE_ENV !== 'production'
     }
   },
