@@ -2,13 +2,15 @@ language: node_js
 node_js:
   - "10"
 
+cache:
+  npm: true
+
 install:
-  - npm install --global @vue/cli@3.4.1 @vue/cli-init@3.4.1
-  - npm install --global @quasar/cli@1.0.0-beta.3
+  - npm install --global @vue/cli@3.4.1 @quasar/cli@1.0.0-beta.3
   - npm install
 
 script:
-  - npm test
+  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then npm test; fi'
 
 after_success:
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./.travis.deploy.sh; fi'
