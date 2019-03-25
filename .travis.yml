@@ -20,4 +20,4 @@ deploy:
   target_branch: master
   keep-history: true
   on:
-    tags: true
+    branch: master
