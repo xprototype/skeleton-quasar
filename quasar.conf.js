@@ -54,11 +54,7 @@ module.exports = function (context) {
       env: env
     },
 
-    devServer: {
-      // https: true,
-      port: 8000,
-      open: false // opens browser window automatically
-    },
+    devServer: Object.assign({ https: false, port: 8000, open: false }, env.devServer || {}),
 
     // framework: 'all' --- includes everything; for dev only!
     framework: {
