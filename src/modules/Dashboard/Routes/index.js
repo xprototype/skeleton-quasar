@@ -14,7 +14,7 @@ export const layout = () => import('src/modules/Dashboard/Components/DashboardLa
 export default (router) => {
   const routes = [
     children('/dashboard', layout, [
-      fallback(() => import('src/modules/Dashboard/Components/Pages/Index')),
+      fallback(() => import('src/view/Dashboard/Index')),
       ...example(router)
     ])
   ]
@@ -23,7 +23,7 @@ export default (router) => {
   if (process.env.MODE !== 'ssr') {
     routes.push({
       path: '*',
-      component: () => import('src/modules/Dashboard/Components/Pages/Error404')
+      component: () => import('src/view/Dashboard/Error404')
     })
   }
 

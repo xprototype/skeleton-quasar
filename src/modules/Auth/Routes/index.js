@@ -9,8 +9,8 @@ export default (router) => {
     redirect('/', '/auth/sigin'),
     children('/auth', () => import('src/modules/Auth/Components/AuthLayout'), [
       redirect('', '/auth/sigin'),
-      route('/auth/sigin', () => import('src/modules/Auth/Components/Pages/AuthSigin')),
-      route('/auth/register', () => import('src/modules/Auth/Components/Pages/AuthRegister'))
+      route('/auth/sigin', () => import('src/view/Auth/AuthSigin')),
+      route('/auth/register', () => import('src/view/Auth/AuthRegister'))
     ])
   ]
 

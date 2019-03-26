@@ -3,7 +3,7 @@
 </template>
 
 <script type="text/javascript">
-import Test from '../Prototype/Test'
+import Test from 'src/domains/Example/Test/Prototype/Test'
 
 export default {
   name: 'TestForm',
