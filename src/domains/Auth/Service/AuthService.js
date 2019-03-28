@@ -40,6 +40,12 @@ export default class AuthService extends API {
           sublabel: 'Just a simple test ; )',
           icon: 'code',
           path: '/dashboard/test'
+        },
+        {
+          label: 'Test With Hooks',
+          sublabel: 'Demo to show declare hooks',
+          icon: 'code',
+          path: '/dashboard/test-with-hooks'
         }
       ]
     })
