@@ -7,7 +7,7 @@ module.exports = function (context) {
     boot: [
       'browse',
       'components',
-      'dev',
+      'development',
       'i18n',
       'message',
       'service',
