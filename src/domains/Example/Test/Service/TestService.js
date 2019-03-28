@@ -14,7 +14,7 @@ export default class TestService extends Rest {
    * @returns {Promise}
    */
   create (record) {
-    return this.promise({ ...record })
+    return this.promise({ ...record, id: Math.ceil(Math.random() * 100) })
   }
 
   /**

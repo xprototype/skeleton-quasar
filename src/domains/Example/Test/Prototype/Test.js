@@ -42,7 +42,7 @@ export default class Test extends Prototype {
       .fieldFormWidth(50)
       .fieldFormAutofocus()
       .fieldOn('input', function () {
-        console.log('~> arguments', arguments)
+        // console.log('~> arguments', arguments)
       })
 
     this.field('age')

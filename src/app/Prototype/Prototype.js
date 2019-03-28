@@ -57,7 +57,7 @@ export default class Prototype extends Skeleton {
   /**
    * @override
    */
-  configureCreate () {}
+  configureAdd () {}
 
   /**
    * Configs para quando o scope for 'edit'
@@ -79,8 +79,8 @@ export default class Prototype extends Skeleton {
 
   /**
    */
-  create () {
-    this.$browse(`${this.path}/create`, true)
+  add () {
+    this.$browse(`${this.path}/add`, true)
   }
 
   /**
@@ -122,21 +122,28 @@ export default class Prototype extends Skeleton {
   /**
    * @param {string} scope
    * @param {Object} record
-   * @param {Function} success
-   * @param {Function} [fail]
    * @returns {Object}
    */
-  save (scope, record, success, fail = undefined) {
+  save (scope, record) {
     let method = 'create'
     if (scope !== 'create') {
       method = 'update'
     }
+
     this.$q.loading.show()
-    const hide = () => this.$q.loading.hide()
-    if (fail) {
-      return this.service[method](record).then(success).catch(fail).finally(hide)
+    const success = (response) => {
+      if (this.debuggers) {
+        window.alert(JSON.stringify(response))
+      }
+      this.$message.success(this.$lang(`prototype.operation.${scope}.success`))
+      if (scope === 'create') {
+        this.$browse(`${this.path}/${response[this.primaryKey]}/edit`, true)
+      }
     }
-    return this.service[method](record).then(success).finally(hide)
+    const fail = () => undefined
+    const always = () => this.$q.loading.hide()
+
+    return this.service[method](record).then(success).catch(fail).finally(always)
   }
 
   /**
@@ -145,6 +152,8 @@ export default class Prototype extends Skeleton {
     const prototype = this
 
     this.hook('created:default', function () {
+      /**
+       */
       const run = () => {
         // Call component setup method
         if (this.setup && typeof this.setup === 'function') {
@@ -162,19 +171,19 @@ export default class Prototype extends Skeleton {
           return prototype.configureIndex.call(this)
         }
 
-        if (this.scope === 'edit') {
-          // Call configure to edit scope
+        if (this.scope === 'update') {
+          // Call configure to update scope
           return prototype.configureEdit.call(this)
         }
 
-        if (this.scope === 'view') {
-          // Call configure to view scope
+        if (this.scope === 'read') {
+          // Call configure to read scope
           return prototype.configureView.call(this)
         }
 
         if (this.scope === 'create') {
           // Call configure to create scope
-          return prototype.configureCreate.call(this)
+          return prototype.configureAdd.call(this)
         }
       }
       // load i18n async
@@ -185,16 +194,16 @@ export default class Prototype extends Skeleton {
       run()
     })
 
-    this.action('create')
+    this.action('add')
       .actionScopes(['index'])
       .actionPositions(['table-top'])
-      .actionLabel(lang('prototype.action.create.label'))
+      .actionLabel(lang('prototype.action.add.label'))
       .actionIcon('add')
       .actionColor('primary')
 
     this.action('cancel')
       .actionFloatRight()
-      .actionScopes(['index', 'create', 'view', 'edit'])
+      .actionScopes(['index', 'create', 'read', 'update'])
       .actionPositions(['form-footer'])
       .actionLabel(lang('prototype.action.cancel.label'))
       .actionIcon('close')
@@ -207,7 +216,7 @@ export default class Prototype extends Skeleton {
       .actionNoMinWidth()
 
     this.action('save')
-      .actionScopes(['create', 'edit'])
+      .actionScopes(['create', 'update'])
       .actionPositions(['form-footer'])
       .actionFloatRight()
       .actionLabel(lang('prototype.action.save.label'))
@@ -219,17 +228,10 @@ export default class Prototype extends Skeleton {
           this.$message.error(this.$lang('prototype.action.save.validation'))
           return
         }
-        const success = (response) => {
-          if (this.debuggers) {
-            window.alert(JSON.stringify(response))
-          }
-          this.$message.success(this.$lang('prototype.action.save.success'))
-        }
-
         if (this.debuggers) {
           window.alert(JSON.stringify(this.getRecord()))
         }
-        return prototype.save.call(this, this.scope, this.getRecord(), success)
+        return prototype.save.call(this, this.scope, this.getRecord())
       })
 
     this.action('view')

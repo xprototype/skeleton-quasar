@@ -125,17 +125,33 @@ export default {
     },
     /**
      * @param {Function} h
+     * @param {string} position
+     * @param {Object} context
+     * @param {Object} override
+     * @returns {*}
      */
-    renderDebuggers (h) {
-      if (!this.debuggers) {
-        return
+    renderPrototypeButtons (h, position, context, override = {}) {
+      const attrs = {
+        scope: this.scope,
+        buttons: this.buttons,
+        context: context,
+        position: position,
+        override: override
       }
-
-      return h('div', [
-        h('app-debugger', { attrs: { label: 'Record', inspect: this.record } }),
-        h('app-debugger', { attrs: { label: 'Components', inspect: this.components } }),
-        h('app-debugger', { attrs: { label: 'Buttons', inspect: this.buttons } })
-      ])
+      const data = {
+        attrs
+      }
+      return h('prototype-buttons', data)
+    },
+    /**
+     * @param {Function} h
+     * @param {string} position
+     * @param {Object} context
+     * @returns {*}
+     */
+    renderPrototypeButtonsCompact (h, position, context) {
+      const override = { round: true, dense: true, label: '' }
+      return this.renderPrototypeButtons(h, position, context, override)
     }
   }
 }

@@ -38,8 +38,8 @@ export const fallback = (component, meta = {}) => route('', component, meta)
 export const crud = (path, table, form) => {
   return [
     route(`${path}`, table, { scope: 'index' }),
-    route(`${path}/create`, form, { scope: 'create' }),
-    route(`${path}/:id`, form, { scope: 'view' }),
-    route(`${path}/:id/edit`, form, { scope: 'edit' })
+    route(`${path}/add`, form, { scope: 'create' }),
+    route(`${path}/:id`, form, { scope: 'read' }),
+    route(`${path}/:id/edit`, form, { scope: 'update' })
   ]
 }

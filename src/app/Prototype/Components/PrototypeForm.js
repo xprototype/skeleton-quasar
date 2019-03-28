@@ -31,7 +31,7 @@ export default {
       const data = { class: 'app-form-wrapper' }
       const children = [
         this.renderFormBody(h),
-        this.renderFormButtons(h)
+        this.renderPrototypeButtons(h, 'form-footer', { record: this.record })
       ]
       return h('div', data, children)
     },
@@ -106,17 +106,16 @@ export default {
     /**
      * @param {Function} h
      */
-    renderFormButtons (h) {
-      const attrs = {
-        position: 'form-footer',
-        scope: this.scope,
-        buttons: this.buttons,
-        context: { record: this.record }
+    renderFormDebuggers (h) {
+      if (!this.debuggers) {
+        return
       }
-      const data = {
-        attrs
-      }
-      return h('prototype-buttons', data)
+
+      return h('div', [
+        h('app-debugger', { attrs: { label: 'Record', inspect: this.record } }),
+        h('app-debugger', { attrs: { label: 'Components', inspect: this.components } }),
+        h('app-debugger', { attrs: { label: 'Buttons', inspect: this.buttons } })
+      ])
     }
   },
   /**
@@ -131,7 +130,7 @@ export default {
     }
     const children = [
       this.renderFormWrapper(h),
-      this.renderDebuggers(h)
+      this.renderFormDebuggers(h)
     ]
 
     return h('q-page', data, children)
