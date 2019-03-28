@@ -21,7 +21,7 @@ export default {
       success: 'Record created successfully'
     },
     update: {
-      success: 'Record update successfully'
+      success: 'Record updated successfully'
     }
   },
   action: {

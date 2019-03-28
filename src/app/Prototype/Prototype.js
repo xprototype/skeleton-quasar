@@ -1,7 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import Skeleton from './Skeleton'
 import { lang } from 'src/app/Util/Lang'
-import { apply } from 'src/app/Util'
 
 import Field from 'src/app/Prototype/Prototype/Field'
 import FieldForm from 'src/app/Prototype/Prototype/FieldForm'
@@ -17,28 +16,6 @@ export default class Prototype extends Skeleton {
    * @type {Array}
    */
   static mixins = [Field, FieldForm, FieldIs, FieldTable, Action]
-
-  /**
-   * @type {boolean}
-   */
-  i18n = true
-
-  /**
-   * @param {Function} callback
-   */
-  locale (callback = undefined) {
-    this.namespace = this.domain.replace(/\//, '.')
-    const map = (piece) => piece.charAt(0).toUpperCase() + piece.substring(1)
-    const domain = this.namespace.split('.').map(map).join('/')
-    const locale = this.$i18n.locale
-
-    import(/* webpackChunkName: "lang-[request]" */ `src/domains/${domain}/${locale}`)
-      .then((messages) => {
-        const translations = apply({}, `domains.${this.namespace}`, messages.default)
-        this.$i18n.mergeLocaleMessage(locale, translations)
-      })
-      .finally(callback)
-  }
 
   /**
    * @param {String|Array} key
@@ -167,46 +144,36 @@ export default class Prototype extends Skeleton {
     const prototype = this
 
     this.hook('created:default', function () {
-      /**
-       */
-      const run = () => {
-        // Call component setup method
-        if (this.setup && typeof this.setup === 'function') {
-          this.setup()
-        }
-
-        // Call global prototype configure
-        prototype.configure.call(this)
-
-        // Call configure of each field
-        this.configure()
-
-        if (this.scope === 'index') {
-          // Call configure to index scope
-          return prototype.configureIndex.call(this)
-        }
-
-        if (this.scope === 'update') {
-          // Call configure to update scope
-          return prototype.configureEdit.call(this)
-        }
-
-        if (this.scope === 'read') {
-          // Call configure to read scope
-          return prototype.configureView.call(this)
-        }
-
-        if (this.scope === 'create') {
-          // Call configure to create scope
-          return prototype.configureAdd.call(this)
-        }
+      // Call component setup method
+      if (this.setup && typeof this.setup === 'function') {
+        this.setup()
       }
-      // load i18n async
-      if (prototype.i18n) {
-        prototype.locale.call(this, run)
-        return
+
+      // Call global prototype configure
+      prototype.configure.call(this)
+
+      // Call configure of each field
+      this.configure()
+
+      if (this.scope === 'index') {
+        // Call configure to index scope
+        return prototype.configureIndex.call(this)
       }
-      run()
+
+      if (this.scope === 'update') {
+        // Call configure to update scope
+        return prototype.configureEdit.call(this)
+      }
+
+      if (this.scope === 'read') {
+        // Call configure to read scope
+        return prototype.configureView.call(this)
+      }
+
+      if (this.scope === 'create') {
+        // Call configure to create scope
+        return prototype.configureAdd.call(this)
+      }
     })
 
     this.action('add')

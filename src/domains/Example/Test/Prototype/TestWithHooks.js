@@ -42,7 +42,7 @@ export default class TestWithHooks extends Test {
       .actionIcon('send')
       .actionColor('yellow')
       .actionOrder(2)
-      .actionLabel(this.$lang(`domains.${TestWithHooks.domain}.actions.goToTest`))
+      .actionLabel(this.$lang(`domains.example.test.actions.goToTest`))
       .actionOn('click', function ({ $event, context }) {
         this.$log('~> $event', $event)
         this.$log('~> context', context)

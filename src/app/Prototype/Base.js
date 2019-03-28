@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import components from 'src/config/app/components'
+import { apply } from 'src/app/Util'
 
 /**
  * @typedef {Base}
@@ -75,6 +76,11 @@ export default class Base {
   static mixins = []
 
   /**
+   * @type {boolean}
+   */
+  i18n = true
+
+  /**
    * @param {Object} options
    * @returns {this}
    */
@@ -91,7 +97,10 @@ export default class Base {
     this.__actions = {}
     this.__sections = {}
 
+    this.__loaded = {}
+
     this.init()
+    this.locale()
 
     if (this.defaults && typeof this.defaults === 'function') {
       this.defaults()
@@ -109,6 +118,29 @@ export default class Base {
    */
   init () {
     this.constructor.mixins.forEach(mixin => this.mixin(mixin))
+  }
+
+  /**
+   */
+  locale () {
+    if (!this.i18n) {
+      return
+    }
+    this.namespace = this.constructor.domain.replace(/\//, '.')
+    const map = (piece) => piece.charAt(0).toUpperCase() + piece.substring(1)
+    const domain = this.namespace.split('.').map(map).join('/')
+
+    const locale = window.app.i18n.locale
+    const path = `src/domains/${domain}/${locale}`
+    if (this.__loaded[path]) {
+      return
+    }
+    this.__loaded[path] = true
+
+    const messages = require(`src/domains/${domain}/${locale}`)
+    const translations = apply({}, `domains.${this.namespace}`, messages.default)
+
+    window.app.i18n.mergeLocaleMessage(locale, translations)
   }
 
   /**
