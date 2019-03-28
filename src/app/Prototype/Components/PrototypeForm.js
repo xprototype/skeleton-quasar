@@ -27,12 +27,13 @@ export default {
     /**
      * @param {Function} h
      */
-    renderFormWrapper (h) {
+    renderForm (h) {
       const data = { class: 'app-form-wrapper' }
       const children = [
         this.renderFormBody(h),
         this.renderPrototypeButtons(h, 'form-footer', { record: this.record })
       ]
+
       return h('div', data, children)
     },
     /**
@@ -46,7 +47,6 @@ export default {
       const children = [
         this.renderFormBodyComponents(h, this.getComponents())
       ]
-
       if (this.hasGroups) {
         Object.keys(this.groups).forEach((key) => {
           const data = {
@@ -129,7 +129,7 @@ export default {
       }
     }
     const children = [
-      this.renderFormWrapper(h),
+      this.renderForm(h),
       this.renderFormDebuggers(h)
     ]
 

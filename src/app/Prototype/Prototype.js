@@ -84,6 +84,12 @@ export default class Prototype extends Skeleton {
   }
 
   /**
+   */
+  back () {
+    this.$browse(-1)
+  }
+
+  /**
    * @param {Object} record
    * @param {Array} records
    * @returns {Object}
@@ -200,6 +206,12 @@ export default class Prototype extends Skeleton {
       .actionLabel(lang('prototype.action.add.label'))
       .actionIcon('add')
       .actionColor('primary')
+
+    this.action('back')
+      .actionScopes(['index', 'create', 'read', 'update'])
+      .actionPositions(['form-footer'])
+      .actionLabel(lang('prototype.action.back.label'))
+      .actionIcon('reply')
 
     this.action('cancel')
       .actionFloatRight()

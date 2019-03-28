@@ -43,6 +43,9 @@ export default {
     },
     cancel: {
       label: 'Cancel'
+    },
+    back: {
+      label: 'Back'
     }
   }
 }
