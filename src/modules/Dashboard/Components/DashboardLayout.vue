@@ -123,6 +123,10 @@
 </template>
 
 <script type="text/javascript">
+import { fallback } from 'src/config'
+
+/**
+ */
 export default {
   name: 'DashboardLayout',
   /**
@@ -159,12 +163,12 @@ export default {
      * @param {Object} menu
      */
     menuOpen (menu) {
-      this.$router.push(menu.path)
+      this.$browse(menu.path)
     },
     /**
      */
     logout () {
-      this.$router.push('/auth/sigin')
+      this.$browse(fallback)
     },
     /**
      * @param {Element} element

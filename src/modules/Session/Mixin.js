@@ -1,3 +1,4 @@
+import { fallback } from 'src/config'
 import { sessionGuest, sessionUser } from 'src/modules/Session'
 
 /**
@@ -30,7 +31,7 @@ const Session = {
      * @return {Promise}
      */
     logout () {
-      return this.$store.dispatch('auth/logout').then(() => this.$router.push('/auth/sigin'))
+      return this.$store.dispatch('auth/logout').then(() => this.$browse(fallback))
     }
   }
 }

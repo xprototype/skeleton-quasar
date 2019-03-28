@@ -1,4 +1,5 @@
 import { children, redirect, route } from 'src/app/Router'
+import { fallback } from 'src/config'
 
 /**
  * @param {AppRouter} router
@@ -6,11 +7,11 @@ import { children, redirect, route } from 'src/app/Router'
  */
 export default (router) => {
   const routes = [
-    redirect('/', '/auth/sigin'),
+    redirect('/', fallback),
     children('/auth', () => import('src/modules/Auth/Components/AuthLayout'), [
-      redirect('', '/auth/sigin'),
-      route('/auth/sigin', () => import('src/modules/Auth/Components/Pages/AuthSigin')),
-      route('/auth/register', () => import('src/modules/Auth/Components/Pages/AuthRegister'))
+      redirect('', fallback),
+      route(fallback, () => import('src/view/Auth/AuthSigin')),
+      route('/auth/register', () => import('src/view/Auth/AuthRegister'))
     ])
   ]
 

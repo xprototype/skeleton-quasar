@@ -1,11 +1,31 @@
-import 'siiimple-toast'
-import 'siiimple-toast/dist/style.css'
+import { Notify } from 'quasar'
 
-const base = {
-  position: 'bottom|left',
-  margin: 15,
-  delay: 0,
-  duration: 3000
+/**
+ * @param {Object} options
+ * @param {Object} action
+ * @returns {*}
+ */
+const base = (options, action = {}) => {
+  const defaults = {
+    color: '',
+    textColor: '',
+    icon: '',
+    message: '',
+    position: 'bottom-right',
+    duration: 3000,
+    actions: [
+      {
+        icon: 'close',
+        color: 'white',
+        handler: () => undefined,
+        ...action
+      }
+    ]
+  }
+  return {
+    ...defaults,
+    ...options
+  }
 }
 
 /**
@@ -13,7 +33,7 @@ const base = {
  * @param options
  */
 export const toast = (message, options = {}) => {
-  window.siiimpleToast.message(message, Object.assign(base, options))
+  Notify.create(base({ message }))
 }
 
 /**
@@ -21,7 +41,7 @@ export const toast = (message, options = {}) => {
  * @param options
  */
 export const success = (message, options = {}) => {
-  window.siiimpleToast.success(message, Object.assign(base, options))
+  Notify.create(base({ message, color: 'positive' }))
 }
 
 /**
@@ -29,7 +49,7 @@ export const success = (message, options = {}) => {
  * @param options
  */
 export const error = (message, options = {}) => {
-  window.siiimpleToast.alert(message, Object.assign(base, options))
+  Notify.create(base({ message, color: 'negative' }))
 }
 
 /**

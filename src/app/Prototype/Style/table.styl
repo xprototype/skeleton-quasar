@@ -1,0 +1,42 @@
+.PrototypeTable
+
+  &.q-table__container.q-table--horizontal-separator
+    .q-table__middle.scroll
+      height calc(100vh - 200px)
+
+    &.fullscreen
+      .q-table__middle.scroll
+        height calc(100vh - 105px)
+
+  .q-table thead > tr:nth-child(1) > th
+    position sticky
+    cursor default
+    zoom 1
+    top 0
+    z-index 1000
+    color #828282
+    height 54px
+    overflow hidden
+    background linear-gradient(180deg, #fff 53px, #ddd 1px)
+
+  .q-table
+    .app-form-buttons
+      opacity 0
+      transition-property opacity
+      transition-duration 0.6s
+      width 0
+      position absolute
+      top 0
+      left 0
+      height 54px
+      overflow hidden
+
+    tr:hover
+      .app-form-buttons
+        opacity 1
+        width 280px
+        padding 10px
+
+  .app-form-buttons
+    button
+      min-width auto

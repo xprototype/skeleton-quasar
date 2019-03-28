@@ -16,12 +16,21 @@ export default {
   },
   components: {
   },
-  action: {
+  operation: {
     create: {
-      label: 'New'
+      success: 'Record created successfully'
     },
+    update: {
+      success: 'Record update successfully'
+    }
+  },
+  action: {
     save: {
-      label: 'Save'
+      label: 'Save',
+      validation: 'Check the fields'
+    },
+    add: {
+      label: 'New'
     },
     edit: {
       label: 'Edit'

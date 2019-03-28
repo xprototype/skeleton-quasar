@@ -8,12 +8,12 @@ export const path = '/dashboard/test'
 /**
  * @returns {Promise}
  */
-export const table = () => import('src/domains/Example/Test/View/TestTable')
+export const table = () => import('src/view/Dashboard/Example/Test/TestTable')
 
 /**
  * @returns {Promise}
  */
-export const form = () => import('src/domains/Example/Test/View/TestForm')
+export const form = () => import('src/view/Dashboard/Example/Test/TestForm')
 
 /**
  * @param {AppRouter} router

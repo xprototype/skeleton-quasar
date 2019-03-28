@@ -1,7 +1,7 @@
 // noinspection NpmUsedModulesInstalled
 import { Cookies } from 'quasar'
 import $store from 'src/store'
-import AuthService from 'src/domains/Auth/AuthService'
+import AuthService from 'src/domains/Auth/Service/AuthService'
 import { setToken } from 'src/config/service/standard'
 
 /**

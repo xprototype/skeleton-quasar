@@ -10,6 +10,44 @@ export default class TestService extends Rest {
   static resource = '/example/test'
 
   /**
+   * @param {Object} record
+   * @returns {Promise}
+   */
+  create (record) {
+    return this.promise({ ...record, id: Math.ceil(Math.random() * 100) })
+  }
+
+  /**
+   * @param {Object} record
+   * @returns {Promise}
+   */
+  update (record) {
+    return this.promise({ ...record })
+  }
+
+  /**
+   * @param {String|Object} record
+   * @returns {Promise}
+   */
+  read (record) {
+    const index = typeof record === 'object' ? 1 : String(record)
+    return this.promise({
+      id: index,
+      name: `Name fake ${index}`,
+      age: Math.ceil(Math.random() * 100),
+      description: `Description fake ${index}`
+    })
+  }
+
+  /**
+   * @param {Object} record
+   * @returns {Promise}
+   */
+  destroy (record) {
+    return this.promise({ ...record })
+  }
+
+  /**
    * @param {Object} parameters
    * @param {Array} filters
    * @returns {Promise}
@@ -51,6 +89,17 @@ export default class TestService extends Rest {
           rows: Array.from({ length }, generator)
         })
       }, 500)
+    })
+  }
+
+  /**
+   * @param {*} response
+   * @param {Number} time
+   * @returns {Promise}
+   */
+  promise (response, time = 1000) {
+    return new Promise(function (resolve) {
+      window.setTimeout(() => resolve(response), time)
     })
   }
 }

@@ -1,4 +1,5 @@
 import Base from 'src/app/Prototype/Base'
+import { clone } from 'src/app/Util'
 
 /**
  * @typedef {Skeleton}
@@ -114,28 +115,28 @@ export default class Skeleton extends Base {
    * @returns {Object}
    */
   hooks () {
-    return this.__hooks
+    return clone(this.__hooks)
   }
 
   /**
    * @returns {Object}
    */
   fields () {
-    return this.__fields
+    return clone(this.__fields)
   }
 
   /**
    * @returns {Object}
    */
   sections () {
-    return this.__sections
+    return clone(this.__sections)
   }
 
   /**
    * @returns {Array}
    */
   actions () {
-    return Object.values(this.__actions)
+    return clone(Object.values(this.__actions))
   }
 
   /**

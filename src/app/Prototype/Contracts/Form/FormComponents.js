@@ -7,8 +7,8 @@ export default {
     /**
      * @returns {boolean}
      */
-    hasSegments () {
-      return Object.keys(this.segments).length > 0
+    hasGroups () {
+      return Object.keys(this.groups).length > 0
     }
   },
   /**
@@ -106,7 +106,7 @@ export default {
     /**
      */
     renderComponents () {
-      this.segments = this.sections()
+      this.groups = this.sections()
       const fields = clone(this.fields())
       this.components = Object.values(fields).sort(this.sortComponents).reduce(this.reduceComponents, {})
     },
@@ -134,11 +134,13 @@ export default {
       if (this.scope && hasScopes && !field.scopes.includes(this.scope)) {
         return components
       }
+
       field.listeners = {}
       Object.keys(field.on).forEach((event) => {
         field.listeners[event] = ($event) => this.fieldApplyListener(field.$key, event, $event)
       })
-      const reduce = (required, validator) => {
+
+      const parseValidations = (required, validator) => {
         if (typeof field.$validations[validator] === 'function') {
           field.$validations[validator] = field.$validations[validator].bind(this)
         }
@@ -147,7 +149,7 @@ export default {
         }
         return validator === 'required'
       }
-      field.$required = Object.keys(field.$validations).reduce(reduce, false)
+      field.$required = Object.keys(field.$validations).reduce(parseValidations, false)
 
       field.label = this.parseFieldLabel(field)
       if (field.attrs.options) {
@@ -158,6 +160,10 @@ export default {
       }
       if (field.attrs.after) {
         field.attrs.after = this.parseFieldAfter(field)
+      }
+
+      if (!field.parseInput) {
+        field.parseInput = (value) => value
       }
 
       components[field.$key] = field

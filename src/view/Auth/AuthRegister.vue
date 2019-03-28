@@ -52,10 +52,11 @@
 </template>
 
 <script type="text/javascript">
+// noinspection ES6CheckImport
 import { email, required } from 'vuelidate/lib/validators'
 import { minLengthThree } from 'src/app/Util/Validation'
 
-import AuthService from 'src/domains/Auth/AuthService'
+import AuthService from 'src/domains/Auth/Service/AuthService'
 
 export default {
   name: 'AuthRegister',
@@ -103,7 +104,7 @@ export default {
      */
     success (/* response */) {
       this.done = true
-      // this.$router.push(`/auth/confirm/${response.activation}`)
+      // this.$browse(`/auth/confirm/${response.activation}`)
     },
     /**
      */

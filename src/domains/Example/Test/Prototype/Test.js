@@ -39,9 +39,11 @@ export default class Test extends Prototype {
 
     this.field('name')
       .fieldTableShow()
-      .fieldRequired()
       .fieldFormWidth(50)
       .fieldFormAutofocus()
+      .fieldOn('input', function () {
+        // console.log('~> arguments', arguments)
+      })
 
     this.field('age')
       .fieldIsNumber()

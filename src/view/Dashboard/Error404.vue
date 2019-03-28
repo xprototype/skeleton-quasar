@@ -12,7 +12,7 @@
       Sorry, nothing here...<strong>(404)</strong>
     </p>
     <q-btn
-      @click="$router.push('/')"
+      @click="home"
       color="secondary"
       style="width:200px;"
     >
@@ -21,8 +21,13 @@
   </div>
 </template>
 
-<script>
+<script type="text/javascript">
 export default {
-  name: 'Error404'
+  name: 'Error404',
+  methods: {
+    home () {
+      this.$browse('/')
+    }
+  }
 }
 </script>

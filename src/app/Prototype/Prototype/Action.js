@@ -113,14 +113,14 @@ export default {
    * @returns {Prototype}
    */
   actionFloatRight () {
-    return this.actionAddClassName('q-btn-position-right')
+    return this.actionAddClassName('button-position-right')
   },
 
   /**
    * @returns {Prototype}
    */
   actionFloatLeft () {
-    return this.actionAddClassName('q-btn-position-left')
+    return this.actionAddClassName('button-position-left')
   },
 
   /**
@@ -136,10 +136,10 @@ export default {
   actionAddClassName (className) {
     const id = this.__currentAction
     if (this.__actions[id]) {
-      if (!this.__actions[id].attrs.class) {
-        this.__actions[id].attrs.class = []
+      if (!this.__actions[id].class) {
+        this.__actions[id].class = []
       }
-      this.__actions[id].attrs.class.push(className)
+      this.__actions[id].class.push(className)
     }
     return this
   },

@@ -12,7 +12,7 @@ export default [
     label: 'Sair',
     icon: 'power_settings_new',
     handler () {
-      this.$store.dispatch('auth/logout').then(() => this.$router.push('/auth'))
+      this.$store.dispatch('auth/logout').then(() => this.$browse('/auth'))
     }
   }
 ]
