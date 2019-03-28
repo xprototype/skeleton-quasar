@@ -1,5 +1,5 @@
-import form from './form'
-
 export default {
-  form
+  required: 'Required field',
+  minLength: 'Min of {min} chars',
+  maxLength: 'Max of {max} chars'
 }

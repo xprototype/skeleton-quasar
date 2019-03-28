@@ -6,6 +6,7 @@ import FormRecord from './Form/FormRecord'
 import FormValidation from './Form/FormValidation'
 
 /**
+ * @typedef {Form}
  */
 export default {
   /**
@@ -15,24 +16,11 @@ export default {
   ],
   /**
    */
-  props: {
-    sections: {
-      type: Object,
-      default: () => ({})
-    }
-  },
-  /**
-   */
-  inject: [
-    'sections'
-  ],
-  /**
-   */
   data: () => ({
     components: {},
     record: {},
     payload: {},
-    segments: {},
+    groups: {},
     errors: {}
   }),
   /**

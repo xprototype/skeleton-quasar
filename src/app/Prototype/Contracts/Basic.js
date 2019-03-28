@@ -1,29 +1,14 @@
 import Trigger from './Hook'
-import Session from './Session'
 import Button from './Button'
 
 /**
+ * @typedef {Basic}
  */
 export default {
   /**
    */
   mixins: [
-    Trigger, Session, Button
-  ],
-  /**
-   */
-  inject: [
-    'path',
-    'domain',
-    'table',
-    'form',
-    'settings',
-    'primaryKey',
-    'displayKey',
-    'service',
-    'fields',
-    'actions',
-    'hooks'
+    Trigger, Button
   ],
   /**
    */
@@ -56,6 +41,39 @@ export default {
      */
     configure () {
       // will override by specialists
+    },
+    /**
+     * @param {String} field
+     * @returns {String|*}
+     */
+    parseFieldLabel (field) {
+      if (field.$layout.tableLabel) {
+        return field.$layout.tableLabel
+      }
+      return this.$lang([
+        `domains.${this.domain}.fields.${field.$key}.__label`,
+        `domains.${this.domain}.fields.${field.$key}`,
+        `prototype.fields.${field.$key}`
+      ])
+    },
+    /**
+     * @param {Object} field
+     * @returns {Array|*}
+     */
+    parseFieldOptions (field) {
+      if (!field.attrs.options) {
+        return []
+      }
+      if (!Array.isArray(field.attrs.options)) {
+        return field.attrs.options
+      }
+      const map = (option) => {
+        if (typeof option === 'object' && option.label) {
+          option.label = this.$lang(option.label, option.label)
+        }
+        return option
+      }
+      return field.attrs.options.map(map)
     },
     /**
      * @override
@@ -104,6 +122,20 @@ export default {
      */
     getFieldLayout () {
       // will override by specialists
+    },
+    /**
+     * @param {Function} h
+     */
+    renderDebuggers (h) {
+      if (!this.debuggers) {
+        return
+      }
+
+      return h('div', [
+        h('app-debugger', { attrs: { label: 'Record', inspect: this.record } }),
+        h('app-debugger', { attrs: { label: 'Components', inspect: this.components } }),
+        h('app-debugger', { attrs: { label: 'Buttons', inspect: this.buttons } })
+      ])
     }
   }
 }

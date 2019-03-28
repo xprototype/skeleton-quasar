@@ -1,4 +1,4 @@
-const attrs = {}
+const attrs = { dense: true }
 
 export default {
   input: {

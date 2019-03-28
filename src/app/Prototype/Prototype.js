@@ -64,6 +64,7 @@ export default class Prototype extends Skeleton {
    * @override
    */
   configureEdit () {
+    this.fetchRecord(this.$route.params[this.primaryKey])
   }
 
   /**
@@ -73,12 +74,13 @@ export default class Prototype extends Skeleton {
     Object.keys(this.components).forEach(key => {
       this.setFieldAttrs(key, { readonly: true })
     })
+    this.fetchRecord(this.$route.params[this.primaryKey])
   }
 
   /**
    */
   create () {
-    this.$router.push(`${this.path}/create`)
+    this.$browse(`${this.path}/create`, true)
   }
 
   /**
@@ -91,7 +93,7 @@ export default class Prototype extends Skeleton {
       record = records[0]
     }
     if (record) {
-      this.$router.push(`${this.path}/${record[this.primaryKey]}`)
+      this.$browse(`${this.path}/${record[this.primaryKey]}`, true)
     }
   }
 
@@ -105,7 +107,7 @@ export default class Prototype extends Skeleton {
       record = records[0]
     }
     if (record) {
-      this.$router.push(`${this.path}/${record[this.primaryKey]}/edit`)
+      this.$browse(`${this.path}/${record[this.primaryKey]}/edit`, true)
     }
   }
 
@@ -114,20 +116,27 @@ export default class Prototype extends Skeleton {
    * @returns {Object}
    */
   cancel (record) {
-    this.$router.push(`${this.path}`)
+    this.$browse(`${this.path}`, true)
   }
 
   /**
+   * @param {string} scope
    * @param {Object} record
    * @param {Function} success
    * @param {Function} [fail]
    * @returns {Object}
    */
-  save (record, success, fail = undefined) {
-    if (fail) {
-      return this.service.save(record).then(success).catch(fail)
+  save (scope, record, success, fail = undefined) {
+    let method = 'create'
+    if (scope !== 'create') {
+      method = 'update'
     }
-    return this.service.save(record).then(success)
+    this.$q.loading.show()
+    const hide = () => this.$q.loading.hide()
+    if (fail) {
+      return this.service[method](record).then(success).catch(fail).finally(hide)
+    }
+    return this.service[method](record).then(success).finally(hide)
   }
 
   /**
@@ -141,8 +150,10 @@ export default class Prototype extends Skeleton {
         if (this.setup && typeof this.setup === 'function') {
           this.setup()
         }
+
         // Call global prototype configure
         prototype.configure.call(this)
+
         // Call configure of each field
         this.configure()
 
@@ -197,22 +208,35 @@ export default class Prototype extends Skeleton {
 
     this.action('save')
       .actionScopes(['create', 'edit'])
+      .actionPositions(['form-footer'])
       .actionFloatRight()
       .actionLabel(lang('prototype.action.save.label'))
       .actionIcon('save')
       .actionColor('primary')
-      .actionTextColor('grey-9')
       .actionOn('click', function () {
         this.$v.$touch()
         if (this.$v.$error || this.hasErrors) {
-          this.$message.toast(this.$lang('prototype.action.save.validation'), 'error')
+          this.$message.error(this.$lang('prototype.action.save.validation'))
           return
         }
-        const success = () => {
-          this.$message.toast(this.$lang('prototype.action.save.success'))
+        const success = (response) => {
+          if (this.debuggers) {
+            window.alert(JSON.stringify(response))
+          }
+          this.$message.success(this.$lang('prototype.action.save.success'))
         }
-        return prototype.save.call(this, this.getRecord(), success)
+
+        if (this.debuggers) {
+          window.alert(JSON.stringify(this.getRecord()))
+        }
+        return prototype.save.call(this, this.scope, this.getRecord(), success)
       })
+
+    this.action('view')
+      .actionScopes(['index'])
+      .actionPositions(['table-top', 'table-cell'])
+      .actionLabel(lang('prototype.action.view.label'))
+      .actionIcon('visibility')
 
     this.action('edit')
       .actionScopes(['index'])
@@ -227,11 +251,5 @@ export default class Prototype extends Skeleton {
       .actionLabel(lang('prototype.action.destroy.label'))
       .actionColor('negative')
       .actionIcon('delete')
-
-    this.action('view')
-      .actionScopes(['index'])
-      .actionPositions(['table-top', 'table-cell'])
-      .actionLabel(lang('prototype.action.view.label'))
-      .actionIcon('visibility')
   }
 }

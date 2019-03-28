@@ -2,6 +2,7 @@ import axios from 'axios'
 import $store from 'src/store'
 import $router from 'src/router'
 import { erase, read, write } from 'src/app/Util/Storage'
+import { fallback } from 'src/config/index'
 
 const TOKEN_NAME = 'token'
 
@@ -66,7 +67,7 @@ const responseError = function (error) {
 
   if (error.response.status === 401) {
     const login = {
-      path: '/auth/sigin',
+      path: fallback,
       query: {
         redirect: $router.currentRoute.fullPath
       }

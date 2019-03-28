@@ -1,4 +1,4 @@
-import AuthService from 'src/domains/Auth/AuthService'
+import AuthService from 'src/domains/Auth/Service/AuthService'
 
 export default {
   /**
@@ -69,7 +69,7 @@ export default {
       if (this.$route.query.redirect) {
         path = this.$route.query.redirect
       }
-      this.$router.push(path)
+      this.$browse(path)
     },
     /**
      */

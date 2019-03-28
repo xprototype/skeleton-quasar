@@ -108,7 +108,7 @@
 </template>
 
 <script type="text/javascript">
-import Proto from '../Contracts/Proto'
+import Dynamic from '../Contracts/Dynamic'
 import Table from '../Contracts/Table'
 import PrototypeButtons from 'src/app/Prototype/Components/PrototypeButtons'
 
@@ -125,7 +125,7 @@ export default {
   /**
    */
   mixins: [
-    Proto, Table
+    Dynamic, Table
   ]
 }
 </script>
@@ -163,6 +163,8 @@ export default {
         left 0
         height 54px
         overflow hidden
+        button
+          min-width auto
 
       tr:hover
         .app-form-buttons

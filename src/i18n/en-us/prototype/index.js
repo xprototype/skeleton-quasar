@@ -21,7 +21,9 @@ export default {
       label: 'New'
     },
     save: {
-      label: 'Save'
+      label: 'Save',
+      validation: 'Check the fields',
+      success: 'All done successfully'
     },
     edit: {
       label: 'Edit'

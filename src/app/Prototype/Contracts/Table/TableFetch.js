@@ -86,7 +86,7 @@ export default {
       if (this.filter) {
         query.search = this.filter
       }
-      this.$router.push({ query })
+      this.$browse({ query })
     },
     /**
      */
@@ -95,12 +95,12 @@ export default {
       if (this.filter) {
         query.search = this.filter
       }
-      this.$router.push({ query })
+      this.$browse({ query })
     },
     /**
      */
     search () {
-      this.$router.push({ query: { search: this.filter } })
+      this.$browse({ query: { search: this.filter } })
     }
   },
   /**
