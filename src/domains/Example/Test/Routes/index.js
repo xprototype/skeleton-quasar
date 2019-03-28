@@ -1,4 +1,5 @@
 import { crud } from 'src/app/Router'
+import { testForm, testTable, testWithHooksForm, testWithHooksTable } from './components'
 
 /**
  * @type {string}
@@ -6,19 +7,13 @@ import { crud } from 'src/app/Router'
 export const path = '/dashboard/test'
 
 /**
- * @returns {Promise}
- */
-export const table = () => import('src/view/Dashboard/Example/Test/TestTable')
-
-/**
- * @returns {Promise}
- */
-export const form = () => import('src/view/Dashboard/Example/Test/TestForm')
-
-/**
  * @param {AppRouter} router
  * @returns {Array}
  */
 export default (router) => {
-  return crud(path, table, form)
+  return [
+    ...crud(path, testTable, testForm),
+    ...crud('/dashboard/test-with-hooks', testWithHooksTable, testWithHooksForm),
+    ...crud('/dashboard/test-custom-components', testWithHooksTable, testWithHooksForm)
+  ]
 }

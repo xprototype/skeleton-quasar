@@ -41,6 +41,15 @@ export default class Prototype extends Skeleton {
   }
 
   /**
+   * @param {String|Array} key
+   * @param {string} [fallback]
+   * @returns {String|Object}
+   */
+  $lang (key, fallback = '') {
+    return lang(key, fallback)
+  }
+
+  /**
    * @override
    */
   configure () {
@@ -81,6 +90,12 @@ export default class Prototype extends Skeleton {
    */
   add () {
     this.$browse(`${this.path}/add`, true)
+  }
+
+  /**
+   */
+  back () {
+    this.$browse(-1)
   }
 
   /**
@@ -197,15 +212,21 @@ export default class Prototype extends Skeleton {
     this.action('add')
       .actionScopes(['index'])
       .actionPositions(['table-top'])
-      .actionLabel(lang('prototype.action.add.label'))
+      .actionLabel(this.$lang('prototype.action.add.label'))
       .actionIcon('add')
       .actionColor('primary')
+
+    this.action('back')
+      .actionScopes(['index', 'create', 'read', 'update'])
+      .actionPositions(['form-footer'])
+      .actionLabel(this.$lang('prototype.action.back.label'))
+      .actionIcon('reply')
 
     this.action('cancel')
       .actionFloatRight()
       .actionScopes(['index', 'create', 'read', 'update'])
       .actionPositions(['form-footer'])
-      .actionLabel(lang('prototype.action.cancel.label'))
+      .actionLabel(this.$lang('prototype.action.cancel.label'))
       .actionIcon('close')
 
     this.action('refresh')
@@ -219,7 +240,7 @@ export default class Prototype extends Skeleton {
       .actionScopes(['create', 'update'])
       .actionPositions(['form-footer'])
       .actionFloatRight()
-      .actionLabel(lang('prototype.action.save.label'))
+      .actionLabel(this.$lang('prototype.action.save.label'))
       .actionIcon('save')
       .actionColor('primary')
       .actionOn('click', function () {
@@ -237,20 +258,20 @@ export default class Prototype extends Skeleton {
     this.action('view')
       .actionScopes(['index'])
       .actionPositions(['table-top', 'table-cell'])
-      .actionLabel(lang('prototype.action.view.label'))
+      .actionLabel(this.$lang('prototype.action.view.label'))
       .actionIcon('visibility')
 
     this.action('edit')
       .actionScopes(['index'])
       .actionPositions(['table-top', 'table-cell'])
-      .actionLabel(lang('prototype.action.edit.label'))
+      .actionLabel(this.$lang('prototype.action.edit.label'))
       .actionColor('primary')
       .actionIcon('edit')
 
     this.action('destroy')
       .actionScopes(['index'])
       .actionPositions(['table-top', 'table-cell'])
-      .actionLabel(lang('prototype.action.destroy.label'))
+      .actionLabel(this.$lang('prototype.action.destroy.label'))
       .actionColor('negative')
       .actionIcon('delete')
   }

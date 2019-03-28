@@ -48,6 +48,16 @@ export default {
    */
   actionOrder (order) {
     const id = this.__currentAction
+    Object.keys(this.__actions).forEach((key) => {
+      if (key === this.__currentAction) {
+        return
+      }
+      const action = this.__actions[key]
+      if (action.order < order) {
+        return
+      }
+      action.order = action.order + 1
+    })
     if (this.__actions[id]) {
       this.__actions[id].order = order
     }

@@ -10,4 +10,12 @@ export default ({ Vue }) => {
       return process.env.app.APP_DEV
     }
   })
+
+  /**
+   */
+  Object.defineProperty(Vue.prototype, '$log', {
+    get () {
+      return process.env.NODE_ENV !== 'production' ? console.log : () => undefined
+    }
+  })
 }
