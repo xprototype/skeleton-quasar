@@ -16,6 +16,16 @@ export default {
   },
   components: {
   },
+  options: {
+    gender: {
+      male: 'Male',
+      female: 'Female'
+    },
+    yesNo: {
+      yes: 'Yes',
+      no: 'No'
+    }
+  },
   operations: {
     create: {
       success: 'Record created successfully'

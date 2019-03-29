@@ -1,3 +1,8 @@
+import { yesNo } from 'src/domains/Common/options'
+
+/**
+ * @typedef {FieldIs}
+ */
 export default {
   /**
    * @param {Object} options
@@ -90,10 +95,7 @@ export default {
    */
   fieldIsRadio (options = undefined, attrs = {}) {
     if (!Array.isArray(options)) {
-      options = [
-        { value: true, label: 'Yes' },
-        { value: false, label: 'No' }
-      ]
+      options = yesNo
     }
     this.setComponent('radio')
     this.setAttrs({ ...attrs, options })

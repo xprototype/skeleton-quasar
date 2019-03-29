@@ -42,7 +42,7 @@ export default class TestWithHooks extends Test {
       })
 
     this.field('gender')
-      .fieldIsRadio(gender(TestWithHooks.domain))
+      .fieldIsRadio(gender)
       .fieldFormOrder(4, true)
       .fieldFormWidth(55)
       .fieldOn('input', function ({ $event }) {
