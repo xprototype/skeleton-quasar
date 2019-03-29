@@ -11,7 +11,16 @@ export default {
     id: 'Id',
     name: 'Name',
     age: 'Age',
+    active: 'Active',
+    gender: 'Gender',
     description: 'Description'
+  },
+  gender: {
+    male: 'Male',
+    female: 'Female'
+  },
+  active: {
+    label: 'if checked will hide "Description"'
   },
   actions: {
     goToTest: 'Go to Test'

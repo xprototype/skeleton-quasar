@@ -16,15 +16,15 @@ export default {
   },
   components: {
   },
-  operation: {
+  operations: {
     create: {
       success: 'Record created successfully'
     },
     update: {
-      success: 'Record update successfully'
+      success: 'Record updated successfully'
     }
   },
-  action: {
+  actions: {
     save: {
       label: 'Save',
       validation: 'Check the fields'

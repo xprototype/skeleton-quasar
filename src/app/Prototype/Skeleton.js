@@ -13,6 +13,10 @@ export default class Skeleton extends Base {
    */
   field (name, label = '', type = undefined) {
     this.__currentField = name
+    if (this.__fields[name]) {
+      return this
+    }
+
     let is = this.is
     const attrs = { value: undefined, disable: false }
 

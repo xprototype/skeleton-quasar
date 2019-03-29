@@ -1,7 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import Skeleton from './Skeleton'
 import { lang } from 'src/app/Util/Lang'
-import { apply } from 'src/app/Util'
 
 import Field from 'src/app/Prototype/Prototype/Field'
 import FieldForm from 'src/app/Prototype/Prototype/FieldForm'
@@ -17,28 +16,6 @@ export default class Prototype extends Skeleton {
    * @type {Array}
    */
   static mixins = [Field, FieldForm, FieldIs, FieldTable, Action]
-
-  /**
-   * @type {boolean}
-   */
-  i18n = true
-
-  /**
-   * @param {Function} callback
-   */
-  locale (callback = undefined) {
-    this.namespace = this.domain.replace(/\//, '.')
-    const map = (piece) => piece.charAt(0).toUpperCase() + piece.substring(1)
-    const domain = this.namespace.split('.').map(map).join('/')
-    const locale = this.$i18n.locale
-
-    import(/* webpackChunkName: "lang-[request]" */ `src/domains/${domain}/${locale}`)
-      .then((messages) => {
-        const translations = apply({}, `domains.${this.namespace}`, messages.default)
-        this.$i18n.mergeLocaleMessage(locale, translations)
-      })
-      .finally(callback)
-  }
 
   /**
    * @param {String|Array} key
@@ -81,7 +58,7 @@ export default class Prototype extends Skeleton {
    */
   configureView () {
     Object.keys(this.components).forEach(key => {
-      this.setFieldAttrs(key, { readonly: true })
+      this.setFieldAttrs(key, { readonly: true, disable: true })
     })
     this.fetchRecord(this.$route.params[this.primaryKey])
   }
@@ -150,7 +127,7 @@ export default class Prototype extends Skeleton {
       if (this.debuggers) {
         window.alert(JSON.stringify(response))
       }
-      this.$message.success(this.$lang(`prototype.operation.${scope}.success`))
+      this.$message.success(this.$lang(`prototype.operations.${scope}.success`))
       if (scope === 'create') {
         this.$browse(`${this.path}/${response[this.primaryKey]}/edit`, true)
       }
@@ -167,66 +144,53 @@ export default class Prototype extends Skeleton {
     const prototype = this
 
     this.hook('created:default', function () {
-      /**
-       */
-      const run = () => {
-        // Call component setup method
-        if (this.setup && typeof this.setup === 'function') {
-          this.setup()
-        }
-
-        // Call global prototype configure
-        prototype.configure.call(this)
-
-        // Call configure of each field
-        this.configure()
-
-        if (this.scope === 'index') {
-          // Call configure to index scope
-          return prototype.configureIndex.call(this)
-        }
-
-        if (this.scope === 'update') {
-          // Call configure to update scope
-          return prototype.configureEdit.call(this)
-        }
-
-        if (this.scope === 'read') {
-          // Call configure to read scope
-          return prototype.configureView.call(this)
-        }
-
-        if (this.scope === 'create') {
-          // Call configure to create scope
-          return prototype.configureAdd.call(this)
-        }
+      // Call component setup method
+      if (this.setup && typeof this.setup === 'function') {
+        this.setup()
       }
-      // load i18n async
-      if (prototype.i18n) {
-        prototype.locale.call(this, run)
-        return
+
+      // Call global prototype configure
+      prototype.configure.call(this)
+
+      // Call configure of each field
+      this.configure()
+
+      if (this.scope === 'index') {
+        // Call configure to index scope
+        return prototype.configureIndex.call(this)
       }
-      run()
+
+      if (this.scope === 'update') {
+        // Call configure to update scope
+        return prototype.configureEdit.call(this)
+      }
+
+      if (this.scope === 'read') {
+        // Call configure to read scope
+        return prototype.configureView.call(this)
+      }
+
+      if (this.scope === 'create') {
+        // Call configure to create scope
+        return prototype.configureAdd.call(this)
+      }
     })
 
     this.action('add')
       .actionScopes(['index'])
       .actionPositions(['table-top'])
-      .actionLabel(this.$lang('prototype.action.add.label'))
       .actionIcon('add')
       .actionColor('primary')
 
     this.action('back')
       .actionScopes(['index', 'create', 'read', 'update'])
       .actionPositions(['form-footer'])
-      .actionLabel(this.$lang('prototype.action.back.label'))
       .actionIcon('reply')
 
     this.action('cancel')
       .actionFloatRight()
       .actionScopes(['index', 'create', 'read', 'update'])
       .actionPositions(['form-footer'])
-      .actionLabel(this.$lang('prototype.action.cancel.label'))
       .actionIcon('close')
 
     this.action('refresh')
@@ -240,13 +204,12 @@ export default class Prototype extends Skeleton {
       .actionScopes(['create', 'update'])
       .actionPositions(['form-footer'])
       .actionFloatRight()
-      .actionLabel(this.$lang('prototype.action.save.label'))
       .actionIcon('save')
       .actionColor('primary')
       .actionOn('click', function () {
         this.$v.$touch()
         if (this.$v.$error || this.hasErrors) {
-          this.$message.error(this.$lang('prototype.action.save.validation'))
+          this.$message.error('prototype.actions.save.validation')
           return
         }
         if (this.debuggers) {
@@ -258,20 +221,17 @@ export default class Prototype extends Skeleton {
     this.action('view')
       .actionScopes(['index'])
       .actionPositions(['table-top', 'table-cell'])
-      .actionLabel(this.$lang('prototype.action.view.label'))
       .actionIcon('visibility')
 
     this.action('edit')
       .actionScopes(['index'])
       .actionPositions(['table-top', 'table-cell'])
-      .actionLabel(this.$lang('prototype.action.edit.label'))
       .actionColor('primary')
       .actionIcon('edit')
 
     this.action('destroy')
       .actionScopes(['index'])
       .actionPositions(['table-top', 'table-cell'])
-      .actionLabel(this.$lang('prototype.action.destroy.label'))
       .actionColor('negative')
       .actionIcon('delete')
   }

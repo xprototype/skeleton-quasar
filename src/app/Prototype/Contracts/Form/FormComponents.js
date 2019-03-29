@@ -162,6 +162,16 @@ export default {
         field.attrs.after = this.parseFieldAfter(field)
       }
 
+      if (field.attrs.label) {
+        field.attrs.label = this.$lang(
+          [
+            `domains.${this.domain}.fields.${field.$key}.${field.attrs.label}`,
+            `domains.${this.domain}.${field.attrs.label}`,
+            field.attrs.label
+          ],
+          field.attrs.label
+        )
+      }
       if (!field.parseInput) {
         field.parseInput = (value) => value
       }

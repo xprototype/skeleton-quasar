@@ -124,6 +124,19 @@ export default {
       // will override by specialists
     },
     /**
+     * @param {string} property
+     * @param {*} value
+     */
+    setRecord (property, value) {
+      // will override by specialists
+    },
+    /**
+     * @param {string} property
+     */
+    getRecord (property) {
+      // will override by specialists
+    },
+    /**
      * @param {Function} h
      * @param {string} position
      * @param {Object} context

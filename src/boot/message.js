@@ -33,7 +33,7 @@ const base = (options, action = {}) => {
  * @param options
  */
 export const toast = (message, options = {}) => {
-  Notify.create(base({ message }))
+  Notify.create(base({ message, ...options }))
 }
 
 /**
@@ -41,7 +41,7 @@ export const toast = (message, options = {}) => {
  * @param options
  */
 export const success = (message, options = {}) => {
-  Notify.create(base({ message, color: 'positive' }))
+  Notify.create(base({ message, ...options, color: 'positive' }))
 }
 
 /**
@@ -49,7 +49,7 @@ export const success = (message, options = {}) => {
  * @param options
  */
 export const error = (message, options = {}) => {
-  Notify.create(base({ message, color: 'negative' }))
+  Notify.create(base({ message, ...options, color: 'negative' }))
 }
 
 /**
