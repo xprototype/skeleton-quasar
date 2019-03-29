@@ -83,6 +83,7 @@ module.exports = function (context) {
         'QCheckbox',
         'QSelect',
         'QRadio',
+        'QOptionGroup',
         'QCard',
         'QCardSection',
         'QCardActions',

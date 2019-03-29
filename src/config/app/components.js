@@ -5,6 +5,27 @@ export default {
     is: 'q-input',
     attrs: { ...attrs }
   },
+  number: {
+    is: 'q-input',
+    attrs: {
+      type: 'number',
+      ...attrs
+    }
+  },
+  password: {
+    is: 'q-input',
+    attrs: {
+      type: 'number',
+      ...attrs
+    }
+  },
+  email: {
+    is: 'q-input',
+    attrs: {
+      type: 'email',
+      ...attrs
+    }
+  },
   text: {
     is: 'q-input',
     attrs: {
@@ -13,13 +34,16 @@ export default {
       ...attrs
     }
   },
-  password: {
-    is: 'q-input',
+  checkbox: {
+    is: 'q-checkbox',
     attrs: { ...attrs }
   },
-  image: {
-    is: 'q-input',
-    attrs: { ...attrs }
+  radio: {
+    is: 'q-option-group',
+    attrs: {
+      inline: true,
+      ...attrs
+    }
   },
   select: {
     is: 'q-select',

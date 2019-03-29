@@ -23,81 +23,96 @@ export default {
   },
 
   /**
-   * @param {Boolean} upperCase
+   * @param {Object} attrs
    * @returns {Prototype}
    */
-  fieldIsInput (upperCase = true) {
+  fieldIsInput (attrs = {}) {
     this.setComponent('input')
-    return this.setAttrs({ upperCase })
-  },
-
-  /**
-   * @returns {Prototype}
-   */
-  fieldIsNumber () {
-    this.setComponent('input')
-    this.setAttrs({ type: 'number' })
+    this.setAttrs({ ...attrs })
     return this
   },
 
   /**
-   * @param {Array} options
+   * @param {Object} attrs
    * @returns {Prototype}
    */
-  fieldIsSelect (options) {
-    this.setComponent('select')
-    this.setAttrs({ options })
-    this.setLayout({
-      tableFormat (value/* , row */) {
-        return options.find((option) => option.value === value).label
-      }
-    })
+  fieldIsNumber (attrs = {}) {
+    this.setComponent('number')
+    this.setAttrs({ ...attrs })
+    return this
+  },
+
+  /**
+   * @param {Object} attrs
+   * @returns {Prototype}
+   */
+  fieldIsPassword (attrs = {}) {
+    this.setComponent('password')
+    this.setAttrs({ ...attrs })
+    return this
+  },
+
+  /**
+   * @param {Object} attrs
+   * @returns {Prototype}
+   */
+  fieldIsEmail (attrs = {}) {
+    this.setComponent('email')
+    this.setAttrs({ ...attrs })
     return this
   },
 
   /**
    * @param {Number} rows
+   * @param {Object} attrs
    * @returns {Prototype}
    */
-  fieldIsText (rows = 3) {
+  fieldIsText (rows = 4, attrs = {}) {
     this.setComponent('text')
-    return this.setAttrs({ rows })
+    this.setAttrs({ ...attrs, rows })
+    return this
   },
 
   /**
+   * @param {Object} attrs
    * @returns {Prototype}
    */
-  fieldIsPassword () {
-    return this.setComponent('password')
+  fieldIsCheckbox (attrs = {}) {
+    this.setComponent('checkbox')
+    this.setAttrs({ ...attrs })
+    return this
   },
 
   /**
+   * @param {Array} options
+   * @param {Object} attrs
    * @returns {Prototype}
    */
-  fieldIsRadio () {
-    return this.setComponent('radio')
+  fieldIsRadio (options = undefined, attrs = {}) {
+    if (!Array.isArray(options)) {
+      options = [
+        { value: true, label: 'Yes' },
+        { value: false, label: 'No' }
+      ]
+    }
+    this.setComponent('radio')
+    this.setAttrs({ ...attrs, options })
+    return this
   },
 
   /**
+   * @param {Array} options
+   * @param {Object} attrs
    * @returns {Prototype}
    */
-  fieldIsHtml () {
-    return this.setComponent('html')
-  },
-
-  /**
-   * @returns {Prototype}
-   */
-  fieldIsFile () {
-    return this.setComponent('file')
-  },
-
-  /**
-   * @returns {Prototype}
-   */
-  fieldIsEmail () {
-    this.setComponent('input')
-    this.setAttrs({ type: 'password' })
+  fieldIsSelect (options, attrs = {}) {
+    this.setComponent('select')
+    this.setAttrs({ ...attrs, options })
+    this.setLayout({
+      tableFormat (value/* , row */) {
+        return options.find((option) => option.value === value).label
+      }
+    })
     return this
   }
 }
