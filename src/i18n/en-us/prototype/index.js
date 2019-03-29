@@ -16,7 +16,7 @@ export default {
   },
   components: {
   },
-  operation: {
+  operations: {
     create: {
       success: 'Record created successfully'
     },
@@ -24,7 +24,7 @@ export default {
       success: 'Record updated successfully'
     }
   },
-  action: {
+  actions: {
     save: {
       label: 'Save',
       validation: 'Check the fields'

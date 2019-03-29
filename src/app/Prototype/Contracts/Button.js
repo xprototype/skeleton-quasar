@@ -49,6 +49,15 @@ export default {
           return action
         })
       }
+
+      const label = this.$lang([
+        `domains.${this.domain}.actions.${button.$key}.label`,
+        `prototype.actions.${button.$key}.label`
+      ])
+      if (label) {
+        button.attrs.label = label
+      }
+
       buttons[button.$key] = button
       return buttons
     },
