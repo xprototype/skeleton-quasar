@@ -1,4 +1,5 @@
 import Rest from 'src/app/Services/Rest'
+import { fake } from 'src/app/Util'
 
 /**
  * @type {TestService}
@@ -14,7 +15,7 @@ export default class TestService extends Rest {
    * @returns {Promise}
    */
   create (record) {
-    return this.promise({ ...record, id: Math.ceil(Math.random() * 100) })
+    return fake({ ...record, id: Math.ceil(Math.random() * 100) })
   }
 
   /**
@@ -22,7 +23,7 @@ export default class TestService extends Rest {
    * @returns {Promise}
    */
   update (record) {
-    return this.promise({ ...record })
+    return fake({ ...record })
   }
 
   /**
@@ -31,7 +32,7 @@ export default class TestService extends Rest {
    */
   read (record) {
     const index = typeof record === 'object' ? 1 : String(record)
-    return this.promise({
+    return fake({
       id: index,
       name: `Name fake ${index}`,
       age: Math.ceil(Math.random() * 100),
@@ -44,7 +45,7 @@ export default class TestService extends Rest {
    * @returns {Promise}
    */
   destroy (record) {
-    return this.promise({ ...record })
+    return fake({ ...record })
   }
 
   /**
@@ -53,53 +54,38 @@ export default class TestService extends Rest {
    * @returns {Promise}
    */
   search (parameters = {}, filters = []) {
-    return new Promise((resolve) => {
-      const page = parameters.pagination.page
-      const sortBy = parameters.pagination.sortBy
-      const descending = parameters.pagination.descending
-      const rowsPerPage = parameters.pagination.rowsPerPage
+    const page = parameters.pagination.page
+    const sortBy = parameters.pagination.sortBy
+    const descending = parameters.pagination.descending
+    const rowsPerPage = parameters.pagination.rowsPerPage
 
-      const rowsNumber = 32
-      const pagesNumber = Math.ceil(rowsNumber / rowsPerPage)
-      let length = rowsPerPage
-      if (page === pagesNumber) {
-        length = rowsNumber % (pagesNumber - 1)
-      } else if (page > pagesNumber) {
-        length = 0
+    const rowsNumber = 32
+    const pagesNumber = Math.ceil(rowsNumber / rowsPerPage)
+    let length = rowsPerPage
+    if (page === pagesNumber) {
+      length = rowsNumber % (pagesNumber - 1)
+    } else if (page > pagesNumber) {
+      length = 0
+    }
+
+    const generator = (value, index) => {
+      const counter = (page - 1) * rowsPerPage + index + 1
+      return {
+        id: counter,
+        name: `Name fake ${counter}`,
+        age: Math.ceil(Math.random() * 100),
+        description: `Description fake ${counter}`
       }
+    }
 
-      const generator = (v, i) => {
-        const counter = (page - 1) * rowsPerPage + i + 1
-        return {
-          id: counter,
-          name: `Name fake ${counter}`,
-          age: Math.ceil(Math.random() * 100),
-          description: `Description fake ${counter}`
-        }
-      }
-
-      window.setTimeout(() => {
-        resolve({
-          rowsPerPage: rowsPerPage,
-          rowsNumber: rowsNumber,
-          pagesNumber: pagesNumber,
-          sortBy: sortBy,
-          descending: descending,
-          page: page,
-          rows: Array.from({ length }, generator)
-        })
-      }, 500)
-    })
-  }
-
-  /**
-   * @param {*} response
-   * @param {Number} time
-   * @returns {Promise}
-   */
-  promise (response, time = 1000) {
-    return new Promise(function (resolve) {
-      window.setTimeout(() => resolve(response), time)
+    return fake({
+      rowsPerPage: rowsPerPage,
+      rowsNumber: rowsNumber,
+      pagesNumber: pagesNumber,
+      sortBy: sortBy,
+      descending: descending,
+      page: page,
+      rows: Array.from({ length }, generator)
     })
   }
 }

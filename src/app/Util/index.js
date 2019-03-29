@@ -128,6 +128,17 @@ export const isObject = (value) => typeof value === 'object'
 export const isNumber = (value) => typeof value === 'number'
 
 /**
+ * @param {*} response
+ * @param {Number} time
+ * @returns {Promise}
+ */
+export const fake = (response, time = 500) => {
+  return new Promise(function (resolve) {
+    window.setTimeout(() => resolve(response), time)
+  })
+}
+
+/**
  * @param $component
  * @returns Object}
  */
