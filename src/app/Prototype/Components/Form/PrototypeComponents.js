@@ -37,13 +37,10 @@ export default {
       const key = field.$key
 
       const error = this.fieldHasError(key)
-      const style = {
-        display: field.$layout.formHidden ? 'none' : ''
-      }
       const data = {
         key: key,
         class: this.fieldClass(field.$layout.formWidth, field.$layout.formHeight, error),
-        domProps: { style }
+        style: { display: field.$layout.formHidden ? 'none' : '' }
       }
 
       const children = [
