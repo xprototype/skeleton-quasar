@@ -17,7 +17,7 @@ export const lang = (key, fallback = '') => {
       continue
     }
 
-    let clean = key[path].replace(/\//g, '.')
+    let clean = String(key[path]).replace(/\//g, '.')
     if (!window.app.i18n.te(clean)) {
       continue
     }
