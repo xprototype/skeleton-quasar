@@ -124,7 +124,7 @@ export default class Skeleton extends Base {
    */
   hooks () {
     if (this.safe) {
-      return this.clone(this.__hooks)
+      return this.$clone(this.__hooks)
     }
     return this.__hooks
   }
@@ -134,7 +134,7 @@ export default class Skeleton extends Base {
    */
   fields () {
     if (this.safe) {
-      return this.clone(this.__fields)
+      return this.$clone(this.__fields)
     }
     return this.__fields
   }
@@ -144,7 +144,7 @@ export default class Skeleton extends Base {
    */
   sections () {
     if (this.safe) {
-      return this.clone(this.__sections)
+      return this.$clone(this.__sections)
     }
     return this.__sections
   }
@@ -154,7 +154,7 @@ export default class Skeleton extends Base {
    */
   actions () {
     if (this.safe) {
-      return this.clone(Object.values(this.__actions))
+      return this.$clone(Object.values(this.__actions))
     }
     return Object.values(this.__actions)
   }
