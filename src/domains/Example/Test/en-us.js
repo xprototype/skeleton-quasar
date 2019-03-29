@@ -15,10 +15,6 @@ export default {
     gender: 'Gender',
     description: 'Description'
   },
-  gender: {
-    male: 'Male',
-    female: 'Female'
-  },
   active: {
     label: 'if checked will hide "Description"'
   },
