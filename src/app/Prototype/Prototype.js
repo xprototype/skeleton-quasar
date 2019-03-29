@@ -58,7 +58,7 @@ export default class Prototype extends Skeleton {
    */
   configureView () {
     Object.keys(this.components).forEach(key => {
-      this.setFieldAttrs(key, { readonly: true })
+      this.setFieldAttrs(key, { readonly: true, disable: true })
     })
     this.fetchRecord(this.$route.params[this.primaryKey])
   }
@@ -127,7 +127,7 @@ export default class Prototype extends Skeleton {
       if (this.debuggers) {
         window.alert(JSON.stringify(response))
       }
-      this.$message.success(this.$lang(`prototype.operation.${scope}.success`))
+      this.$message.success(this.$lang(`prototype.operations.${scope}.success`))
       if (scope === 'create') {
         this.$browse(`${this.path}/${response[this.primaryKey]}/edit`, true)
       }
@@ -179,21 +179,18 @@ export default class Prototype extends Skeleton {
     this.action('add')
       .actionScopes(['index'])
       .actionPositions(['table-top'])
-      .actionLabel(this.$lang('prototype.action.add.label'))
       .actionIcon('add')
       .actionColor('primary')
 
     this.action('back')
       .actionScopes(['index', 'create', 'read', 'update'])
       .actionPositions(['form-footer'])
-      .actionLabel(this.$lang('prototype.action.back.label'))
       .actionIcon('reply')
 
     this.action('cancel')
       .actionFloatRight()
       .actionScopes(['index', 'create', 'read', 'update'])
       .actionPositions(['form-footer'])
-      .actionLabel(this.$lang('prototype.action.cancel.label'))
       .actionIcon('close')
 
     this.action('refresh')
@@ -207,13 +204,12 @@ export default class Prototype extends Skeleton {
       .actionScopes(['create', 'update'])
       .actionPositions(['form-footer'])
       .actionFloatRight()
-      .actionLabel(this.$lang('prototype.action.save.label'))
       .actionIcon('save')
       .actionColor('primary')
       .actionOn('click', function () {
         this.$v.$touch()
         if (this.$v.$error || this.hasErrors) {
-          this.$message.error(this.$lang('prototype.action.save.validation'))
+          this.$message.error('prototype.actions.save.validation')
           return
         }
         if (this.debuggers) {
@@ -225,20 +221,17 @@ export default class Prototype extends Skeleton {
     this.action('view')
       .actionScopes(['index'])
       .actionPositions(['table-top', 'table-cell'])
-      .actionLabel(this.$lang('prototype.action.view.label'))
       .actionIcon('visibility')
 
     this.action('edit')
       .actionScopes(['index'])
       .actionPositions(['table-top', 'table-cell'])
-      .actionLabel(this.$lang('prototype.action.edit.label'))
       .actionColor('primary')
       .actionIcon('edit')
 
     this.action('destroy')
       .actionScopes(['index'])
       .actionPositions(['table-top', 'table-cell'])
-      .actionLabel(this.$lang('prototype.action.destroy.label'))
       .actionColor('negative')
       .actionIcon('delete')
   }
