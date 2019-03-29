@@ -19,6 +19,9 @@ export default {
     male: 'Male',
     female: 'Female'
   },
+  active: {
+    label: 'if checked will hide "Description"'
+  },
   actions: {
     goToTest: 'Go to Test'
   },

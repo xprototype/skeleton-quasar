@@ -34,7 +34,7 @@ export default class TestWithHooks extends Test {
    */
   configureFields () {
     this.field('active')
-      .fieldIsCheckbox({ label: 'if checked will hide "Description"' })
+      .fieldIsCheckbox({ label: 'active.label' })
       .fieldFormWidth(45)
       .fieldFormOrder(3, true)
       .fieldOn('input', function ({ $event }) {
