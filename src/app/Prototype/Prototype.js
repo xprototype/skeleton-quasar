@@ -1,6 +1,5 @@
 /* eslint-disable no-underscore-dangle */
 import Skeleton from './Skeleton'
-import { lang } from 'src/app/Util/Lang'
 
 import Field from 'src/app/Prototype/Prototype/Field'
 import FieldForm from 'src/app/Prototype/Prototype/FieldForm'
@@ -16,15 +15,6 @@ export default class Prototype extends Skeleton {
    * @type {Array}
    */
   static mixins = [Field, FieldForm, FieldIs, FieldTable, Action]
-
-  /**
-   * @param {String|Array} key
-   * @param {string} [fallback]
-   * @returns {String|Object}
-   */
-  $lang (key, fallback = '') {
-    return lang(key, fallback)
-  }
 
   /**
    * @override

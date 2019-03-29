@@ -1,10 +1,14 @@
 import Base from 'src/app/Prototype/Base'
-import { clone } from 'src/app/Util'
 
 /**
  * @typedef {Skeleton}
  */
 export default class Skeleton extends Base {
+  /**
+   * @type {Boolean}
+   */
+  safe = true
+
   /**
    * @param {string} name
    * @param {string} label
@@ -119,28 +123,40 @@ export default class Skeleton extends Base {
    * @returns {Object}
    */
   hooks () {
-    return clone(this.__hooks)
+    if (this.safe) {
+      return this.clone(this.__hooks)
+    }
+    return this.__hooks
   }
 
   /**
    * @returns {Object}
    */
   fields () {
-    return clone(this.__fields)
+    if (this.safe) {
+      return this.clone(this.__fields)
+    }
+    return this.__fields
   }
 
   /**
    * @returns {Object}
    */
   sections () {
-    return clone(this.__sections)
+    if (this.safe) {
+      return this.clone(this.__sections)
+    }
+    return this.__sections
   }
 
   /**
    * @returns {Array}
    */
   actions () {
-    return clone(Object.values(this.__actions))
+    if (this.safe) {
+      return this.clone(Object.values(this.__actions))
+    }
+    return Object.values(this.__actions)
   }
 
   /**
