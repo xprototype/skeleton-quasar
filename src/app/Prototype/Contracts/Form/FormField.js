@@ -68,6 +68,20 @@ const FormField = {
       return this.getFieldLayouts(component)[attr]
     },
     /**
+     * @param {string} property
+     * @param {*} value
+     */
+    setRecord (property, value) {
+      this.record[property] = value
+      return this
+    },
+    /**
+     * @param {string} property
+     */
+    getRecord (property) {
+      return this.record[property]
+    },
+    /**
      * @param {string} component
      * @param {Boolean} error
      * @param {string} [message
