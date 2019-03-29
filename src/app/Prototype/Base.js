@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import components from 'src/config/app/components'
-import { apply } from 'src/app/Util'
+import { apply, clone } from 'src/app/Util'
+import { lang } from 'src/app/Util/Lang'
 
 /**
  * @typedef {Base}
@@ -159,6 +160,24 @@ export default class Base {
       }
       this[method] = mixin[method].bind(this)
     })
+  }
+
+  /**
+   * @param {String|Array} key
+   * @param {string} [fallback]
+   * @returns {String|Object}
+   */
+  $lang (key, fallback = '') {
+    return lang(key, fallback)
+  }
+
+  /**
+   * @param {*} element
+   * @param {Function} action
+   * @returns {*}
+   */
+  $clone (element, action = (value) => value) {
+    return clone(element, action)
   }
 
   /**

@@ -12,6 +12,10 @@ export default {
     validations: {
       type: Object,
       default: () => ({})
+    },
+    safe: {
+      type: Boolean,
+      default: true
     }
   },
   /**
@@ -64,6 +68,16 @@ export default {
         attrs: { ...field.attrs },
         on: { ...field.listeners, input: ($event) => this.componentInput($event, field) }
       })
+    },
+    /**
+     * @param {Object} value
+     */
+    updateRecord (value) {
+      if (this.safe) {
+        this.record = this.$util.clone(value)
+        return
+      }
+      this.record = value
     }
   },
   /**
@@ -75,7 +89,7 @@ export default {
     value: {
       deep: true,
       handler (value) {
-        this.record = this.$util.clone(value)
+        this.updateRecord(value)
       }
     }
   },
@@ -83,6 +97,6 @@ export default {
    */
   created () {
     this.counter = 1
-    this.record = this.$util.clone(this.value)
+    this.updateRecord(this.value)
   }
 }
