@@ -1,4 +1,5 @@
 import Base from 'src/app/Prototype/Base'
+import { clone } from 'src/app/Util'
 
 /**
  * @typedef {Skeleton}
