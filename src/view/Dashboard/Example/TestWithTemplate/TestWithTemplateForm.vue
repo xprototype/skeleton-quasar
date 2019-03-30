@@ -1,34 +1,43 @@
 <template>
   <app-form
-    v-model="record"
-    @submit="actionSubmit"
+    ref="form"
+    v-model="storage"
+    :status="status"
+    @form:status="eventStatus"
+    @form:submit="actionSubmit"
+    @form:reset="actionReset"
   >
     <template v-slot:body="schema">
       <app-field
         as="input"
         name="id"
-        v-model="record.id"
+        v-model="storage.id"
+        :errors="errors.id"
         :label="$t('example.textWithTemplateForm.fields.id')"
         width="100"
+        :hidden="false"
         :readonly="true"
       />
       <app-field
         as="input"
-        v-model="record.name"
+        v-model="storage.name"
+        :errors="errors.name"
         name="name"
         :label="$t('example.textWithTemplateForm.fields.name')"
         width="50"
       />
       <app-field
         as="number"
-        v-model="record.age"
+        v-model="storage.age"
+        :errors="errors.age"
         name="age"
         :label="$t('example.textWithTemplateForm.fields.age')"
         width="50"
       />
       <app-field
         as="checkbox"
-        v-model="record.active"
+        v-model="storage.active"
+        :errors="errors.active"
         name="active"
         :label="$t('example.textWithTemplateForm.fields.active')"
         width="45"
@@ -37,7 +46,8 @@
       />
       <app-field
         as="radio"
-        v-model="record.gender"
+        v-model="storage.gender"
+        :errors="errors.gender"
         name="gender"
         :label="$t('example.textWithTemplateForm.fields.gender')"
         width="55"
@@ -45,7 +55,8 @@
       />
       <app-field
         as="text"
-        v-model="record.description"
+        v-model="storage.description"
+        :errors="status.description"
         name="description"
         :label="descriptionLabel"
         :hidden="descriptionHidden"
@@ -55,37 +66,52 @@
     <template v-slot:buttons>
       <app-button
         icon="reply"
-        label="Back"
+        :label="$t('prototype.actions.back.label')"
         @click="actionBack"
-      />
-      <app-button
-        icon="cancel"
-        label="Cancel"
-        position="right"
-        @click="actionCancel"
       />
       <app-button
         primary
         submit
         icon="save"
-        label="Save"
+        :label="$t('prototype.actions.save.label')"
+        position="right"
+      />
+      <app-button
+        icon="cancel"
+        :label="$t('prototype.actions.cancel.label')"
+        position="right"
+        @click="actionCancel"
+      />
+      <app-button
+        reset
+        icon="360"
+        :label="$t('prototype.actions.reset.label')"
+        color="red"
+        text-color="white"
         position="right"
       />
     </template>
     <template v-slot:debuggers="schema">
       <app-debugger
         label="Record"
-        v-bind="{ inspect: record }"
+        v-bind="{ inspect: storage }"
       />
       <app-debugger
         label="Schema"
         v-bind="{ inspect: schema }"
+      />
+      <app-debugger
+        label="Errors"
+        v-bind="{ inspect: errors }"
       />
     </template>
   </app-form>
 </template>
 
 <script type="text/javascript">
+import Form from 'src/app/Prototype/View/Form'
+import FormFetch from 'src/app/Prototype/Contracts/Form/FormFetch'
+
 import { gender } from 'src/domains/Common/options'
 
 /**
@@ -94,7 +120,18 @@ import { gender } from 'src/domains/Common/options'
 export default {
   /**
    */
+  extends: Form,
+  /**
+   */
+  mixins: [
+    FormFetch
+  ],
+  /**
+   */
   name: 'TestWithTemplateForm',
+  /**
+   */
+  recordName: 'storage',
   /**
    */
   schema: {
@@ -102,7 +139,11 @@ export default {
     name: {
       default: 'William'
     },
-    number: {},
+    age: {
+      validate: {
+        required: true
+      }
+    },
     active: {
       default: false
     },
@@ -113,8 +154,14 @@ export default {
     },
     description: {}
   },
+  /**
+   */
   data: () => ({
-    record: {},
+    storage: {},
+    errors: {},
+    status: {
+      description: ['Houston, we have a problem']
+    },
     activeHidden: false,
     descriptionLabel: '',
     descriptionHidden: false
@@ -124,24 +171,33 @@ export default {
   methods: {
     /**
      * @param {Object} $event
+     * @return {Promise}
      */
-    actionSubmit ($event) {
-      window.alert(JSON.stringify(this.record))
+    attempt ($event) {
+      return this.$service
+        .create(this[this.$options.recordName])
+        .then(this.success)
+        .catch(this.fail)
+    },
+    /**
+     * @param response
+     */
+    success (response) {
+      if (this.debuggers) {
+        window.alert(JSON.stringify(response))
+      }
+      this.$message.success(this.$lang(`prototype.operations.create.success`))
     },
     /**
      */
-    actionBack () {
-      this.$browse(-1)
-    },
-    /**
-     */
-    actionCancel () {
-      this.$browse('/dashboard/test-with-template/table')
+    fail () {
     },
     /**
      * @param {string} description
      */
     configureChangeDescription (description) {
+      this.status.description = undefined
+
       if (!this.originalLabel) {
         this.originalLabel = this.descriptionLabel
       }
@@ -169,6 +225,11 @@ export default {
    */
   created () {
     this.descriptionLabel = this.$t('example.textWithTemplateForm.fields.description')
+  },
+  /**
+   */
+  mounted () {
+    this.fetchRecord(1)
   }
 }
 </script>

@@ -4,7 +4,7 @@
 
 <script type="text/javascript">
 import PrototypeView from 'src/app/Prototype/View/Prototype'
-import TestWithHooks from 'src/domains/Example/Test/Prototype/TestWithHooks'
+import TestWithHooks from 'src/domains/Example/TestWithHooks/Prototype/TestWithHooks'
 
 /**
  * @typedef {TestWithHooksForm}

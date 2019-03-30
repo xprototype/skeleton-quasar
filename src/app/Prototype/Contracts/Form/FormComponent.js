@@ -1,5 +1,3 @@
-import { clone } from 'src/app/Util'
-
 /**
  * @mixin {FieldComponent}
  */
@@ -108,7 +106,7 @@ export default {
             field,
             action,
             true,
-            clone(parameters)
+            this.$util.clone(parameters)
           )
         }
         return action

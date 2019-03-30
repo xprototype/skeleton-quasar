@@ -24,6 +24,13 @@
           color="red"
         />
 
+        <q-toggle
+          v-if="$dev"
+          v-model="studio"
+          label="Studio"
+          color="red"
+        />
+
         <q-space />
 
         <div class="qc-brand-image-container">
@@ -119,22 +126,65 @@
         <router-view />
       </transition>
     </q-page-container>
+
+    <q-dialog
+      style="z-index: 999999"
+      v-model="studio"
+      persistent
+      :maximized="true"
+      transition-show="slide-up"
+      transition-hide="slide-down"
+    >
+      <q-card class="gradient overflow-hidden">
+        <q-bar class="text-white">
+          <q-space />
+
+          <q-btn
+            dense
+            flat
+            icon="close"
+            v-close-popup
+          />
+        </q-bar>
+
+        <q-card-section>
+          <div style="position: relative">
+            <studio-canvas />
+          </div>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </q-layout>
 </template>
 
 <script type="text/javascript">
 import { fallback } from 'src/config'
+import Transition from 'src/modules/General/Mixins/Transition'
+import StudioCanvas from 'src/view/Studio/StudioCanvas'
 
 /**
  */
 export default {
+  /**
+   */
   name: 'DashboardLayout',
+  /**
+   */
+  components: {
+    StudioCanvas
+  },
+  /**
+   */
+  mixins: [
+    Transition
+  ],
   /**
    */
   data () {
     return {
       leftDrawerOpen: this.$q.platform.is.desktop,
-      debugging: false
+      debugging: false,
+      studio: false
     }
   },
   /**
@@ -151,9 +201,6 @@ export default {
      */
     appDrawer () {
       return this.$store.getters['app/getDrawer']
-    },
-    transitionName () {
-      return this.$store.getters['dashboard/getTransition']
     }
   },
   /**
@@ -169,32 +216,10 @@ export default {
      */
     logout () {
       this.$browse(fallback)
-    },
-    /**
-     * @param {Element} element
-     */
-    beforeLeave (element) {
-      this.prevHeight = getComputedStyle(element).height
-    },
-    /**
-     * @param {Element} element
-     */
-    enter (element) {
-      const { height } = getComputedStyle(element)
-
-      element.style.height = this.prevHeight
-
-      setTimeout(() => {
-        element.style.height = height
-      })
-    },
-    /**
-     * @param {Element} element
-     */
-    afterEnter (element) {
-      element.style.height = 'auto'
     }
   },
+  /**
+   */
   created () {
     this.debugging = this.$store.getters['app/getDebuggers']
     this.$watch('debugging', (debugging) => {
@@ -218,14 +243,16 @@ export default {
 
   .qc-brand-image-container
     margin 0 10px
+
     .qc-brand-image
       height 36px
       transition-duration 0.6s
       transition-property transform
+
       &:hover
         transform rotate(360deg)
 
-  .q-header
+  .q-header, .gradient
     background linear-gradient(0deg, #23364b 20%, #1b263a 95%)
 
   .q-layout-scroll

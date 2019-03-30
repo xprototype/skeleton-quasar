@@ -33,8 +33,14 @@ export default {
     hidden: {
       type: Boolean,
       required: false
+    },
+    errors: {
+      type: [Array, Object, String],
+      default: () => []
     }
   },
+  /**
+   */
   data: () => ({
     field: {}
   }),
@@ -46,9 +52,6 @@ export default {
      */
     input ($event) {
       this.$emit('input', $event)
-      if (this.$listeners.input) {
-        this.$listeners.input($event)
-      }
     },
     /**
      * @param {Function} h
@@ -63,11 +66,28 @@ export default {
       })
     },
     /**
+     */
+    fieldHasError () {
+      if (Array.isArray(this.errors)) {
+        return !!this.errors.length
+      }
+      if (typeof this.errors === 'object') {
+        return !!Object.values(this.errors).length
+      }
+      return !!String(this.errors).length
+    },
+    /**
      * @param {string} key
      * @returns {*}
      */
     errorContent (key) {
-      return ''
+      if (Array.isArray(this.errors)) {
+        return this.errors.join(' / ')
+      }
+      if (typeof this.errors === 'object') {
+        return Object.values(this.errors).map((error) => String(error)).join(' / ')
+      }
+      return this.errors
     },
     /**
      * @returns {*}
@@ -75,6 +95,16 @@ export default {
     schema () {
       // QPage, AppForm, TestWithTemplateForm
       return this.$util.prop(this.$parent, `$parent.$parent.$options.schema.${this.name}`, {})
+    }
+  },
+  /**
+   */
+  watch: {
+    /**
+     * @param {*} value
+     */
+    value (value) {
+      this.$listeners.input(value)
     }
   },
   /**
@@ -101,6 +131,9 @@ export default {
     field.is = component.is
     if (this.hidden) {
       field.$layout.formHidden = this.hidden
+    }
+    if (schema.validate) {
+      field.$validations = schema.validate
     }
 
     return this.renderField(h, this.parseField(field))

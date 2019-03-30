@@ -2,6 +2,7 @@ import TableColumns from './Table/TableColumns'
 import TableFetch from './Table/TableFetch'
 
 /**
+ * @typedef {Table}
  */
 export default {
   /**

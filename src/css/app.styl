@@ -1,16 +1,13 @@
 // app global css
-@import "../app/Prototype/Style/element.styl"
+@import "prototype.styl"
 
-@import "../app/Prototype/Style/form.styl"
-
-@import "../app/Prototype/Style/field.styl"
-
-@import "../app/Prototype/Style/fix.styl"
-
-@import "../app/Prototype/Style/header.styl"
-
-@import "../app/Prototype/Style/scrollbar.styl"
-
-@import "../app/Prototype/Style/table.styl"
-
-@import "../app/Prototype/Style/transition.styl"
+// @quasar
+// q-btn, q-btn-section
+@media (max-width: 768px)
+  .q-btn, .q-btn-section
+    min-width 0 !important
+    .q-btn__content
+      & > div
+        display: none
+      & i.on-left
+        margin: 0

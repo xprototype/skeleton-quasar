@@ -1,4 +1,5 @@
 import PrototypeButton from 'src/app/Prototype/Components/Buttons/PrototypeButton'
+
 /**
  * @type {AppButton}
  */
@@ -34,6 +35,10 @@ export default {
       type: Boolean,
       required: false
     },
+    reset: {
+      type: Boolean,
+      required: false
+    },
     position: {
       type: String,
       default: ''
@@ -52,7 +57,15 @@ export default {
    */
   render (h) {
     const color = this.$props.primary ? 'primary' : this.color
-    const type = this.$props.submit ? 'submit' : 'button'
+    let type = 'button'
+    if (this.$props.submit) {
+      type = 'submit'
+    }
+    const on = {}
+    if (this.$props.reset) {
+      // TODO: don't use "this.$parent.$parent"
+      on.click = ($event) => this.$parent.$parent.$emit('form:reset', $event)
+    }
 
     const classNames = []
     if (this.$attrs.class) {
@@ -66,7 +79,7 @@ export default {
       key: this.name || this.$util.uniqueKey(),
       class: classNames,
       attrs: { ...this.$attrs, ...this.$props, color, type },
-      listeners: { ...this.$listeners }
+      listeners: { ...on, ...this.$listeners }
     }
 
     return this.renderButton(h, button)

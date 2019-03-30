@@ -1,3 +1,6 @@
+/**
+ * @mixin {TableFetch}
+ */
 export default {
   /**
    */

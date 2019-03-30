@@ -39,6 +39,9 @@ export default {
       label: 'Save',
       validation: 'Check the fields'
     },
+    reset: {
+      label: 'Reset'
+    },
     add: {
       label: 'New'
     },

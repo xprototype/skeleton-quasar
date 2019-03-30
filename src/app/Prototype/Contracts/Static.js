@@ -1,7 +1,7 @@
 import Basic from './Basic'
 
 /**
- * @typedef {Inject}
+ * @typedef {Static}
  */
 export default {
   /**
