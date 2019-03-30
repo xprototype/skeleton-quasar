@@ -1,5 +1,5 @@
 /**
- * @mixin Report
+ * @mixin {Prototype}
  */
 export default {
   /**

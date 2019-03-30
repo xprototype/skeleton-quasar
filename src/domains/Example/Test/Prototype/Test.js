@@ -37,7 +37,7 @@ export default class Test extends Prototype {
   construct () {
     this.fieldAsPrimaryKey()
 
-    this.field('name')
+    this.addField('name')
       .fieldTableShow()
       .fieldFormWidth(50)
       .fieldFormAutofocus()
@@ -45,27 +45,38 @@ export default class Test extends Prototype {
         // console.log('~> arguments', arguments)
       })
 
-    this.field('age')
+    this.addField('age')
       .fieldIsNumber()
       .fieldRequired()
       .fieldFormWidth(50)
 
-    this.field('description')
+    this.addField('description')
       .fieldIsText()
 
     this.action('edit')
-      .actionConfigure(function (button, { context, scope, position }) {
-        // console.table({ scope, position })
-        // if is not grid, avoid
-        if (scope !== 'index' || position !== 'table-cell') {
-          return button
-        }
-        // hidden button if id is even
-        const record = this.$util.prop(context, 'record', {})
-        if (record.id % 2 === 0) {
-          button.hidden = true
-        }
-        return button
-      })
+      .actionConfigure(this.configureHideEditOnEven)
+  }
+
+  /**
+   * @param {Object} button
+   * @param {string} scope
+   * @param {string} position
+   * @param {Object} context
+   * @returns {*}
+   */
+  configureHideEditOnEven (button, { scope, position, context }) {
+    // this.$log({ scope, position })
+
+    // if is not grid, avoid
+    if (scope !== 'index' || position !== 'table-cell') {
+      return button
+    }
+
+    // hidden button if id is even
+    const record = this.$util.prop(context, 'record', {})
+    if (record.id % 2 === 0) {
+      button.hidden = true
+    }
+    return button
   }
 }

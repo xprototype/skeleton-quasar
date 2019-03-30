@@ -1,5 +1,5 @@
 import API from 'src/app/Services/API'
-import { uniqueKey } from 'src/app/Util'
+import { fake, uniqueKey } from 'src/app/Util'
 
 /**
  * @type {AuthService}
@@ -11,12 +11,7 @@ export default class AuthService extends API {
    * @returns {Promise<any>}
    */
   fake (data = undefined, status = 'success') {
-    return new Promise(function (resolve) {
-      window.setTimeout(
-        () => resolve({ status, data }),
-        500
-      )
-    })
+    return fake({ status, data })
   }
 
   /**
@@ -46,6 +41,18 @@ export default class AuthService extends API {
           sublabel: 'Demo to show declare hooks',
           icon: 'code',
           path: '/dashboard/test-with-hooks'
+        },
+        {
+          label: 'Test Template Form',
+          sublabel: 'Using form control with template',
+          icon: 'code',
+          path: '/dashboard/test-with-template/form'
+        },
+        {
+          label: 'Test Template Table',
+          sublabel: 'Using table control with template',
+          icon: 'code',
+          path: '/dashboard/test-with-template/table'
         }
       ]
     })

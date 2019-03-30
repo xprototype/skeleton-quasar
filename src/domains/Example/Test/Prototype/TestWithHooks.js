@@ -23,17 +23,20 @@ export default class TestWithHooks extends Test {
     // construct the parent
     super.construct()
     // configure some fields
-    this.configureFields()
+    this.setupFields()
     // configure some actions
-    this.configureActions()
+    this.setupActions()
     // configure some  hooks
-    this.configureHooks()
+    this.setupHooks()
   }
 
   /**
    */
-  configureFields () {
-    this.field('active')
+  setupFields () {
+    this.getField('name')
+      .fieldFormDefaultValue('William')
+
+    this.addField('active')
       .fieldIsCheckbox({ label: 'active.label' })
       .fieldFormWidth(45)
       .fieldFormOrder(3, true)
@@ -41,7 +44,7 @@ export default class TestWithHooks extends Test {
         this.setFieldLayout('description', 'formHidden', $event)
       })
 
-    this.field('gender')
+    this.addField('gender')
       .fieldIsRadio(gender)
       .fieldFormOrder(4, true)
       .fieldFormWidth(55)
@@ -49,12 +52,13 @@ export default class TestWithHooks extends Test {
         this.setFieldLayout('active', 'formHidden', $event === 'male')
       })
 
-    this.field('description').fieldOn('input', this.changeDescriptionLabel)
+    this.getField('description')
+      .fieldOn('input', this.configureChangeDescription)
   }
 
   /**
    */
-  configureActions () {
+  setupActions () {
     this.action('cancel')
       .actionColor('red')
       .actionTextColor('white')
@@ -75,7 +79,7 @@ export default class TestWithHooks extends Test {
 
   /**
    */
-  configureHooks () {
+  setupHooks () {
     /**
      */
     this.hook('fetch:record', function () {
@@ -96,7 +100,7 @@ export default class TestWithHooks extends Test {
    * @param $event
    * @param field
    */
-  changeDescriptionLabel ({ $event, field }) {
+  configureChangeDescription ({ $event, field }) {
     if (!field.originalLabel) {
       field.originalLabel = field.label
     }

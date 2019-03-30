@@ -17,3 +17,13 @@ export const testWithHooksTable = () => import('src/view/Dashboard/Example/TestW
  * @returns {Promise}
  */
 export const testWithHooksForm = () => import('src/view/Dashboard/Example/TestWithHooks/TestWithHooksForm')
+
+/**
+ * @returns {Promise}
+ */
+export const testWithTemplateTable = () => import('src/view/Dashboard/Example/TestWithTemplate/TestWithTemplateTable')
+
+/**
+ * @returns {Promise}
+ */
+export const testWithTemplateForm = () => import('src/view/Dashboard/Example/TestWithTemplate/TestWithTemplateForm')

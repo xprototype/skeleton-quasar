@@ -18,7 +18,7 @@ export default {
       hiddenForm: false,
       ...options
     }
-    return this.field(options.key, options.label, Number)
+    return this.addField(options.key, options.label, Number)
       .fieldTableWidth(options.tableWith)
       .fieldFormWidth(options.formWidth)
       .fieldTableShow(options.tableShow)

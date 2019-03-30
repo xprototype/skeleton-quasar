@@ -28,7 +28,7 @@ export default {
   methods: {
     /**
      */
-    setup () {
+    initialize () {
       this.record = {}
       this.components = {}
 

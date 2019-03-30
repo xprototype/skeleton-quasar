@@ -118,7 +118,7 @@ export default class Base {
   /**
    */
   init () {
-    this.constructor.mixins.forEach(mixin => this.mixin(mixin))
+    this.constructor.mixins.forEach((mixin) => this.mixin(mixin))
   }
 
   /**
@@ -151,15 +151,12 @@ export default class Base {
     if (typeof mixin !== 'object') {
       return
     }
-    Object.keys(mixin).forEach(method => {
-      if (this[method]) {
-        return
+    for (let fragment in mixin) {
+      if (this[fragment]) {
+        continue
       }
-      if (typeof mixin[method] !== 'function') {
-        return
-      }
-      this[method] = mixin[method].bind(this)
-    })
+      Base.prototype[fragment] = mixin[fragment]
+    }
   }
 
   /**

@@ -1,3 +1,5 @@
+import PrototypeError from './PrototypeError'
+
 /**
  * @typedef {PrototypeFieldError}
  */
@@ -9,6 +11,11 @@ export default {
       type: Object,
       default: () => ({})
     }
+  },
+  /**
+   */
+  components: {
+    PrototypeError
   },
   /**
    */
