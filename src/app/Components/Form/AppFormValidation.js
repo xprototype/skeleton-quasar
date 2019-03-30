@@ -8,7 +8,6 @@ export default {
    */
   validations () {
     const record = Object.keys(this.schema).reduce(this.reduceValidations, {})
-    console.log('~> validations', record)
     return { record }
   },
   /**

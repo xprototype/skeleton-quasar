@@ -11,7 +11,7 @@ export default {
      */
     fetchRecord (id) {
       this.$q.loading.show({ delay: 100 })
-      return this.service
+      return this.$service
         .read(id)
         .then(this.successFetchRecord)
         .catch(this.errorFetchRecord)
@@ -23,8 +23,9 @@ export default {
     successFetchRecord (record) {
       this.fetching = true
       this.$payload = this.$util.clone(record)
-      Object.keys(this.record).forEach((key) => {
-        this.record[key] = this.$util.prop(record, key)
+      const recordName = this.$options.recordName || 'record'
+      Object.keys(this[recordName]).forEach((key) => {
+        this[recordName][key] = this.$util.prop(record, key)
       })
       this.fetching = false
 

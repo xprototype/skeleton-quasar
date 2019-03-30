@@ -47,6 +47,9 @@ export default {
           if (schema[key].validate) {
             this.$v.record[key].$touch()
           }
+          if (this.$v.record[key] && this.$v.record[key].$dirty) {
+            this.updateStatusAppForm()
+          }
         })
       })
 
@@ -76,6 +79,15 @@ export default {
         return true
       }
       return !!this.checkValidationsCustom(errors)
+    },
+    /**
+     * @param {Object} payload
+     */
+    resetAppForm (payload = undefined) {
+      if (payload) {
+        this.$payload = this.$util.clone(payload)
+      }
+      this.$emit('input', this.$util.clone(this.$payload))
     }
   },
   /**
@@ -95,10 +107,14 @@ export default {
    */
   created () {
     this.$hasError = this.hasErrorAppForm
+    this.$reset = this.resetAppForm
 
     this.schema = this.$parent.$options.schema
 
     const record = this.parseRecordAppForm(this.schema)
+
+    this.$payload = { ...record, ...this.value }
+
     this.$emit('input', { ...record, ...this.value })
   }
 }

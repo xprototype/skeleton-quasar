@@ -110,6 +110,7 @@
 
 <script type="text/javascript">
 import Form from 'src/app/Prototype/View/Form'
+import FormFetch from 'src/app/Prototype/Contracts/Form/FormFetch'
 
 import { gender } from 'src/domains/Common/options'
 
@@ -120,6 +121,11 @@ export default {
   /**
    */
   extends: Form,
+  /**
+   */
+  mixins: [
+    FormFetch
+  ],
   /**
    */
   name: 'TestWithTemplateForm',
@@ -219,6 +225,11 @@ export default {
    */
   created () {
     this.descriptionLabel = this.$t('example.textWithTemplateForm.fields.description')
+  },
+  /**
+   */
+  mounted () {
+    this.fetchRecord(1)
   }
 }
 </script>

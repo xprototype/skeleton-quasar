@@ -43,7 +43,8 @@ export default {
    */
   data: () => ({
     record: {},
-    errors: {}
+    errors: {},
+    hooks: {}
   }),
   /**
    */
@@ -96,7 +97,7 @@ export default {
      * @param {Object} $event
      */
     actionReset ($event) {
-      this.form().$reset()
+      this.form().$reset(this.$payload)
     },
     /**
      * @return {Vue}
@@ -111,6 +112,26 @@ export default {
         }
       }
       throw new Error('This mixin need an "AppForm" to works')
+    },
+    /**
+     * @param {string} name
+     * @param {Function} hook
+     */
+    hook (name, hook) {
+      this.hooks[name] = hook
+    },
+    /**
+     * @param {string} hook
+     */
+    triggerHook (hook) {
+      if (!this.hooks[hook]) {
+        return
+      }
+      const action = this.hooks[hook]
+      if (typeof action !== 'function') {
+        return
+      }
+      action.call(this)
     }
   }
 }
