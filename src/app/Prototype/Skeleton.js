@@ -16,10 +16,10 @@ export default class Skeleton extends Base {
    * @param {*} type
    * @returns {Prototype}
    */
-  field ($key, label = '', type = undefined) {
+  addField ($key, label = '', type = undefined) {
     this.__currentField = $key
     if (this.__fields[$key]) {
-      return this
+      throw new Error(`Field ${$key} already exists`)
     }
 
     let is = this.is
@@ -49,6 +49,18 @@ export default class Skeleton extends Base {
 
     this.__fields[$key] = field($key, options, attrs, on)
     this.setComponent(is)
+    return this
+  }
+
+  /**
+   * @param {string} $key
+   * @returns {Prototype}
+   */
+  getField ($key) {
+    if (!this.__fields[$key]) {
+      throw new Error(`Field ${$key} not exists`)
+    }
+    this.__currentField = $key
     return this
   }
 

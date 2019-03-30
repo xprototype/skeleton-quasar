@@ -137,7 +137,7 @@ export default {
    * @returns {Prototype}
    */
   actionNoMinWidth () {
-    return this.actionAddClassName('q-btn-no-min-width')
+    return this.actionAddClassName('button-no-min-width')
   },
 
   /**

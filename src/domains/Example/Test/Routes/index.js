@@ -1,5 +1,12 @@
 import { crud, route } from 'src/app/Router'
-import { testForm, testTable, testWithHooksForm, testWithHooksTable, testWithTemplateForm } from './components'
+import {
+  testForm,
+  testTable,
+  testWithHooksForm,
+  testWithHooksTable,
+  testWithTemplateForm,
+  testWithTemplateTable
+} from './components'
 
 /**
  * @type {string}
@@ -14,6 +21,7 @@ export default (router) => {
   return [
     ...crud(path, testTable, testForm),
     ...crud('/dashboard/test-with-hooks', testWithHooksTable, testWithHooksForm),
-    route('/dashboard/test-with-template', testWithTemplateForm)
+    route('/dashboard/test-with-template/form', testWithTemplateForm),
+    route('/dashboard/test-with-template/table', testWithTemplateTable)
   ]
 }

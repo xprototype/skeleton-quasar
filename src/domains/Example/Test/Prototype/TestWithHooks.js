@@ -33,7 +33,10 @@ export default class TestWithHooks extends Test {
   /**
    */
   setupFields () {
-    this.field('active')
+    this.getField('name')
+      .fieldFormDefaultValue('William')
+
+    this.addField('active')
       .fieldIsCheckbox({ label: 'active.label' })
       .fieldFormWidth(45)
       .fieldFormOrder(3, true)
@@ -41,7 +44,7 @@ export default class TestWithHooks extends Test {
         this.setFieldLayout('description', 'formHidden', $event)
       })
 
-    this.field('gender')
+    this.addField('gender')
       .fieldIsRadio(gender)
       .fieldFormOrder(4, true)
       .fieldFormWidth(55)
@@ -49,7 +52,7 @@ export default class TestWithHooks extends Test {
         this.setFieldLayout('active', 'formHidden', $event === 'male')
       })
 
-    this.field('description')
+    this.getField('description')
       .fieldOn('input', this.configureChangeDescription)
   }
 

@@ -8,6 +8,8 @@ import FormComponent from 'src/app/Prototype/Contracts/Form/FormComponent'
  * @type {AppField}
  */
 export default {
+  /**
+   */
   name: 'AppField',
   /**
    */
@@ -27,8 +29,15 @@ export default {
     },
     value: {
       required: true
+    },
+    hidden: {
+      type: Boolean,
+      required: false
     }
   },
+  data: () => ({
+    field: {}
+  }),
   /**
    */
   methods: {
@@ -90,6 +99,9 @@ export default {
     const options = { label: this.$attrs.label, width: this.$attrs.width }
     const field = create(this.name, options, attrs, on)
     field.is = component.is
+    if (this.hidden) {
+      field.$layout.formHidden = this.hidden
+    }
 
     return this.renderField(h, this.parseField(field))
   }

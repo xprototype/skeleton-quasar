@@ -1,3 +1,6 @@
+/**
+ * @type {AppForm}
+ */
 export default {
   /**
    */
@@ -8,6 +11,15 @@ export default {
     value: {
       type: Object,
       default: () => ({})
+    }
+  },
+  /**
+   */
+  computed: {
+    /**
+     */
+    debuggers () {
+      return this.$store.getters['app/getDebuggers']
     }
   },
   /**
@@ -24,24 +36,65 @@ export default {
       }, {})
     },
     /**
+     * @param {Function} h
      * @param {Object} schema
      * @returns {*}
      */
-    renderAppFormBody (schema) {
+    renderAppForm (h, schema) {
+      const data = {
+        class: 'app-form-wrapper',
+        on: {
+          submit: ($event) => {
+            $event.preventDefault()
+            $event.stopPropagation()
+            this.$emit('submit', $event)
+          }
+        }
+      }
+      const children = [
+        h('div', { class: 'app-form-body' }, [
+          h('div', { class: 'form form-grid' }, this.renderAppFormBody(h, schema))
+        ]),
+        h('div', { class: 'app-form-buttons' }, this.renderAppFormButtons(h, schema))
+      ]
+
+      return h('form', data, children)
+    },
+    /**
+     * @param {Function} h
+     * @param {Object} schema
+     * @returns {*}
+     */
+    renderAppFormBody (h, schema) {
       if (!this.$scopedSlots.body) {
         return
       }
       return this.$scopedSlots.body(schema)
     },
     /**
+     * @param {Function} h
      * @param {Object} schema
      * @returns {*}
      */
-    renderAppFormButtons (schema) {
+    renderAppFormButtons (h, schema) {
       if (!this.$scopedSlots.buttons) {
         return
       }
       return this.$scopedSlots.buttons(schema)
+    },
+    /**
+     * @param {Function} h
+     * @param {Object} schema
+     * @returns {*}
+     */
+    renderAppFormDebuggers (h, schema) {
+      if (!this.debuggers) {
+        return
+      }
+      if (this.$scopedSlots.debuggers) {
+        return h('div', {}, this.$scopedSlots.debuggers(schema))
+      }
+      return h('div', {}, [h('app-debugger', { attrs: { label: 'Schema', inspect: schema } })])
     }
   },
   /**
@@ -62,21 +115,10 @@ export default {
 
     const data = { class: 'PrototypeForm', attrs: { padding: true } }
     const children = [
-      h('div', { class: 'app-form-wrapper' }, [
-        h('div', { class: 'app-form-body' }, [
-          h('div', { class: 'form form-grid' }, this.renderAppFormBody(this.$schema))
-        ]),
-        h('div', { class: 'app-form-buttons' }, this.renderAppFormButtons(this.$schema))
-      ])
+      this.renderAppForm(h, this.$schema),
+      this.renderAppFormDebuggers(h, this.$schema)
     ]
 
     return h('q-page', data, children)
-    /*
-    <q-page padding>
-      <form @submit.prevent="submit">
-        <slot />
-      </form>
-    </q-page>
-    */
   }
 }

@@ -46,7 +46,13 @@ export default class AuthService extends API {
           label: 'Test Template Form',
           sublabel: 'Using form control with template',
           icon: 'code',
-          path: '/dashboard/test-with-template'
+          path: '/dashboard/test-with-template/form'
+        },
+        {
+          label: 'Test Template Table',
+          sublabel: 'Using table control with template',
+          icon: 'code',
+          path: '/dashboard/test-with-template/table'
         }
       ]
     })

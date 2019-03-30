@@ -37,7 +37,7 @@ export default class Test extends Prototype {
   construct () {
     this.fieldAsPrimaryKey()
 
-    this.field('name')
+    this.addField('name')
       .fieldTableShow()
       .fieldFormWidth(50)
       .fieldFormAutofocus()
@@ -45,12 +45,12 @@ export default class Test extends Prototype {
         // console.log('~> arguments', arguments)
       })
 
-    this.field('age')
+    this.addField('age')
       .fieldIsNumber()
       .fieldRequired()
       .fieldFormWidth(50)
 
-    this.field('description')
+    this.addField('description')
       .fieldIsText()
 
     this.action('edit')
