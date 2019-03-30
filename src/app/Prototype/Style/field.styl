@@ -24,18 +24,18 @@ $break = 700px
 
 .form.form-grid
   display grid
-  grid-template-columns repeat(20, 5%)
+  grid-template-columns repeat(100, 1%)
 
   .field
-    grid-column auto / span 20
-    for width in (1..20)
-      &.width-{width * 5}
-        grid-column auto / span width
-    for width in (1..20)
-      &.height-{width}
+    grid-column auto / span 100
+    for index in (1..100)
+      &.width-{index * 1}
+        grid-column auto / span index
+    for index in (1..100)
+      &.height-{index}
         grid-row auto / span width
 
 @media (max-width $break)
   .form.form-grid:not(.no-break) .field:not(.no-break)
-    grid-column auto / span 20 !important
+    grid-column auto / span 100 !important
     grid-row auto / span 1

@@ -94,11 +94,16 @@ module.exports = function (context) {
         'QTd',
         'QAvatar',
         'QImg',
-        'QToggle'
+        'QToggle',
+        'QDialog',
+        'QBar',
+        'QTabs',
+        'QTab'
       ],
 
       directives: [
-        'Ripple'
+        'Ripple',
+        'ClosePopup'
       ],
 
       // Quasar plugins
