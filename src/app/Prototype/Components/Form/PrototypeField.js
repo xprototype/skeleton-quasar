@@ -31,10 +31,23 @@ export default {
       const children = [
         this.renderFieldLabel(h, field),
         this.renderFieldComponent(h, field),
-        this.renderFieldError(h, key, error)
+        this.renderFieldError(h, key, error),
+        this.renderFieldUtilities(h)
       ]
 
       return h('div', data, children)
+    },
+    /**
+     * @param {Function} h
+     */
+    renderFieldUtilities (h) {
+      const children = []
+      if (this.$scopedSlots.resizer) {
+        children.push(this.$scopedSlots.resizer())
+      }
+      if (children.length) {
+        return h('div', { class: 'field-utilities' }, children)
+      }
     },
     /**
      * @param {string|number} width
