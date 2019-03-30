@@ -220,7 +220,21 @@ export default {
   },
   /**
    */
+  watch: {
+    /**
+     */
+    '$route.query.studio': {
+      imediate: true,
+      handler () {
+        this.studio = !!this.$route.query.studio
+      }
+    }
+  },
+  /**
+   */
   created () {
+    this.studio = !!this.$route.query.studio
+
     this.debugging = this.$store.getters['app/getDebuggers']
     this.$watch('debugging', (debugging) => {
       this.$store.dispatch('app/setDebuggers', debugging)
