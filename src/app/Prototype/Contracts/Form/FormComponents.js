@@ -1,4 +1,3 @@
-import { clone } from 'src/app/Util'
 import FormComponent from 'src/app/Prototype/Contracts/Form/FormComponent'
 
 /**
@@ -41,7 +40,7 @@ export default {
      */
     renderComponents () {
       this.groups = this.sections()
-      const fields = clone(this.fields())
+      const fields = this.$util.clone(this.fields())
       this.components = Object.values(fields).sort(this.sortComponents).reduce(this.reduceComponents, {})
     },
     /**

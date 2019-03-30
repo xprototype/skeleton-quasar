@@ -1,6 +1,7 @@
 import { parseValidations } from 'src/app/Prototype/Contracts/Helper/validation'
 
 /**
+ * @mixin {FormValidation}
  */
 export default {
   /**

@@ -1,5 +1,6 @@
-import { clone } from 'src/app/Util'
-
+/**
+ * @mixin {FormRecord}
+ */
 export default {
   /**
    */
@@ -32,7 +33,7 @@ export default {
         accumulator = this.$util.apply(accumulator, key, this.record[key])
         return accumulator
       }
-      return Object.keys(this.record).reduce(reduce, clone(this.payload))
+      return Object.keys(this.record).reduce(reduce, this.$util.clone(this.$payload))
     }
   }
 }

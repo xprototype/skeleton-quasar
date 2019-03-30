@@ -1,3 +1,6 @@
+/**
+ * @mixin {TableColumns}
+ */
 export default {
   /**
    */
