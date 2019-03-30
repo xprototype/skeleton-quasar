@@ -94,6 +94,12 @@ export default class TestWithHooks extends Test {
     this.hook('fetch:records', function () {
       this.$message.toast(this.$lang(`domains.${this.domain}.messages.records`), { position: 'top-left' })
     })
+
+    this.hook('mounted', function () {
+      if (this.scope === 'create') {
+        this.errors['description'] = ['Houston, we have a problem']
+      }
+    })
   }
 
   /**

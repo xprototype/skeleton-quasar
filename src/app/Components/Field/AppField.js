@@ -52,9 +52,6 @@ export default {
      */
     input ($event) {
       this.$emit('input', $event)
-      if (this.$listeners.input) {
-        this.$listeners.input($event)
-      }
     },
     /**
      * @param {Function} h
@@ -98,6 +95,16 @@ export default {
     schema () {
       // QPage, AppForm, TestWithTemplateForm
       return this.$util.prop(this.$parent, `$parent.$parent.$options.schema.${this.name}`, {})
+    }
+  },
+  /**
+   */
+  watch: {
+    /**
+     * @param {*} value
+     */
+    value (value) {
+      this.$listeners.input(value)
     }
   },
   /**

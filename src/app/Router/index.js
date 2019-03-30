@@ -23,6 +23,15 @@ export const children = (path, component, children = []) => ({ path, component, 
 export const route = (path, component, meta = {}) => ({ path, component, meta })
 
 /**
+ * @param {string} path
+ * @param {Function} component
+ * @param {Object} props
+ * @param {Object} meta
+ * @returns {Object}
+ */
+export const props = (path, component, props = {}, meta = {}) => ({ path, component, props, meta })
+
+/**
  * @param {Function} component
  * @param {Object} meta
  * @returns {Object}

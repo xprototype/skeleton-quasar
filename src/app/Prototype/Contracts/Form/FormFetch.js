@@ -1,5 +1,6 @@
-import { clone } from 'src/app/Util'
-
+/**
+ * @mixin {FormFetch}
+ */
 export default {
   /**
    */
@@ -21,7 +22,7 @@ export default {
      */
     successFetchRecord (record) {
       this.fetching = true
-      this.payload = clone(record)
+      this.$payload = this.$util.clone(record)
       Object.keys(this.record).forEach((key) => {
         this.record[key] = this.$util.prop(record, key)
       })

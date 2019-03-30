@@ -199,7 +199,7 @@ export default class Prototype extends Skeleton {
       .actionOn('click', function () {
         this.$v.$touch()
         if (this.$v.$error || this.hasErrors) {
-          this.$message.error('prototype.actions.save.validation')
+          this.$message.error(this.$lang('prototype.actions.save.validation'))
           return
         }
         if (this.debuggers) {

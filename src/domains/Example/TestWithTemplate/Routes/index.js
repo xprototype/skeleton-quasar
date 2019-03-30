@@ -1,18 +1,19 @@
-import { route } from 'src/app/Router'
+import { props, route } from 'src/app/Router'
 import { testWithTemplateForm, testWithTemplateTable } from './components'
-
-/**
- * @type {string}
- */
-export const path = '/dashboard/test'
+import TestWithTemplateService from '../Service/TestWithTemplateService'
 
 /**
  * @param {AppRouter} router
  * @returns {Array}
  */
 export default (router) => {
+  const options = (route) => ({
+    service: TestWithTemplateService.instance(),
+    fallback: '/dashboard/test-with-template/table'
+  })
+
   return [
-    route('/dashboard/test-with-template/form', testWithTemplateForm),
+    props('/dashboard/test-with-template/form', testWithTemplateForm, options),
     route('/dashboard/test-with-template/table', testWithTemplateTable)
   ]
 }

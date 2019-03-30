@@ -1,24 +1,26 @@
 <template>
   <app-form
     ref="form"
-    v-model="record"
+    v-model="storage"
     :status="status"
     @form:status="eventStatus"
     @form:submit="actionSubmit"
+    @form:reset="actionReset"
   >
     <template v-slot:body="schema">
       <app-field
         as="input"
         name="id"
-        v-model="record.id"
+        v-model="storage.id"
         :errors="errors.id"
         :label="$t('example.textWithTemplateForm.fields.id')"
         width="100"
+        :hidden="false"
         :readonly="true"
       />
       <app-field
         as="input"
-        v-model="record.name"
+        v-model="storage.name"
         :errors="errors.name"
         name="name"
         :label="$t('example.textWithTemplateForm.fields.name')"
@@ -26,7 +28,7 @@
       />
       <app-field
         as="number"
-        v-model="record.age"
+        v-model="storage.age"
         :errors="errors.age"
         name="age"
         :label="$t('example.textWithTemplateForm.fields.age')"
@@ -34,7 +36,7 @@
       />
       <app-field
         as="checkbox"
-        v-model="record.active"
+        v-model="storage.active"
         :errors="errors.active"
         name="active"
         :label="$t('example.textWithTemplateForm.fields.active')"
@@ -44,7 +46,7 @@
       />
       <app-field
         as="radio"
-        v-model="record.gender"
+        v-model="storage.gender"
         :errors="errors.gender"
         name="gender"
         :label="$t('example.textWithTemplateForm.fields.gender')"
@@ -53,7 +55,7 @@
       />
       <app-field
         as="text"
-        v-model="record.description"
+        v-model="storage.description"
         :errors="status.description"
         name="description"
         :label="descriptionLabel"
@@ -68,23 +70,31 @@
         @click="actionBack"
       />
       <app-button
-        icon="cancel"
-        :label="$t('prototype.actions.cancel.label')"
-        position="right"
-        @click="actionCancel"
-      />
-      <app-button
         primary
         submit
         icon="save"
         :label="$t('prototype.actions.save.label')"
         position="right"
       />
+      <app-button
+        icon="cancel"
+        :label="$t('prototype.actions.cancel.label')"
+        position="right"
+        @click="actionCancel"
+      />
+      <app-button
+        reset
+        icon="360"
+        :label="$t('prototype.actions.reset.label')"
+        color="red"
+        text-color="white"
+        position="right"
+      />
     </template>
     <template v-slot:debuggers="schema">
       <app-debugger
         label="Record"
-        v-bind="{ inspect: record }"
+        v-bind="{ inspect: storage }"
       />
       <app-debugger
         label="Schema"
@@ -99,6 +109,8 @@
 </template>
 
 <script type="text/javascript">
+import Form from 'src/app/Prototype/View/Form'
+
 import { gender } from 'src/domains/Common/options'
 
 /**
@@ -107,7 +119,13 @@ import { gender } from 'src/domains/Common/options'
 export default {
   /**
    */
+  extends: Form,
+  /**
+   */
   name: 'TestWithTemplateForm',
+  /**
+   */
+  recordName: 'storage',
   /**
    */
   schema: {
@@ -132,20 +150,11 @@ export default {
   },
   /**
    */
-  computed: {
-    /**
-     */
-    debuggers () {
-      return this.$store.getters['app/getDebuggers']
-    }
-  },
-  /**
-   */
   data: () => ({
-    record: {},
+    storage: {},
     errors: {},
     status: {
-      description: ['Tá com pau mano!']
+      description: ['Houston, we have a problem']
     },
     activeHidden: false,
     descriptionLabel: '',
@@ -156,32 +165,26 @@ export default {
   methods: {
     /**
      * @param {Object} $event
+     * @return {Promise}
      */
-    actionSubmit ($event) {
-      if (this.$refs.form.$hasError(this.forceError)) {
-        this.$message.error(this.$t('prototype.actions.save.validation'))
-        return
-      }
+    attempt ($event) {
+      return this.$service
+        .create(this[this.$options.recordName])
+        .then(this.success)
+        .catch(this.fail)
+    },
+    /**
+     * @param response
+     */
+    success (response) {
       if (this.debuggers) {
-        window.alert(JSON.stringify(this.record))
+        window.alert(JSON.stringify(response))
       }
       this.$message.success(this.$lang(`prototype.operations.create.success`))
     },
     /**
      */
-    actionBack () {
-      this.$browse(-1)
-    },
-    /**
-     */
-    actionCancel () {
-      this.$browse('/dashboard/test-with-template/table')
-    },
-    /**
-     * @param {Object} errors
-     */
-    eventStatus (errors) {
-      this.errors = errors
+    fail () {
     },
     /**
      * @param {string} description
