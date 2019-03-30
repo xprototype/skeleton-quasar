@@ -1,4 +1,4 @@
-import * as Validators from 'vuelidate/lib/validators'
+import { parseValidations } from 'src/app/Prototype/Contracts/Helper/validation'
 
 /**
  */
@@ -6,33 +6,25 @@ export default {
   /**
    */
   validations () {
-    const reduceValidation = (accumulator, key) => {
+    const record = Object.keys(this.components).reduce(this.reduceValidations, {})
+    return { record }
+  },
+  /**
+   */
+  methods: {
+    /**
+     * @param {Object} accumulator
+     * @param {string} key
+     * @returns {*}
+     */
+    reduceValidations (accumulator, key) {
       if (!Object.keys(this.components[key].$validations).length) {
         return accumulator
       }
-      const $validations = this.components[key].$validations
-      Object.keys($validations).forEach(validator => {
-        if (!$validations[validator]) {
-          return
-        }
-        if (typeof $validations[validator] === 'function') {
-          return
-        }
-        if (Validators[validator]) {
-          let action = Validators[validator]
-          if (Array.isArray($validations[validator])) {
-            action = action.apply(null, $validations[validator])
-          }
-          $validations[validator] = action
-          return
-        }
-        throw Error(`Invalid validator ${validator}`)
-      })
-      accumulator[key] = $validations
+
+      accumulator[key] = parseValidations(this.components[key].$validations)
       return accumulator
     }
-    const record = Object.keys(this.components).reduce(reduceValidation, {})
-    return { record }
   },
   /**
    */

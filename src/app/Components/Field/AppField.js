@@ -33,8 +33,14 @@ export default {
     hidden: {
       type: Boolean,
       required: false
+    },
+    errors: {
+      type: [Array, Object, String],
+      default: () => []
     }
   },
+  /**
+   */
   data: () => ({
     field: {}
   }),
@@ -63,11 +69,28 @@ export default {
       })
     },
     /**
+     */
+    fieldHasError () {
+      if (Array.isArray(this.errors)) {
+        return !!this.errors.length
+      }
+      if (typeof this.errors === 'object') {
+        return !!Object.values(this.errors).length
+      }
+      return !!String(this.errors).length
+    },
+    /**
      * @param {string} key
      * @returns {*}
      */
     errorContent (key) {
-      return ''
+      if (Array.isArray(this.errors)) {
+        return this.errors.join(' / ')
+      }
+      if (typeof this.errors === 'object') {
+        return Object.values(this.errors).map((error) => String(error)).join(' / ')
+      }
+      return this.errors
     },
     /**
      * @returns {*}
@@ -101,6 +124,9 @@ export default {
     field.is = component.is
     if (this.hidden) {
       field.$layout.formHidden = this.hidden
+    }
+    if (schema.validate) {
+      field.$validations = schema.validate
     }
 
     return this.renderField(h, this.parseField(field))

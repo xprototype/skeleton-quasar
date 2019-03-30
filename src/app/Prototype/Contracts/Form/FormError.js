@@ -1,3 +1,6 @@
+/**
+ * @mixin {FormError}
+ */
 export default {
   /**
    */

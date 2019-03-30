@@ -1,4 +1,4 @@
-import Test from './Test'
+import Test from 'src/domains/Example/Test/Prototype/Test'
 import { path } from 'src/domains/Example/Test/Routes'
 import { gender } from 'src/domains/Common/options'
 

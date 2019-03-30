@@ -1,13 +1,17 @@
 <template>
   <app-form
+    ref="form"
     v-model="record"
-    @submit="actionSubmit"
+    :status="status"
+    @form:status="eventStatus"
+    @form:submit="actionSubmit"
   >
     <template v-slot:body="schema">
       <app-field
         as="input"
         name="id"
         v-model="record.id"
+        :errors="errors.id"
         :label="$t('example.textWithTemplateForm.fields.id')"
         width="100"
         :readonly="true"
@@ -15,6 +19,7 @@
       <app-field
         as="input"
         v-model="record.name"
+        :errors="errors.name"
         name="name"
         :label="$t('example.textWithTemplateForm.fields.name')"
         width="50"
@@ -22,6 +27,7 @@
       <app-field
         as="number"
         v-model="record.age"
+        :errors="errors.age"
         name="age"
         :label="$t('example.textWithTemplateForm.fields.age')"
         width="50"
@@ -29,6 +35,7 @@
       <app-field
         as="checkbox"
         v-model="record.active"
+        :errors="errors.active"
         name="active"
         :label="$t('example.textWithTemplateForm.fields.active')"
         width="45"
@@ -38,6 +45,7 @@
       <app-field
         as="radio"
         v-model="record.gender"
+        :errors="errors.gender"
         name="gender"
         :label="$t('example.textWithTemplateForm.fields.gender')"
         width="55"
@@ -46,6 +54,7 @@
       <app-field
         as="text"
         v-model="record.description"
+        :errors="status.description"
         name="description"
         :label="descriptionLabel"
         :hidden="descriptionHidden"
@@ -55,12 +64,12 @@
     <template v-slot:buttons>
       <app-button
         icon="reply"
-        label="Back"
+        :label="$t('prototype.actions.back.label')"
         @click="actionBack"
       />
       <app-button
         icon="cancel"
-        label="Cancel"
+        :label="$t('prototype.actions.cancel.label')"
         position="right"
         @click="actionCancel"
       />
@@ -68,7 +77,7 @@
         primary
         submit
         icon="save"
-        label="Save"
+        :label="$t('prototype.actions.save.label')"
         position="right"
       />
     </template>
@@ -80,6 +89,10 @@
       <app-debugger
         label="Schema"
         v-bind="{ inspect: schema }"
+      />
+      <app-debugger
+        label="Errors"
+        v-bind="{ inspect: errors }"
       />
     </template>
   </app-form>
@@ -102,7 +115,11 @@ export default {
     name: {
       default: 'William'
     },
-    number: {},
+    age: {
+      validate: {
+        required: true
+      }
+    },
     active: {
       default: false
     },
@@ -113,8 +130,23 @@ export default {
     },
     description: {}
   },
+  /**
+   */
+  computed: {
+    /**
+     */
+    debuggers () {
+      return this.$store.getters['app/getDebuggers']
+    }
+  },
+  /**
+   */
   data: () => ({
     record: {},
+    errors: {},
+    status: {
+      description: ['Tá com pau mano!']
+    },
     activeHidden: false,
     descriptionLabel: '',
     descriptionHidden: false
@@ -126,7 +158,14 @@ export default {
      * @param {Object} $event
      */
     actionSubmit ($event) {
-      window.alert(JSON.stringify(this.record))
+      if (this.$refs.form.$hasError(this.forceError)) {
+        this.$message.error(this.$t('prototype.actions.save.validation'))
+        return
+      }
+      if (this.debuggers) {
+        window.alert(JSON.stringify(this.record))
+      }
+      this.$message.success(this.$lang(`prototype.operations.create.success`))
     },
     /**
      */
@@ -139,9 +178,17 @@ export default {
       this.$browse('/dashboard/test-with-template/table')
     },
     /**
+     * @param {Object} errors
+     */
+    eventStatus (errors) {
+      this.errors = errors
+    },
+    /**
      * @param {string} description
      */
     configureChangeDescription (description) {
+      this.status.description = undefined
+
       if (!this.originalLabel) {
         this.originalLabel = this.descriptionLabel
       }
