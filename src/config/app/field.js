@@ -16,7 +16,7 @@ export default ($key, options = {}, attrs = {}, on = {}) => {
     $layout: {
       formLabel: options.label || '',
       formWidth: options.width || 100,
-      formHeight: 1,
+      formHeight: options.height || 1,
       formHidden: false,
       formOrder: options.order,
       formError: true,

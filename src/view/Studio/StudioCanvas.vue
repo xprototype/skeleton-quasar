@@ -1,13 +1,6 @@
 <template>
-  <div>
-    <div style="position: absolute; left: 105px">
-      <q-btn
-        fab
-        color="primary"
-        icon="add"
-        @click="add"
-      />
-    </div>
+  <div :class="{ open }">
+    <!-- canvas-->
     <div class="canvas">
       <div
         class="PrototypeForm"
@@ -16,24 +9,25 @@
         <div class="app-form-wrapper wrapper">
           <div class="app-form-body">
             <div
+              ref="form"
               class="form form-grid"
-              v-sortable="{
-                options: {
-                  chosenClass: 'field--chosen',
-                  dataIdAttr: 'data-id',
-                  animation: 150,
-                },
-                handle: sorted
-              }"
+              v-sortable="sortable"
             >
               <template v-for="component in components">
                 <app-field
                   :data-id="component.name"
                   :key="component.name"
+                  :ref="component.name"
                   v-bind="component"
                   :class="{ selected: component.name === selected.name }"
                   @click.native="select(component, $event)"
-                />
+                >
+                  <div
+                    slot="resizer"
+                    class="resizer"
+                    :key="`${component.name}-right`"
+                  />
+                </app-field>
               </template>
             </div>
           </div>
@@ -49,8 +43,16 @@
 
       <div
         class="properties shadow-1"
-        :class="{ open: selected.name }"
       >
+        <div style="position: absolute; z-index: 1000;">
+          <q-btn
+            icon="close"
+            flat
+            round
+            dense
+            @click="open = false"
+          />
+        </div>
         <q-tabs
           v-model="tab"
           no-caps
@@ -115,15 +117,23 @@
         </div>
       </div>
     </div>
+    <!-- fab -->
+    <div style="position: absolute; right: 20px; bottom: -20px">
+      <q-btn
+        fab
+        color="primary"
+        icon="add"
+        @click="add"
+      />
+    </div>
 
     <q-dialog
       v-model="prompt"
-      persistent
     >
       <q-card style="min-width: 400px">
         <q-card-section>
           <div class="text-h6">
-            Component Name
+            Component Identifier
           </div>
         </q-card-section>
 
@@ -166,14 +176,25 @@ export default {
   },
   /**
    */
-  data: () => ({
-    components: [],
-    prompt: false,
-    name: '',
-    options: ['input', 'number', 'password', 'email', 'text', 'checkbox', 'radio', 'select'],
-    tab: 'properties',
-    selected: {}
-  }),
+  data () {
+    return {
+      components: [],
+      prompt: false,
+      name: '',
+      options: ['input', 'number', 'password', 'email', 'text', 'checkbox', 'radio', 'select'],
+      tab: 'properties',
+      selected: {},
+      open: false,
+      sortable: {
+        options: {
+          chosenClass: 'field--chosen',
+          dataIdAttr: 'data-id',
+          animation: 150
+        },
+        handle: this.sorted
+      }
+    }
+  },
   /**
    */
   methods: {
@@ -183,11 +204,52 @@ export default {
      */
     select (component, $event) {
       $event.stopPropagation()
+
+      this.open = true
       if (this.selected.name === component.name) {
-        this.selected = {}
         return
       }
       this.selected = component
+
+      this.makeResizable(this.$util.ref(this.selected.name).$el)
+    },
+    /**
+     * @param {Object} element
+     */
+    makeResizable (element) {
+      const minimum = 100
+      let originalWidth = 0, originalMouse = 0
+
+      const resizers = element.querySelectorAll('.resizer')
+      for (let i = 0; i < resizers.length; i++) {
+        const currentResizer = resizers[i]
+        currentResizer.addEventListener('mousedown', (e) => {
+          e.preventDefault()
+          originalWidth = parseFloat(getComputedStyle(element, null).getPropertyValue('width').replace('px', ''))
+          originalMouse = e.pageX
+          window.addEventListener('mousemove', resize)
+          window.addEventListener('mouseup', stopResize)
+        })
+
+        // noinspection JSRedeclarationOfBlockScope
+        // eslint-disable-next-line no-inner-declarations
+        const resize = (e) => {
+          if (currentResizer.classList.contains('resizer')) {
+            const width = originalWidth + (e.pageX - originalMouse)
+            if (width > minimum) {
+              element.style.width = width + 'px'
+              this.selected.width = Math.floor((width / this.$refs.form.offsetWidth) * 100)
+            }
+          }
+        }
+
+        // noinspection JSRedeclarationOfBlockScope
+        // eslint-disable-next-line no-inner-declarations
+        const stopResize = () => {
+          window.removeEventListener('mousemove', resize)
+          element.style.width = 'auto'
+        }
+      }
     },
     /**
      */
@@ -220,7 +282,7 @@ export default {
       this.name = ''
     },
     /**
-     * @param $event
+     * @param {Array} $event
      */
     sorted ($event) {
       if (Array.isArray($event)) {
@@ -275,8 +337,7 @@ export default {
     border-style solid
     border-color white
     border-radius 3px
-    width 1000px
-    margin 0 auto
+    transition all 0.3s
 
     .PrototypeForm
 
@@ -289,6 +350,7 @@ export default {
         border-style dotted
         border-color transparent
         border-radius 2px
+        position relative
 
       .field:hover
         background rgba(255, 255, 255, 0.1)
@@ -300,11 +362,15 @@ export default {
         border-color #a8a8a8
         background #efefef
 
+        .resizer
+          display block
+
       .field, .field >>> *
         cursor pointer !important
 
       .field.selected, .field.selected >>> *
-        cursor move !important
+        cursor move
+        user-select none
 
     .properties
       background #fff
@@ -317,12 +383,32 @@ export default {
       transform translateX(350px)
       transition all 0.3s
 
-    .properties.open
-      transform translateX(0)
+      .q-tabs
+        margin 30px 0 0 0
 
     .properties-tab
       padding 10px
 
       & > div
         margin-bottom 15px
+
+    & >>> .field-utilities
+      .resizer
+        display none
+        position: absolute;
+        background #ddd
+        height 42px
+        width 10px
+        border 1px solid #c2c2c2
+        cursor ew-resize !important
+        top 25px
+        z-index 2000
+        right -5px
+
+  .open
+    .properties
+      transform translateX(0)
+
+    .canvas
+      margin-right 300px
 </style>

@@ -33,7 +33,7 @@ $break = 700px
         grid-column auto / span index
     for index in (1..100)
       &.height-{index}
-        grid-row auto / span width
+        grid-row auto / span index
 
 @media (max-width $break)
   .form.form-grid:not(.no-break) .field:not(.no-break)
