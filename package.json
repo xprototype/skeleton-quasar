@@ -23,6 +23,7 @@
     "lodash": "^4.17.11",
     "quasar": "^1.0.0-beta.0",
     "siiimple-toast": "^3.1.6",
+    "sortablejs": "^1.8.4",
     "vue-hot-reload-loader": "^0.2.0",
     "vue-i18n": "^7.3.3",
     "vuelidate": "^0.7.4"
