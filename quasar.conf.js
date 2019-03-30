@@ -98,7 +98,8 @@ module.exports = function (context) {
         'QDialog',
         'QBar',
         'QTabs',
-        'QTab'
+        'QTab',
+        'QFab'
       ],
 
       directives: [
