@@ -126,7 +126,7 @@ export default {
     const attrs = { ...component.attrs, ...schema.attrs, ...this.$attrs, label: undefined }
     const on = { ...this.$listeners, input: this.input }
 
-    const options = { label: this.$attrs.label, width: this.$attrs.width }
+    const options = { label: this.$attrs.label, width: this.$attrs.width, height: this.$attrs.height }
     const field = create(this.name, options, attrs, on)
     field.is = component.is
     if (this.hidden) {
