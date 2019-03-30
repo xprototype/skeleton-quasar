@@ -134,9 +134,9 @@ export default class Prototype extends Skeleton {
     const prototype = this
 
     this.hook('created:default', function () {
-      // Call component setup method
-      if (this.setup && typeof this.setup === 'function') {
-        this.setup()
+      // Call component initialize method
+      if (this.initialize && typeof this.initialize === 'function') {
+        this.initialize()
       }
 
       // Call global prototype configure

@@ -57,7 +57,7 @@ export default {
   methods: {
     /**
      */
-    setup () {
+    initialize () {
       this.data = []
       this.columns = []
 

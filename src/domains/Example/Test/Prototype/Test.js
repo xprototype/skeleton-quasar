@@ -54,18 +54,29 @@ export default class Test extends Prototype {
       .fieldIsText()
 
     this.action('edit')
-      .actionConfigure(function (button, { context, scope, position }) {
-        // console.table({ scope, position })
-        // if is not grid, avoid
-        if (scope !== 'index' || position !== 'table-cell') {
-          return button
-        }
-        // hidden button if id is even
-        const record = this.$util.prop(context, 'record', {})
-        if (record.id % 2 === 0) {
-          button.hidden = true
-        }
-        return button
-      })
+      .actionConfigure(this.configureHideEditOnEven)
+  }
+
+  /**
+   * @param {Object} button
+   * @param {string} scope
+   * @param {string} position
+   * @param {Object} context
+   * @returns {*}
+   */
+  configureHideEditOnEven (button, { scope, position, context }) {
+    // this.$log({ scope, position })
+
+    // if is not grid, avoid
+    if (scope !== 'index' || position !== 'table-cell') {
+      return button
+    }
+
+    // hidden button if id is even
+    const record = this.$util.prop(context, 'record', {})
+    if (record.id % 2 === 0) {
+      button.hidden = true
+    }
+    return button
   }
 }

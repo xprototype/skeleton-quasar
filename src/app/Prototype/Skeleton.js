@@ -1,4 +1,5 @@
 import Base from 'src/app/Prototype/Base'
+import field from 'src/config/app/field'
 
 /**
  * @typedef {Skeleton}
@@ -10,14 +11,14 @@ export default class Skeleton extends Base {
   safe = true
 
   /**
-   * @param {string} name
+   * @param {string} $key
    * @param {string} label
    * @param {*} type
    * @returns {Prototype}
    */
-  field (name, label = '', type = undefined) {
-    this.__currentField = name
-    if (this.__fields[name]) {
+  field ($key, label = '', type = undefined) {
+    this.__currentField = $key
+    if (this.__fields[$key]) {
       return this
     }
 
@@ -44,32 +45,9 @@ export default class Skeleton extends Base {
       keydown: [keydown]
     }
     const order = Object.keys(this.__fields).length
-    this.__fields[name] = {
-      is: '',
-      attrs,
-      on,
-      $key: name,
-      $type: type,
-      $validations: {},
-      $layout: {
-        formLabel: label,
-        formWidth: 100,
-        formHeight: 1,
-        formHidden: false,
-        formOrder: order,
-        formError: true,
-        tableLabel: label,
-        tableWidth: 'auto',
-        tableHidden: true,
-        tableRequired: false,
-        tableAlign: 'left',
-        tableSortable: true,
-        tableOrder: order,
-        tableFormat: undefined
-      },
-      scopes: this.scopes,
-      chars: ''
-    }
+    const options = { label, order, type, scopes: this.scopes }
+
+    this.__fields[$key] = field($key, options, attrs, on)
     this.setComponent(is)
     return this
   }

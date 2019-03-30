@@ -41,6 +41,12 @@ export default class AuthService extends API {
           sublabel: 'Demo to show declare hooks',
           icon: 'code',
           path: '/dashboard/test-with-hooks'
+        },
+        {
+          label: 'Test Template Form',
+          sublabel: 'Using form control with template',
+          icon: 'code',
+          path: '/dashboard/test-with-template'
         }
       ]
     })

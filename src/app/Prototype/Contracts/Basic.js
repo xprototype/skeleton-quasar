@@ -33,13 +33,7 @@ export default {
     /**
      * @override
      */
-    setup () {
-      // will override by specialists
-    },
-    /**
-     * @override
-     */
-    configure () {
+    initialize () {
       // will override by specialists
     },
     /**
