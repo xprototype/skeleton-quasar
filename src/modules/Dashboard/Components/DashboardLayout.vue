@@ -85,33 +85,10 @@
       </q-img>
 
       <q-scroll-area class="q-layout-scroll">
-        <q-list padding>
-          <q-item-label header>
-            {{ appName }}
-          </q-item-label>
-          <q-item
-            v-for="(menu, index) in appDrawer"
-            :key="index"
-            @click.native="menuOpen(menu)"
-            clickable
-          >
-            <q-item-section
-              v-if="menu.icon"
-              avatar
-            >
-              <q-icon :name="menu.icon" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>{{ menu.label }}</q-item-label>
-              <q-item-label
-                v-if="menu.sublabel"
-                caption
-              >
-                {{ menu.sublabel }}
-              </q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-list>
+        <dashboard-menu
+          v-bind="{ header, menu }"
+          @click="menuOpen"
+        />
       </q-scroll-area>
     </q-drawer>
 
@@ -160,7 +137,10 @@
 <script type="text/javascript">
 import { fallback } from 'src/config'
 import Transition from 'src/modules/General/Mixins/Transition'
+import menu from 'src/modules/Dashboard/menu'
+
 import StudioCanvas from 'src/view/Studio/StudioCanvas'
+import DashboardMenu from 'src/modules/Dashboard/Components/DashboardMenu'
 
 /**
  */
@@ -171,6 +151,7 @@ export default {
   /**
    */
   components: {
+    DashboardMenu,
     StudioCanvas
   },
   /**
@@ -193,13 +174,13 @@ export default {
     /**
      * @returns {string}
      */
-    appName () {
+    header () {
       return this.$store.getters['app/getName']
     },
     /**
      * @returns {Array}
      */
-    appDrawer () {
+    menu () {
       return this.$store.getters['app/getDrawer']
     }
   },
@@ -239,6 +220,8 @@ export default {
     this.$watch('debugging', (debugging) => {
       this.$store.dispatch('app/setDebuggers', debugging)
     })
+
+    this.$store.dispatch('app/setDrawer', menu, { root: true })
   }
 }
 </script>
