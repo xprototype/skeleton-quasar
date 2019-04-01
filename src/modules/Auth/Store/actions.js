@@ -5,7 +5,7 @@
  */
 export const login = (context, credentials) => {
   context.commit('mutateToken', credentials.token)
-  context.dispatch('app/setDrawer', credentials.menus, { root: true })
+  context.commit('mutateUser', credentials.user)
 }
 
 /**
