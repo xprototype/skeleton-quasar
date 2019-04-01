@@ -160,7 +160,7 @@ export default {
     storage: {},
     errors: {},
     status: {
-      description: ['Houston, we have a problem']
+      description: []
     },
     activeHidden: false,
     descriptionLabel: '',
@@ -224,6 +224,10 @@ export default {
   /**
    */
   created () {
+    this.hook('fetch:record', function () {
+      window.setTimeout(() => { this.status.description = ['Houston, we have a problem'] }, 500)
+    })
+
     this.descriptionLabel = this.$t('example.textWithTemplateForm.fields.description')
   },
   /**
