@@ -1,9 +1,8 @@
 import $store from 'src/store'
 import { children, fallback } from 'src/app/Router'
 
-import test from 'src/domains/Example/Test/Routes'
-import testWithHooks from 'src/domains/Example/TestWithHooks/Routes'
-import testWithTemplate from 'src/domains/Example/TestWithTemplate/Routes'
+import { routes as doc } from 'src/domains/Doc'
+import { routes as example } from 'src/domains/Example'
 
 /**
  * @returns {Promise}
@@ -18,9 +17,8 @@ export default (router) => {
   const routes = [
     children('/dashboard', layout, [
       fallback(() => import('src/view/Dashboard/Index')),
-      ...test(router),
-      ...testWithHooks(router),
-      ...testWithTemplate(router)
+      ...doc(router),
+      ...example(router)
     ])
   ]
 
