@@ -7,6 +7,11 @@ export default {
   table: {
     title: ''
   },
+  sections: {
+    primaryKey: 'Primary Key',
+    personal: 'Personal',
+    extra: 'Extra'
+  },
   fields: {
     id: 'Id',
     name: 'Name',
