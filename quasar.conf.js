@@ -99,6 +99,8 @@ module.exports = function (context) {
         'QBar',
         'QTabs',
         'QTab',
+        'QTabPanels',
+        'QTabPanel',
         'QFab',
         'QExpansionItem'
       ],

@@ -12,6 +12,10 @@ export default {
   /**
    */
   props: {
+    grouping: {
+      type: String,
+      default: () => 'sections'
+    },
     path: {
       type: String,
       default: () => ''

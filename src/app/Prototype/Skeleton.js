@@ -11,6 +11,11 @@ export default class Skeleton extends Base {
   safe = true
 
   /**
+   * @type {string}
+   */
+  grouping = 'none'
+
+  /**
    * @param {string} $key
    * @param {string} label
    * @param {*} type
@@ -150,12 +155,21 @@ export default class Skeleton extends Base {
   }
 
   /**
-   * @param id
-   * @param label
-   * @returns {*}
+   * @param {string} id
+   * @param {string|Object} options
+   * @returns {Skeleton}
    */
-  section (id, label) {
-    this.__sections[id] = label
+  section (id, options = undefined) {
+    if (!options) {
+      options = `domains.${this.constructor.domain}.sections.${id}`
+    }
+    if (typeof options === 'string') {
+      options = {
+        label: this.$lang(`${options}`)
+      }
+    }
+    this.__sections[id] = options
+    return this
   }
 
   /**
@@ -224,6 +238,7 @@ export default class Skeleton extends Base {
       on: this.formEvents()
     }
     return {
+      grouping: this.grouping,
       path: this.constructor.path,
       domain: this.constructor.domain,
       settings: {
