@@ -2,6 +2,7 @@ import Dynamic from '../Contracts/Dynamic'
 import Form from '../Contracts/Form'
 import PrototypeButtons from 'src/app/Prototype/Components/PrototypeButtons'
 import PrototypeFormComponents from 'src/app/Prototype/Components/Form/PrototypeComponents'
+import PrototypeBody from 'src/app/Prototype/Components/Form/PrototypeBody'
 
 /**
  * @typedef PrototypeForm
@@ -13,7 +14,7 @@ export default {
   /**
    */
   mixins: [
-    Dynamic, Form
+    Dynamic, Form, PrototypeBody
   ],
   /**
    */
@@ -21,6 +22,11 @@ export default {
     PrototypeFormComponents,
     PrototypeButtons
   },
+  /**
+   */
+  data: () => ({
+    groupSelected: ''
+  }),
   /**
    */
   methods: {
@@ -47,59 +53,12 @@ export default {
       const children = [
         this.renderFormBodyComponents(h, this.getComponents())
       ]
-      if (this.hasGroups) {
-        Object.keys(this.groups).forEach((key) => {
-          const data = {
-            key: key,
-            class: 'app-form-body with-section'
-          }
-
-          const children = this.renderFormBodySection(h, key, this.groups[key])
-          if (!children) {
-            return
-          }
-          children.push(h('div', data, children))
-        })
+      if (this.hasSections) {
+        children.push(this.renderFormBodySections(h, this.groups))
       }
-
-      return h('div', data, children)
-    },
-    /**
-     * @param {Function} h
-     * @param {Object} fields
-     * @returns {*}
-     */
-    renderFormBodyComponents (h, fields) {
-      const data = {
-        domProps: { value: this.record },
-        props: { value: this.record },
-        attrs: { fields: fields, errors: this.errors, validations: this.$v },
-        on: { input: (field, value) => { this.record[field] = value } }
+      if (this.hasTabs) {
+        children.push(this.renderFormBodyTabs(h, this.groups))
       }
-
-      return h('prototype-form-components', data)
-    },
-    /**
-     * @param {Function} h
-     * @param {string} key
-     * @param {string} title
-     * @returns {*}
-     */
-    renderFormBodySection (h, key, title) {
-      const _title = (title) => {
-        const data = { class: 'app-form-section-title' }
-        const children = [h('q-icon', { attrs: { name: 'notes' } }), h('span', title)]
-
-        return h('div', data, children)
-      }
-
-      const components = this.getComponents(key)
-      if (!components) {
-        return
-      }
-
-      const data = { key: `${key}-section`, class: 'app-form-section' }
-      const children = [_title(title), this.renderFormBodyComponents(h, components)]
 
       return h('div', data, children)
     },

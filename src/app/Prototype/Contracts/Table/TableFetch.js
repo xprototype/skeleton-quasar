@@ -43,14 +43,6 @@ export default {
       }
 
       try {
-        if (typeof this.service === 'function') {
-          return this
-            .service(parameters, this.filters)
-            .then(this.successFetchRecords)
-            .catch(this.errorFetchRecords)
-            .finally(hide)
-        }
-
         return this.service
           .search(parameters, this.filters)
           .then(this.successFetchRecords)

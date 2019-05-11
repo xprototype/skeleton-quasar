@@ -27,6 +27,11 @@ export default class Test extends Prototype {
   displayKey = 'name'
 
   /**
+   * @type {string}
+   */
+  grouping = 'tabs'
+
+  /**
    * @type {TestService}
    */
   service = TestService.build()
@@ -35,9 +40,15 @@ export default class Test extends Prototype {
    * Test constructor.
    */
   construct () {
+    this.section('primaryKey')
+    this.section('personal')
+    this.section('extra')
+
     this.fieldAsPrimaryKey()
+      .fieldSection('primaryKey')
 
     this.addField('name')
+      .fieldSection('personal')
       .fieldTableShow()
       .fieldFormWidth(50)
       .fieldFormAutofocus()
@@ -46,11 +57,13 @@ export default class Test extends Prototype {
       })
 
     this.addField('age')
+      .fieldSection('personal')
       .fieldIsNumber()
       .fieldRequired()
       .fieldFormWidth(50)
 
     this.addField('description')
+      .fieldSection('extra')
       .fieldIsText()
 
     this.action('edit')

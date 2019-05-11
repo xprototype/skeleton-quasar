@@ -17,6 +17,11 @@ export default class TestWithHooks extends Test {
   static domain = 'example.test'
 
   /**
+   * @type {string}
+   */
+  grouping = 'sections'
+
+  /**
    * TestWithHooks constructor.
    */
   construct () {

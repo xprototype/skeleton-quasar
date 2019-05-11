@@ -15,8 +15,14 @@ export default {
     /**
      * @returns {boolean}
      */
-    hasGroups () {
-      return Object.keys(this.groups).length > 0
+    hasSections () {
+      return Object.keys(this.groups).length > 0 && this.grouping === 'sections'
+    },
+    /**
+     * @returns {boolean}
+     */
+    hasTabs () {
+      return Object.keys(this.groups).length > 0 && this.grouping === 'tabs'
     }
   },
   /**
@@ -79,7 +85,7 @@ export default {
       if (section === undefined) {
         const reduce = (accumulator, key) => {
           const field = this.components[key]
-          if (!field.section) {
+          if (!field.section || this.grouping === 'none') {
             accumulator[key] = field
           }
           return accumulator
