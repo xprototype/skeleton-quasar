@@ -1,8 +1,8 @@
 import components from 'src/config/app/components'
 import create from 'src/config/app/field'
 
-import PrototypeField from 'src/app/Prototype/Components/Form/PrototypeField'
-import FormComponent from 'src/app/Prototype/Contracts/Form/FormComponent'
+import PrototypeField from 'src/app/Agnostic/Components/Form/PrototypeField'
+import FormComponent from 'src/app/Agnostic/Components/Contracts/Form/FormComponent'
 
 /**
  * @type {AppField}

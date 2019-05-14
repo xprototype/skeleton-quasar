@@ -109,8 +109,8 @@
 </template>
 
 <script type="text/javascript">
-import Form from 'src/app/Prototype/View/Form'
-import FormFetch from 'src/app/Prototype/Contracts/Form/FormFetch'
+import Form from 'src/app/Agnostic/View/Form'
+import FormFetch from 'src/app/Agnostic/Components/Contracts/Form/FormFetch'
 
 import { gender } from 'src/domains/Common/options'
 

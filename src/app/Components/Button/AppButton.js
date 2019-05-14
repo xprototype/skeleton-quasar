@@ -1,4 +1,4 @@
-import PrototypeButton from 'src/app/Prototype/Components/Buttons/PrototypeButton'
+import PrototypeButton from 'src/app/Agnostic/Components/Buttons/PrototypeButton'
 
 /**
  * @type {AppButton}
