@@ -1,6 +1,6 @@
 import { register } from 'src/app/Util'
-import PrototypeForm from 'src/app/Prototype/Components/PrototypeForm'
-import PrototypeTable from 'src/app/Prototype/Components/PrototypeTable'
+import PrototypeForm from 'src/app/Agnostic/Components/PrototypeForm'
+import PrototypeTable from 'src/app/Agnostic/Components/PrototypeTable'
 
 import AppButton from 'src/app/Components/Button/AppButton'
 import AppDebugger from 'src/app/Components/Debugger/AppDebugger'

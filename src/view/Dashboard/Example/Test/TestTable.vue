@@ -3,8 +3,8 @@
 </template>
 
 <script type="text/javascript">
-import PrototypeView from 'src/app/Prototype/View/Prototype'
-import Test from 'src/domains/Example/Test/Prototype/Test'
+import PrototypeView from 'src/app/Agnostic/View/Prototype'
+import Test from 'src/domains/Example/Test/Schema/Test'
 
 /**
  * @typedef {TestTable}

@@ -1,3 +1,5 @@
+import { SCOPES } from 'src/app/Agnostic/enum'
+
 /**
  * @param {string} path
  * @param {string} redirect
@@ -46,9 +48,9 @@ export const fallback = (component, meta = {}) => route('', component, meta)
  */
 export const crud = (path, table, form) => {
   return [
-    route(`${path}`, table, { scope: 'index' }),
-    route(`${path}/add`, form, { scope: 'create' }),
-    route(`${path}/:id`, form, { scope: 'read' }),
-    route(`${path}/:id/edit`, form, { scope: 'update' })
+    route(`${path}`, table, { scope: SCOPES.SCOPE_INDEX }),
+    route(`${path}/add`, form, { scope: SCOPES.SCOPE_ADD }),
+    route(`${path}/:id`, form, { scope: SCOPES.SCOPE_VIEW }),
+    route(`${path}/:id/edit`, form, { scope: SCOPES.SCOPE_EDIT })
   ]
 }

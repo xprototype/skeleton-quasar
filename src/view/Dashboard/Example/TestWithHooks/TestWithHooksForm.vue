@@ -3,8 +3,8 @@
 </template>
 
 <script type="text/javascript">
-import PrototypeView from 'src/app/Prototype/View/Prototype'
-import TestWithHooks from 'src/domains/Example/TestWithHooks/Prototype/TestWithHooks'
+import PrototypeView from 'src/app/Agnostic/View/Prototype'
+import TestWithHooks from 'src/domains/Example/TestWithHooks/Schema/TestWithHooks'
 
 /**
  * @typedef {TestWithHooksForm}

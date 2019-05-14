@@ -1,4 +1,4 @@
-import { parseValidations } from 'src/app/Prototype/Contracts/Helper/validation'
+import { parseValidations } from 'src/app/Agnostic/Components/Contracts/Helper/validation'
 
 /**
  * @mixin {AppFormValidation}

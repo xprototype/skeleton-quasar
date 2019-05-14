@@ -1,6 +1,6 @@
-import test from 'src/domains/Example/Test/Routes'
-import testWithHooks from 'src/domains/Example/TestWithHooks/Routes'
-import testWithTemplate from 'src/domains/Example/TestWithTemplate/Routes'
+import test from 'src/domains/Example/Test/Route'
+import testWithHooks from 'src/domains/Example/TestWithHooks/Route'
+import testWithTemplate from 'src/domains/Example/TestWithTemplate/Route'
 
 /**
  * @param {AppRouter} router
