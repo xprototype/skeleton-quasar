@@ -1,4 +1,4 @@
-## Skeleton Quasar
+## Skeleton Quasar ([Agnostic Presentation Design](https://gennesis.gitbook.io/agnostic-presentation))
 
 [![Build Status](https://travis-ci.org/xprototype/skeleton-quasar.svg?branch=master)](https://travis-ci.org/xprototype/skeleton-quasar)
 
