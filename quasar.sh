@@ -5,6 +5,9 @@ if [ ! -d /var/www/app/node_modules ]; then
   yarn install
 fi
 
+if [ ! -d /var/www/app/.docker/bin ]; then
+  mkdir -p /var/www/app/.docker/bin
+fi
 if [ ! -f /var/www/app/.docker/bin/node ]; then
   echo "~> expose bin"
   cp /usr/local/bin/node /var/www/app/.docker/bin/node
@@ -17,3 +20,4 @@ echo " :: Details: '$(pwd)' | '$(quasar -v)' :: "
 
 echo "~> starting dev"
 quasar dev
+
