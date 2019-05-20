@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ ! -d /var/www/app/node_modules ]]; then
+if [ ! -d /var/www/app/node_modules ]; then
   echo "~> installing dependencies"
   if [[ which yarn ]]; then
      yarn install
@@ -11,14 +11,15 @@ if [[ ! -d /var/www/app/node_modules ]]; then
   fi
 fi
 
-if [[ ! -f /home/node/bin/node && -f /usr/local/bin/node ]]; then
+if [ ! -f /var/www/app/.docker/bin/node ]; then
   echo "~> expose bin"
-  cp /usr/local/bin/node /home/node/bin/node
-  echo "~> fix permissions"
-  chown -R node:node .
+  cp /usr/local/bin/node /var/www/app/.docker/bin/node
 fi
 
-echo "Details: '$(pwd)' | '$(quasar -v)'"
+echo "~> fix permissions"
+chown -R node:node .
+
+echo " :: Details: '$(pwd)' | '$(quasar -v)' :: "
 
 echo "~> starting dev"
-quasar $(cat /var/www/app/quasar.env)
+quasar dev
