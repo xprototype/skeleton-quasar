@@ -29,7 +29,7 @@
     "vuelidate": "^0.7.4"
   },
   "devDependencies": {
-    "@quasar/app": "^1.0.0-beta.13",
+    "@quasar/app": "^1.0.0-beta.26",
     "@quasar/quasar-app-extension-testing": "^1.0.0-rc.5",
     "@quasar/quasar-app-extension-testing-e2e-cypress": "^1.0.0-beta.6",
     "@quasar/quasar-app-extension-testing-quality": "^1.0.0-beta.6",
