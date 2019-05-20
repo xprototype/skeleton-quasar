@@ -2,13 +2,7 @@
 
 if [ ! -d /var/www/app/node_modules ]; then
   echo "~> installing dependencies"
-  if [[ which yarn ]]; then
-     yarn install
-  else
-    if [[ which npm ]]; then
-       npm install
-    fi
-  fi
+  yarn install
 fi
 
 if [ ! -f /var/www/app/.docker/bin/node ]; then
