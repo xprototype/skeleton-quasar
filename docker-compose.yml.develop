@@ -11,4 +11,4 @@ services:
       - .:/var/www/app
       - ./.bin:/home/node/bin
     ports:
-      - 8000:8000
+      - 3000:3000
