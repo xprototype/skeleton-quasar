@@ -17,7 +17,7 @@
     name="msapplication-tap-highlight"
   >
   <meta
-    content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width<% if (htmlWebpackPlugin.options.ctx.mode.cordova) { %>, viewport-fit=cover<% } %>"
+    content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width<% if (htmlWebpackPlugin.options.ctx.mode.cordova || htmlWebpackPlugin.options.ctx.mode.capacitor) { %>, viewport-fit=cover<% } %>"
     name="viewport"
   >
 
@@ -40,7 +40,7 @@
   >
 
   <link
-    href="https://fonts.googleapis.com/css?family=Raleway:500,600,700"
+    href="https://fonts.googleapis.com/css?family=Quicksand:500,600,700"
     rel="stylesheet"
   >
   <link

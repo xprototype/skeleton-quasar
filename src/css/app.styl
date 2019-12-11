@@ -1,5 +1,6 @@
 // app global css
 @import "prototype.styl"
+@import "fonts.styl"
 
 // @quasar
 // q-btn, q-btn-section
@@ -7,10 +8,14 @@
   .q-btn, .q-btn-section
     min-width 0 !important
     .q-btn__content
-      & > div
-        display: none
+      // & > div
+      //   display: none
       & i.on-left
         margin: 0
 
 .fullscreen
   z-index 10000
+
+// Custom
+.rounded-borders
+  border-radius: 10px

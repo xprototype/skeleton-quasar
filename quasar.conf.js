@@ -21,7 +21,7 @@ module.exports = function (context) {
 
     extras: [
       'roboto-font',
-      'material-icons' // optional, you are not bound to it
+      'material-icons', // optional, you are not bound to it
       // 'ionicons',
       // 'mdi',
       // 'fontawesome'

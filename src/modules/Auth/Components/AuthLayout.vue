@@ -4,9 +4,6 @@
     view="lHh Lpr lFf"
   >
     <q-page-container>
-      <div class="stars small" />
-      <div class="stars medium" />
-      <div class="stars large" />
       <router-view />
     </q-page-container>
   </q-layout>
@@ -21,7 +18,7 @@ export default {
 <style lang="scss" scoped>
   .AuthLayout {
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#094c72+98,01293f+100 */
-    background: radial-gradient(ellipse at bottom, rgb(9, 76, 114) 0%, rgb(1, 41, 63) 100%);
+    background: radial-gradient(ellipse at bottom, #FFFFFF 0%, #FFFFFF 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#094c72', endColorstr='#01293f', GradientType=1);
   }
 

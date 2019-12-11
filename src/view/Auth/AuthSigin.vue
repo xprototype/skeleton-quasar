@@ -4,7 +4,7 @@
     class="flex row items-center justify-center"
     padding
   >
-    <q-card class="app-login-card">
+    <q-card class="app-login-card rounded-borders vertical-bottom no-shadow">
       <q-card-section class="text-center">
         <div>
           <img
@@ -13,20 +13,21 @@
             src="statics/quasar-logo.png"
           >
         </div>
-        <div class="app-beauty-label">
+        <div class="app-beauty-label text-h6">
           Quasar Skeleton
         </div>
         <small>Just an example about the possibilities</small>
       </q-card-section>
-
       <q-separator />
-
       <q-card-section>
         <form @submit.prevent="attempt">
           <div class="row">
-            <div class="col-12 q-pa-sm">
+            <div class="col-12 q-pa-xs">
               <q-input
-                label="Login"
+                dense
+                standout
+                placeholder="you@mail.com"
+                hint=""
                 type="email"
                 v-model="record.login"
               >
@@ -35,9 +36,12 @@
                 </template>
               </q-input>
             </div>
-            <div class="col-12 q-pa-sm q-pb-md">
+            <div class="col-12 q-pa-xs ">
               <q-input
-                label="Password"
+                dense
+                standout
+                placeholder="password"
+                hint=""
                 type="password"
                 v-model="record.password"
               >
@@ -46,16 +50,36 @@
                 </template>
               </q-input>
             </div>
+            <div class="col-12 q-pa-sm">
+              <small>
+                * by login or register you are agree with our terms and conditions.
+              </small>
+            </div>
           </div>
-          <hr>
-          <div class="q-pa-sm">
-            <q-btn
-              class="full-width"
-              color="primary"
-              label="Sign In"
-              size="md"
-              type="submit"
-            />
+          <hr class="q-mt-none">
+          <div class="q-pa-sm full-width">
+            <div class="row q-gutter-sm">
+              <div class="col">
+                <q-btn
+                  class="full-width rounded-borders"
+                  color="primary"
+                  label="Log In"
+                  size="md"
+                  type="submit"
+                />
+              </div>
+              <div class="col">
+                <q-btn
+                  outline
+                  to="/auth/register"
+                  class="full-width rounded-borders"
+                  color="primary"
+                  label="Register"
+                  size="md"
+                  type="button"
+                />
+              </div>
+            </div>
           </div>
         </form>
       </q-card-section>
@@ -142,6 +166,8 @@ export default {
   @import '~src/css/quasar.variables.styl'
 
   .app-login-card
+    position: 'absolute'
+    bottom: 0
     max-width 420px
 
   .app-login-logo
